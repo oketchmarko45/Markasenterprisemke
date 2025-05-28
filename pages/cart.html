@@ -1,28 +1,48 @@
 <!-- cart.html -->
 <main class="content">
-  <h1>Your Cart</h1>
-  <div id="cart-items"></div>
-  <h3>Total: KES <span id="total">0</span></h3>
-  <button onclick="checkout()">Proceed to Payment</button>
+   <section id="cart-items"></section>
+
+    <section id="checkout">
+      <h2>Total: Ksh <span id="total-amount">0</span></h2>
+      <button onclick="checkout()">Proceed to Payment</button>
+    </section>
 </main>
 
 <script>
-  window.onload = () => {
-  const cart = JSON.parse(localStorage.getItem('cart')) || [];
-  const cartContainer = document.getElementById('cart-items');
-  let total = 0;
+  // Add to cart and save to localStorage
+function addToCart(itemName, price) {
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  cart.push({ name: itemName, price: price });
+  localStorage.setItem('cart', JSON.stringify(cart));
+  alert(`${itemName} has been added to your cart.`);
+}
 
-  cartContainer.innerHTML = cart.map(c => {
-    total += c.price;
-    return `<p>${c.item} - KES ${c.price}</p>`;
-  }).join('');
+// Load cart on cart.html
+window.addEventListener('DOMContentLoaded', () => {
+  const cartItemsContainer = document.getElementById('cart-items');
+  const totalAmountSpan = document.getElementById('total-amount');
 
-  document.getElementById('total').textContent = total;
-};
+  if (cartItemsContainer && totalAmountSpan) {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let total = 0;
+
+    cart.forEach(item => {
+      const div = document.createElement('div');
+      div.className = 'cart-item';
+      div.innerHTML = `<h3>${item.name}</h3><span>Ksh ${item.price}</span>`;
+      cartItemsContainer.appendChild(div);
+      total += item.price;
+    });
+
+    totalAmountSpan.textContent = total;
+  }
+});
 
 function checkout() {
-  alert("Redirecting to payment gateway...");
-  // Integration with M-PESA or any payment can go here
+  alert("Proceeding to payment...");
+  localStorage.removeItem('cart');
+  window.location.reload();
 }
+
 
 </script>
