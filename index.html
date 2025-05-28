@@ -148,8 +148,7 @@
   } else {
     copyright.textContent = `© ${startYear} - ${currentYear} Markas Enterprise MKE. All rights reserved.`;
   }
-</script>
-  <script>
+
     // Load header 
       fetch('header.html')
       .then(res => res.text())
@@ -236,32 +235,6 @@
 }
 
     //end of body section
-//footer
-
-      fetch('footer.html')
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById('footer').innerHTML = data;
-      
-     
-      // Get current year
-  const currentYear = new Date().getFullYear();
-  const startingYear = 2024;
-
-  // Set the footer text
-  const copyrightElement = document.getElementById('copyright');
-  if (copyrightElement) {
-    if (currentYear === startingYear) {
-      copyrightElement.textContent = `© ${startingYear} Markas Enterprise MKE`;
-    } else {
-      copyrightElement.textContent = `© ${startingYear} - ${currentYear} Markas Enterprise MKE`;
-    }
-  }
-})
-
-.catch(err => console.error('Failed to load footer:', err));
- 
-//end footer
   
    </script>
 </body>
