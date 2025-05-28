@@ -173,27 +173,39 @@
     }, 5000);
 
     //loadpage
-    function loadPage(pageUrl) {
+   function loadPage(pageUrl) {
   fetch(pageUrl)
     .then(response => {
-      if (!response.ok) throw new Error("Page not found");
+      if (!response.ok) {
+        // If the file is not found, load the 404 page instead
+        return fetch('404.html')
+          .then(fallback => fallback.text())
+          .then(fallbackContent => {
+            const fallbackDiv = document.createElement('div');
+            fallbackDiv.innerHTML = fallbackContent;
+
+            const fallbackMain = fallbackDiv.querySelector('main.content');
+            document.querySelector('main.content').innerHTML = fallbackMain 
+              ? fallbackMain.innerHTML 
+              : '<p>Page not found.</p>';
+            
+            // Return a rejected promise to stop further processing
+            throw new Error("Original page not found. Loaded 404.");
+          });
+      }
       return response.text();
     })
     .then(data => {
-      // Extract content from the fetched page (ideally only inner HTML)
       const tempDiv = document.createElement('div');
       tempDiv.innerHTML = data;
 
       const mainContent = tempDiv.querySelector('main.content');
-      if (mainContent) {
-        document.querySelector('main.content').innerHTML = mainContent.innerHTML;
-      } else {
-        document.querySelector('main.content').innerHTML = '<p>Sorry, content not found.</p>';
-      }
+      document.querySelector('main.content').innerHTML = mainContent 
+        ? mainContent.innerHTML 
+        : '<p>Sorry, content not found.</p>';
     })
     .catch(error => {
       console.error("Error loading page:", error);
-      document.querySelector('main.content').innerHTML = '<p>Error loading content.</p>';
     });
 }
 
