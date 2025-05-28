@@ -267,3 +267,20 @@ footer {
   text-align: center;
   padding: 20px;
 }
+
+/*social links*/
+.social-links {
+  margin-top: 15px;
+}
+
+.social-links a {
+  margin: 0 10px;
+  color: #66ccff; /* Soft blue */
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.social-links a:hover {
+  color: #ffffff;
+}
