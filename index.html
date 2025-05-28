@@ -42,6 +42,8 @@
     </nav>
   </header>
 
+    <!-- Main Content -->
+
 <main class="content">
   <!-- body-->
  <!-- Slider -->
@@ -66,8 +68,7 @@
     </p>
   </section>
 
-  <!-- Main Content -->
-  <main class="content">
+
     <h1>Welcome to Markas Enterprise MKE</h1>
     <p>We’re glad to have you here. Whether you’re a dog lover, a reader, or someone who enjoys good stories and reliable services—this is your space.</p>
 
@@ -115,7 +116,7 @@
         
      <section>
       <h2>💖 Support Our Work</h2>
-      <p>>If you love what we do and want to help us grow, consider making a donation. Every bit helps us continue our mission.</p>
+      <p>If you love what we do and want to help us grow, consider making a donation. Every bit helps us continue our mission.</p>
       <a href="donate.html">Donate Now &rarr;</a>
     </section>
   </main>
@@ -149,14 +150,7 @@
     copyright.textContent = `© ${startYear} - ${currentYear} Markas Enterprise MKE. All rights reserved.`;
   }
 
-    // Load header 
-      fetch('header.html')
-      .then(res => res.text())
-      .then(data => {
-        document.getElementById('header-placeholder').innerHTML = data;
-      });
-
-
+   
   //hamburger setup
   
   function toggleMenu() {
