@@ -1,1 +1,26 @@
+  <main class="content">
+    <section class="store-items">
+      <div class="product">
+        <img src="images/dog-food.jpg" alt="Dog Food">
+        <h3>Dog Food</h3>
+        <p>Ksh 1500</p>
+        <button onclick="addToCart('Dog Food', 1500)">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="images/collar.jpg" alt="Dog Collar">
+        <h3>Dog Collar</h3>
+        <p>Ksh 500</p>
+        <button onclick="addToCart('Dog Collar', 500)">Add to Cart</button>
+      </div>
+      <!-- Add more products as needed -->
+    </section>
+  </main>
 
+  <script>
+    function addToCart(itemName, price) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart.push({ name: itemName, price: price });
+      localStorage.setItem('cart', JSON.stringify(cart));
+      alert(`${itemName} has been added to your cart.`);
+    }
+  </script>
