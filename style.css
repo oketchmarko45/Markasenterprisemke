@@ -135,9 +135,12 @@ nav a:hover {
   display: block;
   padding: 10px;
   text-align: left;
-  color: #fff;
+  color: #003366;
   text-decoration: none;
   border-bottom: 1px solid #003366; /* Blue separator between links */
+  background-color: white; /* Ensure it's white by default */
+  transition: background-color 0.3s, color 0.3s;
+}
 }
 
 .dropdown-content a:last-child {
@@ -146,7 +149,7 @@ nav a:hover {
 
 .dropdown-content a:hover {
   background-color: #f0f0f0;
-  color:#white;
+  color:#fff;
 }
 
 .dropbtn:hover {
