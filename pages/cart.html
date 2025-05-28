@@ -1,1 +1,28 @@
+<!-- cart.html -->
+<main class="cart-section">
+  <h1>Your Cart</h1>
+  <div id="cart-items"></div>
+  <h3>Total: KES <span id="total">0</span></h3>
+  <button onclick="checkout()">Proceed to Payment</button>
+</main>
 
+<script>
+  window.onload = () => {
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const cartContainer = document.getElementById('cart-items');
+  let total = 0;
+
+  cartContainer.innerHTML = cart.map(c => {
+    total += c.price;
+    return `<p>${c.item} - KES ${c.price}</p>`;
+  }).join('');
+
+  document.getElementById('total').textContent = total;
+};
+
+function checkout() {
+  alert("Redirecting to payment gateway...");
+  // Integration with M-PESA or any payment can go here
+}
+
+</script>
