@@ -271,16 +271,17 @@ footer {
 /*social links*/
 .social-links {
   margin-top: 15px;
+  text-align: center;
 }
 
 .social-links a {
   margin: 0 10px;
-  color: #66ccff; /* Soft blue */
+  font-size: 1.2rem;
+  color: inherit; /* keeps the icon color same as footer text */
   text-decoration: none;
-  font-weight: 500;
   transition: color 0.3s;
 }
 
 .social-links a:hover {
-  color: #ffffff;
+  color: #ccc; /* optional: subtle hover effect */
 }
