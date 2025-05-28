@@ -31,8 +31,11 @@ header {
 
 .logo-brand img {
   width: 100px;
-  height: auto;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
   margin-bottom: 10px;
+  border: 2px solid #0077cc; /* Optional: adds a colored border */
 }
 
 .brand-info {
