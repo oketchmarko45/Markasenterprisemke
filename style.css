@@ -34,7 +34,7 @@ main.content {
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   line-height: 1.6;
-  color: var(--primary-blue);
+  color: #333;
   background-color: var(--light-blue-bg);
 
 }
@@ -72,12 +72,12 @@ header {
 
 .brand-name {
   font-size: 1.6rem;
-  color: #222;
+  color: #000;
 }
 
 .slogan {
   font-size: 1rem;
-  color: #666;
+  color: #808080;
   font-style: italic;
 }
 
@@ -91,7 +91,7 @@ nav {
 
 nav a {
   text-decoration: none;
-  color: #0077cc;
+  color: #fff;
   font-weight: 500;
   padding: 8px 12px;
   border-radius: 4px;
@@ -111,7 +111,7 @@ nav a:hover {
   background: none;
   border: none;
   font-weight: 500;
-  color: #0077cc;
+  color: #fff;
   cursor: pointer;
   padding: 8px 12px;
 }
@@ -134,7 +134,7 @@ nav a:hover {
   display: block;
   padding: 10px;
   text-align: left;
-  color: #0077cc;
+  color: #fff;
   text-decoration: none;
   border-bottom: 1px solid #003366; /* Blue separator between links */
 }
@@ -198,12 +198,22 @@ nav a:hover {
 /* body */
 main, .content {
   background-color: white;
-  margin: 20px auto;
-  padding: 20px;
-  max-width: 1000px;
-  border-radius: 12px;
+  margin: 0;
+  padding: 30px 40px;
+  max-width: 100%;
+  border-radius: 0;
   box-shadow: 0 0 10px rgba(0,0,0,0.05);
 }
+
+/*text*/
+main h1, main h2, main h3 {
+  color: #000; /* Pure black titles */
+}
+
+main p, main li, main span {
+  color: #333; /* Light black content */
+}
+
 /*divider section*/
 .section-divider {
   border: none;
