@@ -1,1 +1,20 @@
+ <main>
+    <section class="book-item">
+      <img src="assets/kito-book-cover.jpg" alt="The Tale of Kito and Zuri">
+      <div class="book-info">
+        <h2>The Tale of Kito and Zuri</h2>
+        <p>A heartwarming adventure of two unlikely friends in the wild. A tale of loyalty, bravery, and discovery.</p>
+        <p class="price">Ksh 600</p>
+        <button onclick="addToCart('The Tale of Kito and Zuri', 600)">Add to Cart</button>
+      </div>
+    </section>
+  </main>
 
+  <script>
+    function addToCart(itemName, price) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart.push({ name: itemName, price: price });
+      localStorage.setItem('cart', JSON.stringify(cart));
+      alert(`${itemName} has been added to your cart.`);
+    }
+  </script>
