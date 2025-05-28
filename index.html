@@ -39,19 +39,30 @@
       <a href="blog.html">Blog</a>
     </nav>
   </header>
-  
-<!--footer-->
-   <div id="footer"></div>
 
   <script>
-    fetch('footer.html')
+  //hamburger setup
+  
+  function toggleMenu() {
+    const nav = document.getElementById('main-nav');
+    const button = document.querySelector('.menu-toggle');
+    nav.classList.toggle('show');
+    button.classList.toggle('active');
+  }
+    // end of hamburger
+
+//footer
+<div id="footer"></div>
+
+      fetch('footer.html')
       .then(response => response.text())
       .then(data => {
         document.getElementById('footer').innerHTML = data;
       })
       .catch(err => console.error('Failed to load footer:', err));
-  </script>
-<!--end footer-->
+ 
+//end footer
   
+   </script>
 </body>
 </html>
