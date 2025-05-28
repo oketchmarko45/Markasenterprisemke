@@ -454,6 +454,52 @@ button:hover {
   background: #005fa3;
 }
 /*end of pet store*/
+/*bookstore*/
+
+.book-item {
+  display: flex;
+  gap: 30px;
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+  max-width: 900px;
+  margin: auto;
+}
+
+.book-item img {
+  width: 200px;
+  height: auto;
+  border-radius: 8px;
+}
+
+.book-info h2 {
+  margin-bottom: 10px;
+  color: #003366;
+}
+
+.book-info p {
+  margin-bottom: 10px;
+}
+
+.price {
+  font-weight: bold;
+  color: #0077cc;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #0077cc;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #005fa3;
+}
+/*end of book store*/
 /* end body */
 /* Footer styles */
 footer {
