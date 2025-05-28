@@ -230,9 +230,9 @@ main p, main li, main span {
   /* Slider styles */
     .slider {
       position: relative;
-      max-width: 1000px;
-      margin: 20px auto;
-      border-radius: 12px;
+      max-width: 100$;
+      margin: 0;
+      border-radius: 0;
       overflow: hidden;
       box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     }
@@ -280,11 +280,11 @@ main p, main li, main span {
 
     /* Intro section */
     .intro {
-      max-width: 1000px;
-      margin: 20px auto;
-      padding: 20px;
+      width: 100%;
+      margin: 0;
+      padding: 30px 40px;
       background-color: #e6f0ff; /* lighter blue for contrast */
-      border-radius: 12px;
+      border-radius: 0;
       box-shadow: 0 0 10px rgba(0, 119, 204, 0.15);
       color: #003366;
       font-style: normal;
