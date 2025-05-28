@@ -19,7 +19,7 @@ header {
   align-items: center;
   flex-wrap: wrap;
   padding: 20px 40px;
-  background-color: #fff;
+  background-color: #003366;
   border-bottom: 1px solid #ddd;
 }
 
@@ -165,3 +165,10 @@ nav a:hover {
   content: '✖';
 }
 
+/* Footer styles */
+footer {
+  background-color: #003366; /* Same dark blue for footer */
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
