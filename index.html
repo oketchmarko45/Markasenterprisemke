@@ -43,20 +43,6 @@
   <div id="footer"></div>
   
   <script>
-
-     // Get current year
-  const currentYear = new Date().getFullYear();
-  const startingYear = 2024;
-
-  // Set the footer text
-  const copyrightElement = document.getElementById('copyright');
-  if (copyrightElement) {
-    if (currentYear === startingYear) {
-      copyrightElement.textContent = `© ${startingYear} Markas Enterprise MKE`;
-    } else {
-      copyrightElement.textContent = `© ${startingYear} - ${currentYear} Markas Enterprise MKE`;
-    }
-  }
     
   //hamburger setup
   
@@ -82,8 +68,24 @@
       .then(response => response.text())
       .then(data => {
         document.getElementById('footer').innerHTML = data;
-      })
-      .catch(err => console.error('Failed to load footer:', err));
+      
+     
+      // Get current year
+  const currentYear = new Date().getFullYear();
+  const startingYear = 2024;
+
+  // Set the footer text
+  const copyrightElement = document.getElementById('copyright');
+  if (copyrightElement) {
+    if (currentYear === startingYear) {
+      copyrightElement.textContent = `© ${startingYear} Markas Enterprise MKE`;
+    } else {
+      copyrightElement.textContent = `© ${startingYear} - ${currentYear} Markas Enterprise MKE`;
+    }
+  }
+})
+
+.catch(err => console.error('Failed to load footer:', err));
  
 //end footer
   
