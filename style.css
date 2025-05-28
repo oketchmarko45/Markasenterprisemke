@@ -407,6 +407,53 @@ button:hover {
 }
 /*end of kennel*/
 
+/*petstore*/
+.store-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.product {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  width: 250px;
+  padding: 15px;
+  background: #f9f9f9;
+  text-align: center;
+}
+
+.product img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.product h3 {
+  margin: 10px 0;
+  color: #222;
+}
+
+.product p {
+  margin: 5px 0;
+  color: #333;
+}
+
+button {
+  background: #0077cc;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #005fa3;
+}
+/*end of pet store*/
 /* end body */
 /* Footer styles */
 footer {
