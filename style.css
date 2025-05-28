@@ -1,0 +1,113 @@
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  background-color: #fdfdfd;
+  color: #333;
+}
+
+/* HEADER */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px 40px;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+}
+
+/* LOGO + BRAND SECTION */
+.logo-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.logo-brand img {
+  width: 100px;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.brand-info {
+  text-align: left;
+}
+
+.brand-name {
+  font-size: 1.6rem;
+  color: #222;
+}
+
+.slogan {
+  font-size: 1rem;
+  color: #666;
+  font-style: italic;
+}
+
+/* NAVIGATION */
+nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+nav a {
+  text-decoration: none;
+  color: #0077cc;
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: background 0.3s;
+}
+
+nav a:hover {
+  background-color: #eef;
+}
+
+/* Dropdown style */
+.dropdown {
+  position: relative;
+}
+
+.dropbtn {
+  background: none;
+  border: none;
+  font-weight: 500;
+  color: #0077cc;
+  cursor: pointer;
+  padding: 8px 12px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background-color: white;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+  z-index: 1;
+  min-width: 160px;
+}
+
+.dropdown-content a {
+  display: block;
+  padding: 10px;
+  text-align: left;
+  color: #0077cc;
+  text-decoration: none;
+}
+
+.dropdown-content a:hover {
+  background-color: #f0f0f0;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
