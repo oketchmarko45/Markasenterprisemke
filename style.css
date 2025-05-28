@@ -100,6 +100,7 @@ nav a {
 
 nav a:hover {
   background-color: #eef;
+  color:#003366;
 }
 
 /* Dropdown style */
@@ -111,7 +112,7 @@ nav a:hover {
   background: none;
   border: none;
   font-weight: 500;
-  color: #fff;
+  color: #003366;
   cursor: pointer;
   padding: 8px 12px;
 }
@@ -145,6 +146,7 @@ nav a:hover {
 
 .dropdown-content a:hover {
   background-color: #f0f0f0;
+  color:#white;
 }
 
 .dropdown:hover .dropdown-content {
