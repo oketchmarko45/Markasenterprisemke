@@ -300,6 +300,113 @@ main p, main li, main span {
       font-style: normal;
     }
 /*end home.html*/
+/*cart.html*/
+
+#cart-items {
+  margin-bottom: 30px;
+}
+
+.cart-item {
+  background: #ffffff;
+  padding: 15px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
+}
+
+.cart-item h3 {
+  margin: 0;
+  color: #003366;
+}
+
+.cart-item span {
+  display: block;
+  color: #333;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+#checkout {
+  background-color: #e9f1fb;
+  padding: 20px;
+  border-radius: 6px;
+  text-align: center;
+}
+
+#checkout h2 {
+  color: #003366;
+  margin-bottom: 20px;
+}
+
+button {
+  background-color: #0077cc;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+button:hover {
+  background-color: #005fa3;
+}
+/*end of cart*/
+
+/*kennel*/
+.kennel-gallery {
+  text-align: center;
+}
+
+.kennel-gallery img {
+  width: 300px;
+  margin: 10px;
+  border-radius: 10px;
+}
+
+.kennel-services {
+  margin-top: 40px;
+}
+
+.service-card {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.service-card h3 {
+  margin: 0 0 10px;
+  color: #222;
+}
+
+.service-card p {
+  color: #444;
+}
+
+.service-card span {
+  display: block;
+  margin: 10px 0;
+  font-weight: bold;
+  color: #003366;
+}
+
+button {
+  background-color: #0077cc;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #005fa3;
+}
+/*end of kennel*/
+
 /* end body */
 /* Footer styles */
 footer {
