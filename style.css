@@ -114,3 +114,52 @@ nav a:hover {
 .dropdown:hover .dropdown-content {
   display: block;
 }
+
+/* Hamburger styles */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: #0077cc;
+}
+
+/* Responsive Navigation */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .menu-toggle {
+    display: block;
+    margin: 10px 0;
+  }
+
+  nav {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+
+  nav.show {
+    display: flex;
+  }
+
+  nav a, .dropdown {
+    width: 100%;
+  }
+
+  .dropdown-content {
+    position: relative;
+    box-shadow: none;
+  }
+}
+
+/* When menu is active, turn ☰ into X */
+.menu-toggle.active::before {
+  content: '✖';
+}
+
