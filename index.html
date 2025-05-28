@@ -47,6 +47,14 @@
     const nav = document.getElementById('main-nav');
     const button = document.querySelector('.menu-toggle');
     nav.classList.toggle('show');
+
+    
+  if (button.classList.contains('active')) {
+    button.innerText = '☰';
+  } else {
+    button.innerText = '✖';
+  }
+
     button.classList.toggle('active');
   }
     // end of hamburger
