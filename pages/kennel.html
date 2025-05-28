@@ -19,23 +19,34 @@
   </header>
 
   <main class="content">
-     <h1>Our Kennel Services</h1>
-  <div class="services-grid">
-
-    <!-- Example Service Card -->
-    <div class="service-card">
-      <img src="images/daycare.jpg" alt="Dog Daycare">
-      <h2>Dog Daycare</h2>
-      <p>Daily care for your pup with playtime, feeding, and rest.</p>
-      <button onclick="addToCart('Dog Daycare', 1500)">Book Now - KES 1500</button>
-    </div>
-
-    <div class="service-card">
-      <img src="images/grooming.jpg" alt="Dog Grooming">
-      <h2>Grooming</h2>
-      <p>Professional grooming for all dog breeds.</p>
-      <button onclick="addToCart('Dog Grooming', 2000)">Book Now - KES 2000</button>
-    </div>
+    <section class="kennel-gallery">
+      <h2>Our Kennels</h2>
+      <img src="images/kennel1.jpg" alt="Kennel 1" />
+      <img src="images/kennel2.jpg" alt="Kennel 2" />
+      <img src="images/kennel3.jpg" alt="Kennel 3" />
+    </section>
+    
+    <section class="kennel-services">
+      <h2>Available Services</h2>
+      <div class="service-card">
+        <h3>Day Care Service</h3>
+        <p>We take care of your dog during the day.</p>
+        <span>Ksh 500</span>
+        <button onclick="addToCart('Day Care Service', 500)">Book</button>
+      </div>
+      <div class="service-card">
+        <h3>Boarding (Overnight)</h3>
+        <p>Safe overnight care for your pet.</p>
+        <span>Ksh 1,000</span>
+        <button onclick="addToCart('Boarding (Overnight)', 1000)">Book</button>
+      </div>
+      <div class="service-card">
+        <h3>Grooming</h3>
+        <p>Full grooming and pampering service.</p>
+        <span>Ksh 700</span>
+        <button onclick="addToCart('Grooming', 700)">Book</button>
+      </div>
+    </section>
 
     <!-- Add more services as needed -->
   </main>
