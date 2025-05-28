@@ -1,1 +1,90 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About Us - Markas Enterprise MKE</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <header>
+    <!-- Your header and nav goes here -->
+   <div id="header-placeholder"></div>
+
+
+  </header>
+
+  <main class="content">
+     <h1>Our Kennel Services</h1>
+  <div class="services-grid">
+
+    <!-- Example Service Card -->
+    <div class="service-card">
+      <img src="images/daycare.jpg" alt="Dog Daycare">
+      <h2>Dog Daycare</h2>
+      <p>Daily care for your pup with playtime, feeding, and rest.</p>
+      <button onclick="addToCart('Dog Daycare', 1500)">Book Now - KES 1500</button>
+    </div>
+
+    <div class="service-card">
+      <img src="images/grooming.jpg" alt="Dog Grooming">
+      <h2>Grooming</h2>
+      <p>Professional grooming for all dog breeds.</p>
+      <button onclick="addToCart('Dog Grooming', 2000)">Book Now - KES 2000</button>
+    </div>
+
+    <!-- Add more services as needed -->
+  </main>
+
+  <div id="footer"></div>
+
+  <script>
+  // Load header dynamically
+  fetch('headernfooter/header.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('header-placeholder').innerHTML = data;
+    })
+    .catch(err => console.error('Failed to load header:', err));
+     // Load footer
+  fetch('headernfooter/footer.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('footer').innerHTML = data;
+    })
+    .catch(err => console.error('Failed to load footer:', err));
+
+    //cart...
+    window.addEventListener('DOMContentLoaded', () => {
+  const currentPage = location.pathname.split('/').pop();
+  const pagesWithCart = ['kennel.html', 'petstore.html', 'bookstore.html'];
+
+  if (pagesWithCart.includes(currentPage)) {
+    document.getElementById('cart-icon').style.display = 'block';
+  }
+});
+    //booking and cart logic
+    function addToCart(item, price) {
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  cart.push({ item, price });
+  localStorage.setItem('cart', JSON.stringify(cart));
+
+  alert(`${item} added to cart!`);
+  updateCartCount();
+}
+
+function updateCartCount() {
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  document.getElementById('cart-count').textContent = cart.length;
+}
+
+
+</script>
+
+</body>
+</html>
+
