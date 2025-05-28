@@ -1,0 +1,18 @@
+ <footer>
+    <h4>Markas Enterprise MKE</h4>
+    <p>Created by Ochieng' Mark Oketch – Dogtrovert, Writer, Developer</p>
+    <p>Contact : <a href="mailto:markasenterprisemke@gmail.com">Markas Enterprise MKE via mail</a></p>
+
+    <p id="copyright"></p>
+  </footer>
+
+  <script>
+  const copyright = document.getElementById('copyright');
+  const startYear = 2024;
+  const currentYear = new Date().getFullYear();
+  if (currentYear === startYear) {
+    copyright.textContent = `© ${startYear} Markas Enterprise MKE. All rights reserved.`;
+  } else {
+    copyright.textContent = `© ${startYear} - ${currentYear} Markas Enterprise MKE. All rights reserved.`;
+  }
+</script>
