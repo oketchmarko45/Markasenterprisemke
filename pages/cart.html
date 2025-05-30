@@ -1,48 +1,84 @@
 <!-- cart.html -->
-<main class="content">
-   <section id="cart-items"></section>
+ <main class="content">
+    <section id="cart-items"></section>
 
     <section id="checkout">
       <h2>Total: Ksh <span id="total-amount">0</span></h2>
       <button onclick="checkout()">Proceed to Payment</button>
     </section>
-</main>
+  </main>
 
-<script>
-  // Add to cart and save to localStorage
-function addToCart(itemName, price) {
-  let cart = JSON.parse(localStorage.getItem('cart')) || [];
-  cart.push({ name: itemName, price: price });
-  localStorage.setItem('cart', JSON.stringify(cart));
-  alert(`${itemName} has been added to your cart.`);
-}
+  <script>
+    // Function to add item to cart
+    function addToCart(itemName, price) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      
+      // Check if item already exists in the cart
+      const existingItemIndex = cart.findIndex(item => item.name === itemName);
+      
+      if (existingItemIndex !== -1) {
+        // If item exists, increase the quantity and total price
+        cart[existingItemIndex].quantity += 1;
+      } else {
+        // If it's a new item, add it with a quantity of 1
+        cart.push({ name: itemName, price: price, quantity: 1 });
+      }
 
-// Load cart on cart.html
-window.addEventListener('DOMContentLoaded', () => {
-  const cartItemsContainer = document.getElementById('cart-items');
-  const totalAmountSpan = document.getElementById('total-amount');
+      localStorage.setItem('cart', JSON.stringify(cart));
+      alert(`${itemName} has been added to your cart.`);
+    }
 
-  if (cartItemsContainer && totalAmountSpan) {
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    let total = 0;
+    // Function to remove item from cart
+    function removeItemFromCart(itemName) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart = cart.filter(item => item.name !== itemName); // Remove item from cart
+      localStorage.setItem('cart', JSON.stringify(cart));
+      loadCart(); // Reload the cart after item removal
+    }
 
-    cart.forEach(item => {
-      const div = document.createElement('div');
-      div.className = 'cart-item';
-      div.innerHTML = `<h3>${item.name}</h3><span>Ksh ${item.price}</span>`;
-      cartItemsContainer.appendChild(div);
-      total += item.price;
-    });
+    // Function to load cart items when page loads
+    function loadCart() {
+      const cartItemsContainer = document.getElementById('cart-items');
+      const totalAmountSpan = document.getElementById('total-amount');
 
-    totalAmountSpan.textContent = total;
-  }
-});
+      if (cartItemsContainer && totalAmountSpan) {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        
+        // Clear previous cart content
+        cartItemsContainer.innerHTML = '';
+        let total = 0;
 
-function checkout() {
-  alert("Proceeding to payment...");
-  localStorage.removeItem('cart');
-  window.location.reload();
-}
+        if (cart.length === 0) {
+          cartItemsContainer.innerHTML = '<p>Your cart is empty.</p>';
+        } else {
+          // Display each cart item
+          cart.forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'cart-item';
+            div.innerHTML = `
+              <h3>${item.name}</h3>
+              <span>Ksh ${item.price} x ${item.quantity}</span>
+              <span>Total: Ksh ${item.price * item.quantity}</span>
+              <button onclick="removeItemFromCart('${item.name}')">Remove</button>
+            `;
+            cartItemsContainer.appendChild(div);
+            total += item.price * item.quantity; // Add item total to grand total
+          });
+        }
 
+        // Update the total amount
+        totalAmountSpan.textContent = total;
+      }
+    }
 
-</script>
+    // Checkout function (reset cart and proceed to payment)
+    function checkout() {
+      alert("Proceeding to payment...");
+      localStorage.removeItem('cart');
+      loadCart(); // Reload the cart after checkout
+    }
+
+    // Load cart items when the page is loaded
+    window.addEventListener('DOMContentLoaded', loadCart);
+
+  </script>
