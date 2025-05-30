@@ -1,1 +1,106 @@
+  <!-- Main Content Section -->
+  <main class="content">
+    <section class="donation-info">
+      <h2>💖 Support Our Work</h2>
+      <p>Your donation helps us continue our mission of supporting pets and their owners. Choose your donation amount below and proceed with your preferred payment method.</p>
+    </section>
 
+    <section class="donation-options">
+      <h3>Select Your Donation Amount</h3>
+      <div class="donation-amounts">
+        <button class="donation-btn" onclick="setDonationAmount(500)">Ksh 500</button>
+        <button class="donation-btn" onclick="setDonationAmount(1000)">Ksh 1000</button>
+        <button class="donation-btn" onclick="setDonationAmount(2000)">Ksh 2000</button>
+        <button class="donation-btn" onclick="setDonationAmount(5000)">Ksh 5000</button>
+      </div>
+
+      <div class="custom-donation">
+        <label for="custom-amount">Or enter a custom amount:</label>
+        <input type="number" id="custom-amount" placeholder="Enter amount" min="100" />
+      </div>
+
+      <div class="total-donation">
+        <h3>Total Donation: Ksh <span id="total-amount">0</span></h3>
+      </div>
+    </section>
+
+    <!-- Payment Methods -->
+    <section class="payment-methods">
+      <h3>Choose Your Payment Method</h3>
+      <button class="payment-btn" onclick="processMPesa()">Pay with MPESA</button>
+      <button class="payment-btn" onclick="processPayPal()">Pay with PayPal</button>
+      <button class="payment-btn" onclick="processBankTransfer()">Bank Transfer</button>
+    </section>
+
+    <section class="donate-button">
+      <button id="donate-btn" onclick="processDonation()">Donate Now</button>
+    </section>
+  </main>
+
+<script>
+    let donationAmount = 0;
+
+    // Set the donation amount when user clicks a preset value
+    function setDonationAmount(amount) {
+      donationAmount = amount;
+      document.getElementById('total-amount').textContent = donationAmount;
+    }
+
+    // Get the custom donation amount if user enters it
+    document.getElementById('custom-amount').addEventListener('input', function() {
+      const customAmount = parseInt(this.value);
+      if (customAmount >= 100) {
+        donationAmount = customAmount;
+        document.getElementById('total-amount').textContent = donationAmount;
+      }
+    });
+
+    // Process donation (simulated)
+    function processDonation() {
+      if (donationAmount <= 0) {
+        alert("Please enter a valid donation amount.");
+        return;
+      }
+      alert(`Thank you for your generous donation of Ksh ${donationAmount}!`);
+      resetDonationAmount();
+    }
+
+    // MPESA Payment Simulation
+    function processMPesa() {
+      if (donationAmount <= 0) {
+        alert("Please enter a valid donation amount.");
+        return;
+      }
+      alert(`You are being redirected to MPESA for payment of Ksh ${donationAmount}.`);
+      // Here you would trigger MPESA API or process. This is a simulation.
+      resetDonationAmount();
+    }
+
+    // PayPal Payment Simulation
+    function processPayPal() {
+      if (donationAmount <= 0) {
+        alert("Please enter a valid donation amount.");
+        return;
+      }
+      alert(`You are being redirected to PayPal for payment of Ksh ${donationAmount}.`);
+      // Here you would trigger PayPal API or redirect to PayPal for actual payment.
+      resetDonationAmount();
+    }
+
+    // Bank Transfer Payment Simulation
+    function processBankTransfer() {
+      if (donationAmount <= 0) {
+        alert("Please enter a valid donation amount.");
+        return;
+      }
+      alert(`Bank transfer details will be sent to you for donation of Ksh ${donationAmount}.`);
+      // Here you would send bank transfer instructions to the user or redirect.
+      resetDonationAmount();
+    }
+
+    // Reset donation amount after a successful transaction
+    function resetDonationAmount() {
+      donationAmount = 0;
+      document.getElementById('total-amount').textContent = donationAmount;
+    }
+  </script>
