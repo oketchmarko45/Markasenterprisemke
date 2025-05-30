@@ -38,10 +38,27 @@
     <a href="https://www.paypal.com/ncp/payment/49GD9DXGBM5J6" target="_blank" style="background: #0070ba; color: white; padding: 0.5rem 1rem; text-decoration: none; border-radius: 4px; display: inline-block; font-size: 1rem;">Send via PayPal</a>
   </div>
 
-  <!-- Bank Transfer Payment Button -->
-  <button class="payment-btn" onclick="processBankTransfer()">Bank Transfer</button>
+   <!-- Bank Transfer Payment Button -->
+  <button class="payment-btn" onclick="showBankTransferDetails()">Bank Transfer</button>
 </section>
 
+    <!-- Bank Transfer Modal (Popup) -->
+<div id="bank-transfer-modal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeModal()">&times;</span>
+    <div style="background: #fff; padding: 1rem; border-left: 4px solid #444; border-radius: 6px;">
+      <h3><i class="fas fa-university"></i> Bank Transfer</h3>
+      <p>You can make a bank deposit or transfer using the following details:</p>
+      <ul style="list-style-type: none; padding: 0;">
+        <li><strong>Bank:</strong> Standard Chartered Bank</li>
+        <li><strong>Account Name:</strong> Mark Oketch</li>
+        <li><strong>Account Number:</strong> 0100428580200</li>
+        <li><strong>Branch:</strong> Thika</li>
+      </ul>
+    </div>
+  </div>
+</div>
+    
 <!-- Donate Now Button -->
 <section class="donate-button" style="margin-top: 1.5rem; text-align: center;">
   <button id="donate-btn" onclick="processDonation()">Donate Now</button>
