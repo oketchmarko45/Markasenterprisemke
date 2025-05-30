@@ -58,7 +58,7 @@
   </div>
 
   <!-- Donate Now Button -->
-  <section class="donate-button" style="margin-top: 2rem; text-align: center;">
+  <section class="donate-button">
     <button id="donate-btn" onclick="processDonation()">Donate Now</button>
   </section>
 </main>
@@ -74,6 +74,8 @@
     donationAmount = parseInt(this.value);
     if (donationAmount >= 100) {
       document.getElementById('total-amount').textContent = donationAmount;
+    } else {
+      document.getElementById('total-amount').textContent = 0;
     }
   });
 
@@ -97,19 +99,6 @@
     }
     alert(`You are being redirected to PayPal for payment of Ksh ${donationAmount}. We'll send a receipt to ${email}.`);
     // Actual PayPal API integration can happen here.
-  }
-
-  // Process Bank Transfer payment
-  function processBankTransfer() {
-    const name = document.getElementById('donor-name').value;
-    const phone = document.getElementById('donor-phone').value;
-    const email = document.getElementById('donor-email').value;
-    if (!name || !phone || !email || donationAmount <= 0) {
-      alert("Please enter your name, phone, email, and donation amount.");
-      return;
-    }
-    alert(`Bank transfer details will be sent to ${email} for your donation of Ksh ${donationAmount}. We will also confirm with ${phone}.`);
-    // Bank transfer process and details would be handled here.
   }
 
   // Function to show the Bank Transfer modal
@@ -146,5 +135,6 @@
   function resetDonationAmount() {
     donationAmount = 0;
     document.getElementById('total-amount').textContent = donationAmount;
+    document.getElementById('donation-amount').value = ''; // Clear the input field
   }
 </script>
