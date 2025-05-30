@@ -24,22 +24,28 @@
       </div>
     </section>
 
-    <!-- Payment Methods -->
-    <section class="payment-methods">
-      <h3>Choose Your Payment Method</h3>
-      <button class="payment-btn" onclick="processMPesa()">Pay with MPESA</button>
-       <!-- PayPal -->
-    <div style="background: #fff; padding: 1rem; border-left: 4px solid #0070ba; border-radius: 6px;">
-      <h3><i class="fab fa-paypal"></i> PayPal</h3>
-      <p>You can support me via PayPal using the button below:</p>
-      <a href="https://www.paypal.com/ncp/payment/49GD9DXGBM5J6" target="_blank" style="background: #0070ba; color: white; padding: 0.5rem 1rem; text-decoration: none; border-radius: 4px;">Send via PayPal</a>
-    </div>
-      <button class="payment-btn" onclick="processBankTransfer()">Bank Transfer</button>
-    </section>
+   <!-- Payment Methods -->
+<section class="payment-methods">
+  <h3>Choose Your Payment Method</h3>
+  
+  <!-- MPESA Payment Button -->
+  <button class="payment-btn" onclick="processMPesa()">Pay with MPESA</button>
 
-    <section class="donate-button">
-      <button id="donate-btn" onclick="processDonation()">Donate Now</button>
-    </section>
+  <!-- PayPal Payment Option -->
+  <div class="paypal-option" style="background: #fff; padding: 1rem; border-left: 4px solid #0070ba; border-radius: 6px; margin-top: 1rem;">
+    <h3><i class="fab fa-paypal"></i> PayPal</h3>
+    <p>You can support us via PayPal using the button below:</p>
+    <a href="https://www.paypal.com/ncp/payment/49GD9DXGBM5J6" target="_blank" style="background: #0070ba; color: white; padding: 0.5rem 1rem; text-decoration: none; border-radius: 4px; display: inline-block; font-size: 1rem;">Send via PayPal</a>
+  </div>
+
+  <!-- Bank Transfer Payment Button -->
+  <button class="payment-btn" onclick="processBankTransfer()">Bank Transfer</button>
+</section>
+
+<!-- Donate Now Button -->
+<section class="donate-button" style="margin-top: 1.5rem; text-align: center;">
+  <button id="donate-btn" onclick="processDonation()">Donate Now</button>
+</section>
   </main>
 
 <script>
