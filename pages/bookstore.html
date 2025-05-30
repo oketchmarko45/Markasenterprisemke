@@ -1,20 +1,57 @@
- <main class="content">
-    <section class="book-item">
-      <img src="assets/kito-book-cover.jpg" alt="The Tale of Kito and Zuri">
-      <div class="book-info">
-        <h2>The Tale of Kito and Zuri</h2>
-        <p>A heartwarming adventure of two unlikely friends in the wild. A tale of loyalty, bravery, and discovery.</p>
-        <p class="price">Ksh 600</p>
-        <button onclick="addToCart('The Tale of Kito and Zuri', 600)">Add to Cart</button>
-      </div>
-    </section>
-  </main>
+<main class="content">
+  <section class="book-item">
+    <img src="assets/kito-book-cover.jpg" alt="The Tale of Kito and Zuri">
+    <div class="book-info">
+      <h2>The Tale of Kito and Zuri</h2>
+      <p>A heartwarming adventure of two unlikely friends in the wild. A tale of loyalty, bravery, and discovery.</p>
+      <p class="price">Ksh 600</p>
+      <button onclick="addToCart('book1', 'The Tale of Kito and Zuri', 600, 'assets/kito-book-cover.jpg')">Add to Cart</button>
+    </div>
+  </section>
+</main>
 
-  <script>
-    function addToCart(itemName, price) {
-      let cart = JSON.parse(localStorage.getItem('cart')) || [];
-      cart.push({ name: itemName, price: price });
-      localStorage.setItem('cart', JSON.stringify(cart));
-      alert(`${itemName} has been added to your cart.`);
-    }
-  </script>
+<script>
+// Add to Cart functionality
+function addToCart(productId, itemName, price, image) {
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  
+  // Check if the product is already in the cart
+  const existingProduct = cart.find(item => item.productId === productId);
+
+  if (existingProduct) {
+    // If product is already in cart, increase quantity
+    existingProduct.quantity += 1;
+  } else {
+    // Add new product to cart
+    const newProduct = {
+      productId: productId,
+      name: itemName,
+      price: price,
+      image: image,
+      quantity: 1
+    };
+    cart.push(newProduct);
+  }
+
+  // Update the cart in localStorage
+  localStorage.setItem('cart', JSON.stringify(cart));
+
+  // Update the cart count icon
+  updateCartCount();
+  
+  alert(`${itemName} has been added to your cart.`);
+}
+
+// Function to update the cart count in the header
+function updateCartCount() {
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const cartCount = document.getElementById('cart-count');
+
+  if (cartCount) {
+    cartCount.textContent = cart.reduce((total, item) => total + item.quantity, 0);
+  }
+}
+
+// Run this when the page loads to initialize the cart count
+window.addEventListener('DOMContentLoaded', updateCartCount);
+</script>
