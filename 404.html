@@ -3,10 +3,47 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Page Not Found</title>
+  <title id="error-title">404 - Page Not Found</title> <!-- Default title -->
+  <link rel="stylesheet" href="style.css"/>
+
+  <script>
+    // Array of dog-themed titles
+    const titles = [
+      "Oops! Looks Like We’re Chasing Our Tail...",
+      "Uh-oh! The Dog Ate This Page!",
+      "Lost in the Dog Park... 404",
+      "Whoops! That Page Is in the Doghouse",
+      "We’ve Got a Leash on It, But This Page is MIA",
+      "This Page Has Gone to the Dogs... 404",
+      "Ruff Luck! Page Not Found",
+      "Barking Up the Wrong Tree – 404",
+      "Fido Couldn’t Find It Either – 404",
+      "This Page Took a Walk... And Never Came Back!"
+    ];
+
+    // Function to pick a random title from the array
+    function randomTitle() {
+      const randomIndex = Math.floor(Math.random() * titles.length);
+      const selectedTitle = titles[randomIndex];
+      document.getElementById('error-title').innerText = selectedTitle + " | Markas Enterprise MKE";
+    }
+
+    // Call the function when the page loads
+    window.onload = randomTitle;
+  </script>
 </head>
 <body>
-  <h1>Oops! Page not found</h1>
-   <a href="#" onclick="loadPage('index.html')">Return to Home</a>
+  <main class="content">
+    <div class="error-icon">🐾</div>
+    <h1 class="error-heading">Doggone It! We Can't Find That Page</h1>
+    <img class="dog-img" src="images/sad-dog.jpg" alt="Sad Dog 404" />
+    <p class="error-message">
+      Looks like this page has run off the leash! Don’t worry, we’ll get you back on track.
+    </p>
+    <div class="error-actions">
+      <a href="index.html" onclick="loadPage('index.html')">Return to the Doghouse (Home)</a>
+    </div>
+    <p class="bark-text">Woof! Let us know if you're lost, we're here to help!</p>
+  </main>
 </body>
 </html>
