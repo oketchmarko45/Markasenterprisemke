@@ -198,7 +198,7 @@
     }, 5000);
 
     //loadpage
-  function loadPage(pageUrl) {
+function loadPage(pageUrl) {
   fetch(pageUrl)
     .then(response => {
       if (!response.ok) {
@@ -206,23 +206,19 @@
         return fetch('404.html')
           .then(fallback => fallback.text())
           .then(fallbackContent => {
+            // Create a temporary div to hold the 404 content
             const fallbackDiv = document.createElement('div');
             fallbackDiv.innerHTML = fallbackContent;
 
-            // Grab the content from the 404 page
+            // Grab the entire content of the 404 page and inject it into the main content section
             const fallbackMain = fallbackDiv.querySelector('main.content');
 
-            // Check if 404 page has main content and inject it
-            document.querySelector('main.content').innerHTML = fallbackMain 
-              ? fallbackMain.innerHTML 
-              : '<p>Sorry, the page you are looking for cannot be found.</p>';
-            
-            // Optionally: Update the title here if you want to apply random titles
-            const randomTitle = document.querySelector('#error-title');
-            if (randomTitle) {
-              randomTitle.textContent = "Doggone It! We Can't Find That Page | Markas Enterprise MKE";
+            // If the main content exists, inject it directly into the main.content section
+            if (fallbackMain) {
+              document.querySelector('main.content').innerHTML = fallbackMain.innerHTML;
             }
 
+            // No fallback message or title manipulation here
             throw new Error("Original page not found. Loaded 404.");
           });
       }
@@ -232,11 +228,11 @@
       const tempDiv = document.createElement('div');
       tempDiv.innerHTML = data;
 
-      // Extract and load content into the page
+      // Extract and load content from the fetched page
       const mainContent = tempDiv.querySelector('main.content');
-      document.querySelector('main.content').innerHTML = mainContent 
-        ? mainContent.innerHTML 
-        : '<p>Sorry, content not found.</p>';
+      if (mainContent) {
+        document.querySelector('main.content').innerHTML = mainContent.innerHTML;
+      }
     })
     .catch(error => {
       console.error("Error loading page:", error);
