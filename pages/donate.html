@@ -1,178 +1,148 @@
-  <!-- Main Content Section -->
-  <main class="content">
-    <section class="donation-info">
-      <h2>💖 Support Our Work</h2>
-      <p>Your donation helps us continue our mission of supporting pets and their owners. Choose your donation amount below and proceed with your preferred payment method.</p>
-    </section>
+<!-- Main Content Section -->
+<main class="content">
+  <section class="donation-info">
+    <h2>💖 Support Our Work</h2>
+    <p>Your donation helps us continue our mission of supporting pets and their owners. Choose your donation amount below and proceed with your preferred payment method.</p>
+  </section>
 
-    <section class="donation-options">
-      <h3>Select Your Donation Amount</h3>
-      <div class="donation-amounts">
-        <button class="donation-btn" onclick="setDonationAmount(500)">Ksh 500</button>
-        <button class="donation-btn" onclick="setDonationAmount(1000)">Ksh 1000</button>
-        <button class="donation-btn" onclick="setDonationAmount(2000)">Ksh 2000</button>
-        <button class="donation-btn" onclick="setDonationAmount(5000)">Ksh 5000</button>
+  <section class="donation-options">
+    <h3>Select Your Donation Amount</h3>
+    
+    <!-- Custom Donation Amount Input -->
+    <div class="custom-donation">
+      <label for="custom-amount">Enter Your Donation Amount (Ksh):</label>
+      <input type="number" id="custom-amount" placeholder="Enter amount" min="100" required/>
+    </div>
+
+    <div class="total-donation">
+      <h3>Total Donation: Ksh <span id="total-amount">0</span></h3>
+    </div>
+  </section>
+
+  <!-- Payment Methods -->
+  <section class="payment-methods">
+    <h3>Choose Your Payment Method</h3>
+    
+    <!-- MPESA Payment Button -->
+    <button class="payment-btn" onclick="processMPesa()">Pay with MPESA</button>
+
+    <!-- PayPal Payment Option -->
+    <div class="paypal-option" style="background: #fff; padding: 1rem; border-left: 4px solid #0070ba; border-radius: 6px; margin-top: 1rem;">
+      <h3><i class="fab fa-paypal"></i> PayPal</h3>
+      <p>You can support us via PayPal using the button below:</p>
+      <a href="https://www.paypal.com/ncp/payment/49GD9DXGBM5J6" target="_blank" style="background: #0070ba; color: white; padding: 0.5rem 1rem; text-decoration: none; border-radius: 4px; display: inline-block; font-size: 1rem;">Send via PayPal</a>
+    </div>
+
+    <!-- Bank Transfer Payment Button -->
+    <button class="payment-btn" onclick="showBankTransferDetails()">Bank Transfer</button>
+  </section>
+
+  <!-- Bank Transfer Modal (Popup) -->
+  <div id="bank-transfer-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal()">&times;</span>
+      <div style="background: #fff; padding: 1rem; border-left: 4px solid #444; border-radius: 6px;">
+        <h3><i class="fas fa-university"></i> Bank Transfer</h3>
+        <p>You can make a bank deposit or transfer using the following details:</p>
+        <ul style="list-style-type: none; padding: 0;">
+          <li><strong>Bank:</strong> Standard Chartered Bank</li>
+          <li><strong>Account Name:</strong> Mark Oketch</li>
+          <li><strong>Account Number:</strong> 0100428580200</li>
+          <li><strong>Branch:</strong> Thika</li>
+        </ul>
       </div>
-
-      <div class="custom-donation">
-        <label for="custom-amount">Or enter a custom amount:</label>
-        <input type="number" id="custom-amount" placeholder="Enter amount" min="100" />
-      </div>
-
-      <div class="total-donation">
-        <h3>Total Donation: Ksh <span id="total-amount">0</span></h3>
-      </div>
-    </section>
-
-   <!-- Payment Methods -->
-<section class="payment-methods">
-  <h3>Choose Your Payment Method</h3>
-  
-  <!-- MPESA Payment Button -->
-  <button class="payment-btn" onclick="processMPesa()">Pay with MPESA</button>
-
-  <!-- PayPal Payment Option -->
-  <div class="paypal-option" style="background: #fff; padding: 1rem; border-left: 4px solid #0070ba; border-radius: 6px; margin-top: 1rem;">
-    <h3><i class="fab fa-paypal"></i> PayPal</h3>
-    <p>You can support us via PayPal using the button below:</p>
-    <a href="https://www.paypal.com/ncp/payment/49GD9DXGBM5J6" target="_blank" style="background: #0070ba; color: white; padding: 0.5rem 1rem; text-decoration: none; border-radius: 4px; display: inline-block; font-size: 1rem;">Send via PayPal</a>
-  </div>
-
-   <!-- Bank Transfer Payment Button -->
-  <button class="payment-btn" onclick="showBankTransferDetails()">Bank Transfer</button>
-</section>
-
-<!-- Bank Transfer Modal (Popup) -->
-<div id="bank-transfer-modal" class="modal">
-  <div class="modal-content">
-    <span class="close-btn" onclick="closeModal()">&times;</span>
-    <div style="background: #fff; padding: 1rem; border-left: 4px solid #444; border-radius: 6px;">
-      <h3><i class="fas fa-university"></i> Bank Transfer</h3>
-      <p>You can make a bank deposit or transfer using the following details:</p>
-      <ul style="list-style-type: none; padding: 0;">
-        <li><strong>Bank:</strong> Standard Chartered Bank</li>
-        <li><strong>Account Name:</strong> Mark Oketch</li>
-        <li><strong>Account Number:</strong> 0100428580200</li>
-        <li><strong>Branch:</strong> Thika</li>
-      </ul>
     </div>
   </div>
-</div>
 
-<!-- Donate Now Button -->
-<section class="donate-button" style="margin-top: 1.5rem; text-align: center;">
-  <button id="donate-btn" onclick="processDonation()">Donate Now</button>
-</section>
+  <!-- Donate Now Button -->
+  <section class="donate-button" style="margin-top: 1.5rem; text-align: center;">
+    <button id="donate-btn" onclick="processDonation()">Donate Now</button>
+  </section>
+
+</main>
 
 <script>
-    let donationAmount = 0;
+  let donationAmount = 0;
 
-    // Set the donation amount when user clicks a preset value
-    function setDonationAmount(amount) {
-      donationAmount = amount;
+  // Update donation amount when user inputs a custom amount
+  document.getElementById('custom-amount').addEventListener('input', function() {
+    const customAmount = parseInt(this.value);
+    if (customAmount >= 100) {
+      donationAmount = customAmount;
       document.getElementById('total-amount').textContent = donationAmount;
     }
+  });
 
-    // Get the custom donation amount if user enters it
-    document.getElementById('custom-amount').addEventListener('input', function() {
-      const customAmount = parseInt(this.value);
-      if (customAmount >= 100) {
-        donationAmount = customAmount;
-        document.getElementById('total-amount').textContent = donationAmount;
-      }
-    });
-
-    // Process donation (simulated)
-    function processDonation() {
-      if (donationAmount <= 0) {
-        alert("Please enter a valid donation amount.");
-        return;
-      }
-      alert(`Thank you for your generous donation of Ksh ${donationAmount}!`);
-      resetDonationAmount();
+  // Process donation (simulated)
+  function processDonation() {
+    if (donationAmount <= 0) {
+      alert("Please enter a valid donation amount.");
+      return;
     }
-
-    // MPESA Payment Simulation
-    function processMPesa() {
-      if (donationAmount <= 0) {
-        alert("Please enter a valid donation amount.");
-        return;
-      }
-      alert(`You are being redirected to MPESA for payment of Ksh ${donationAmount}.`);
-      // Here you would trigger MPESA API or process. This is a simulation.
-      resetDonationAmount();
-    }
-
-    // PayPal Payment Simulation
-    function processPayPal() {
-      if (donationAmount <= 0) {
-        alert("Please enter a valid donation amount.");
-        return;
-      }
-      alert(`You are being redirected to PayPal for payment of Ksh ${donationAmount}.`);
-      // Here you would trigger PayPal API or redirect to PayPal for actual payment.
-      resetDonationAmount();
-    }
-// Donation Amount (you can adjust this value or make it dynamic later)
-let donationAmount = 500; // Set initial donation amount (can be dynamically changed)
-
-// Bank Transfer Payment Simulation
-function processBankTransfer() {
-  if (donationAmount <= 0) {
-    alert("Please enter a valid donation amount.");
-    return;
+    alert(`Thank you for your generous donation of Ksh ${donationAmount}!`);
+    resetDonationAmount();
   }
-  alert(`Bank transfer details will be sent to you for a donation of Ksh ${donationAmount}.`);
-  // Here you would send bank transfer instructions to the user or redirect.
-  resetDonationAmount();
-}
 
-// Function to show the Bank Transfer modal
-function showBankTransferDetails() {
-  // Get the modal
-  var modal = document.getElementById("bank-transfer-modal");
+  // MPESA Payment Simulation
+  function processMPesa() {
+    if (donationAmount <= 0) {
+      alert("Please enter a valid donation amount.");
+      return;
+    }
+    alert(`You are being redirected to MPESA for payment of Ksh ${donationAmount}.`);
+    // Here you would trigger MPESA API or process. This is a simulation.
+    resetDonationAmount();
+  }
 
-  // Show the modal
-  modal.style.display = "block";
-}
+  // PayPal Payment Simulation
+  function processPayPal() {
+    if (donationAmount <= 0) {
+      alert("Please enter a valid donation amount.");
+      return;
+    }
+    alert(`You are being redirected to PayPal for payment of Ksh ${donationAmount}.`);
+    // Here you would trigger PayPal API or redirect to PayPal for actual payment.
+    resetDonationAmount();
+  }
 
-// Function to close the modal
-function closeModal() {
-  // Get the modal
-  var modal = document.getElementById("bank-transfer-modal");
+  // Bank Transfer Payment Simulation
+  function processBankTransfer() {
+    if (donationAmount <= 0) {
+      alert("Please enter a valid donation amount.");
+      return;
+    }
+    alert(`Bank transfer details will be sent to you for a donation of Ksh ${donationAmount}.`);
+    // Here you would send bank transfer instructions to the user or redirect.
+    resetDonationAmount();
+  }
 
-  // Hide the modal
-  modal.style.display = "none";
-}
+  // Function to show the Bank Transfer modal
+  function showBankTransferDetails() {
+    // Get the modal
+    var modal = document.getElementById("bank-transfer-modal");
+    // Show the modal
+    modal.style.display = "block";
+  }
 
-// Close the modal if the user clicks anywhere outside the modal
-window.onclick = function(event) {
-  var modal = document.getElementById("bank-transfer-modal");
-  if (event.target == modal) {
+  // Function to close the modal
+  function closeModal() {
+    // Get the modal
+    var modal = document.getElementById("bank-transfer-modal");
+    // Hide the modal
     modal.style.display = "none";
   }
-}
 
-// Function to reset donation amount (optional)
-function resetDonationAmount() {
-  donationAmount = 0;
-  console.log("Donation amount has been reset.");
-}
-
-// Simulate donation process (this is where you process the actual donation)
-function processDonation() {
-  if (donationAmount <= 0) {
-    alert("Please enter a valid donation amount.");
-  } else {
-    alert(`Thank you for your donation of Ksh ${donationAmount}.`);
-    // You can add further code here to handle the donation process (like payment gateway integration)
-  }
-}
-
-
-    // Reset donation amount after a successful transaction
-    function resetDonationAmount() {
-      donationAmount = 0;
-      document.getElementById('total-amount').textContent = donationAmount;
+  // Close the modal if the user clicks anywhere outside the modal
+  window.onclick = function(event) {
+    var modal = document.getElementById("bank-transfer-modal");
+    if (event.target == modal) {
+      modal.style.display = "none";
     }
-  </script>
+  }
+
+  // Function to reset donation amount (optional)
+  function resetDonationAmount() {
+    donationAmount = 0;
+    document.getElementById('total-amount').textContent = donationAmount;
+  }
+</script>
