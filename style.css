@@ -302,6 +302,14 @@ main p, main li, main span {
 /*end home.html*/
 /*cart.html*/
 
+#cart-icon {
+  display: none;  /* Hidden by default */
+}
+
+#cart-icon.show {
+  display: block;  /* Show when class 'show' is added */
+}
+
 #cart-items {
   margin-bottom: 30px;
 }
