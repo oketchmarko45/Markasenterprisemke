@@ -198,23 +198,31 @@
     }, 5000);
 
     //loadpage
-   function loadPage(pageUrl) {
+  function loadPage(pageUrl) {
   fetch(pageUrl)
     .then(response => {
       if (!response.ok) {
-        // If the file is not found, load the 404 page instead
+        // If the requested page is not found, load the 404 page
         return fetch('404.html')
           .then(fallback => fallback.text())
           .then(fallbackContent => {
             const fallbackDiv = document.createElement('div');
             fallbackDiv.innerHTML = fallbackContent;
 
+            // Grab the content from the 404 page
             const fallbackMain = fallbackDiv.querySelector('main.content');
+
+            // Check if 404 page has main content and inject it
             document.querySelector('main.content').innerHTML = fallbackMain 
               ? fallbackMain.innerHTML 
-              : '<p>Page not found.</p>';
+              : '<p>Sorry, the page you are looking for cannot be found.</p>';
             
-            // Return a rejected promise to stop further processing
+            // Optionally: Update the title here if you want to apply random titles
+            const randomTitle = document.querySelector('#error-title');
+            if (randomTitle) {
+              randomTitle.textContent = "Doggone It! We Can't Find That Page | Markas Enterprise MKE";
+            }
+
             throw new Error("Original page not found. Loaded 404.");
           });
       }
@@ -224,6 +232,7 @@
       const tempDiv = document.createElement('div');
       tempDiv.innerHTML = data;
 
+      // Extract and load content into the page
       const mainContent = tempDiv.querySelector('main.content');
       document.querySelector('main.content').innerHTML = mainContent 
         ? mainContent.innerHTML 
