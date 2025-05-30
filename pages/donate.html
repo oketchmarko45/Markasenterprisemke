@@ -42,7 +42,7 @@
   <button class="payment-btn" onclick="showBankTransferDetails()">Bank Transfer</button>
 </section>
 
-    <!-- Bank Transfer Modal (Popup) -->
+<!-- Bank Transfer Modal (Popup) -->
 <div id="bank-transfer-modal" class="modal">
   <div class="modal-content">
     <span class="close-btn" onclick="closeModal()">&times;</span>
@@ -58,12 +58,11 @@
     </div>
   </div>
 </div>
-    
+
 <!-- Donate Now Button -->
 <section class="donate-button" style="margin-top: 1.5rem; text-align: center;">
   <button id="donate-btn" onclick="processDonation()">Donate Now</button>
 </section>
-  </main>
 
 <script>
     let donationAmount = 0;
@@ -114,17 +113,62 @@
       // Here you would trigger PayPal API or redirect to PayPal for actual payment.
       resetDonationAmount();
     }
+// Donation Amount (you can adjust this value or make it dynamic later)
+let donationAmount = 500; // Set initial donation amount (can be dynamically changed)
 
-    // Bank Transfer Payment Simulation
-    function processBankTransfer() {
-      if (donationAmount <= 0) {
-        alert("Please enter a valid donation amount.");
-        return;
-      }
-      alert(`Bank transfer details will be sent to you for donation of Ksh ${donationAmount}.`);
-      // Here you would send bank transfer instructions to the user or redirect.
-      resetDonationAmount();
-    }
+// Bank Transfer Payment Simulation
+function processBankTransfer() {
+  if (donationAmount <= 0) {
+    alert("Please enter a valid donation amount.");
+    return;
+  }
+  alert(`Bank transfer details will be sent to you for a donation of Ksh ${donationAmount}.`);
+  // Here you would send bank transfer instructions to the user or redirect.
+  resetDonationAmount();
+}
+
+// Function to show the Bank Transfer modal
+function showBankTransferDetails() {
+  // Get the modal
+  var modal = document.getElementById("bank-transfer-modal");
+
+  // Show the modal
+  modal.style.display = "block";
+}
+
+// Function to close the modal
+function closeModal() {
+  // Get the modal
+  var modal = document.getElementById("bank-transfer-modal");
+
+  // Hide the modal
+  modal.style.display = "none";
+}
+
+// Close the modal if the user clicks anywhere outside the modal
+window.onclick = function(event) {
+  var modal = document.getElementById("bank-transfer-modal");
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+// Function to reset donation amount (optional)
+function resetDonationAmount() {
+  donationAmount = 0;
+  console.log("Donation amount has been reset.");
+}
+
+// Simulate donation process (this is where you process the actual donation)
+function processDonation() {
+  if (donationAmount <= 0) {
+    alert("Please enter a valid donation amount.");
+  } else {
+    alert(`Thank you for your donation of Ksh ${donationAmount}.`);
+    // You can add further code here to handle the donation process (like payment gateway integration)
+  }
+}
+
 
     // Reset donation amount after a successful transaction
     function resetDonationAmount() {
