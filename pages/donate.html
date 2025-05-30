@@ -8,7 +8,7 @@
   <section class="donation-options">
     <h3>Enter Your Donation Details</h3>
     
-    <!-- Name, Mobile, Email, and Custom Amount -->
+    <!-- Donation Form -->
     <div class="donation-form">
       <label for="donor-name">Your Name:</label>
       <input type="text" id="donor-name" placeholder="Enter your name" required>
@@ -32,18 +32,12 @@
   <section class="payment-methods">
     <h3>Choose Your Payment Method</h3>
     
-    <!-- MPESA Payment Button -->
-    <button class="payment-btn" onclick="processMPesa()">Pay with MPESA</button>
-
-    <!-- PayPal Payment Option -->
-    <div style="background: #fff; padding: 1rem; border-left: 4px solid #0070ba; border-radius: 6px; margin-top: 1rem;">
-      <h3><i class="fab fa-paypal"></i> PayPal</h3>
-      <p>You can support us via PayPal using the button below:</p>
-      <a href="https://www.paypal.com/ncp/payment/49GD9DXGBM5J6" target="_blank" style="background: #0070ba; color: white; padding: 0.5rem 1rem; text-decoration: none; border-radius: 4px; display: inline-block;">Send via PayPal</a>
+    <!-- MPESA, PayPal, and Bank Transfer buttons in a horizontal layout -->
+    <div class="payment-buttons">
+      <button class="payment-btn" onclick="processMPesa()">Pay with MPESA</button>
+      <button class="payment-btn" onclick="processPayPal()">Pay with PayPal</button>
+      <button class="payment-btn" onclick="showBankTransferDetails()">Bank Transfer</button>
     </div>
-
-    <!-- Bank Transfer Payment Button -->
-    <button class="payment-btn" onclick="showBankTransferDetails()">Bank Transfer</button>
   </section>
 
   <!-- Bank Transfer Modal (Popup) -->
@@ -64,11 +58,12 @@
   </div>
 
   <!-- Donate Now Button -->
-  <section class="donate-button" style="margin-top: 1.5rem; text-align: center;">
+  <section class="donate-button" style="margin-top: 2rem; text-align: center;">
     <button id="donate-btn" onclick="processDonation()">Donate Now</button>
   </section>
 </main>
 
+<!-- Paystack Script -->
 <script src="https://js.paystack.co/v1/inline.js"></script>
 
 <script>
@@ -93,7 +88,7 @@
     // Redirect or API call for MPESA payment would happen here.
   }
 
-  // Process PayPal payment (using PayPal button as is)
+  // Process PayPal payment
   function processPayPal() {
     const email = document.getElementById('donor-email').value;
     if (!email || donationAmount <= 0) {
