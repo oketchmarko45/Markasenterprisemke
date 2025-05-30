@@ -43,7 +43,10 @@
 
     <!-- Cart icon shown only on specific pages -->
     <div id="cart-icon" style="display: none;">
-      <a href="cart.html">🛒 View Cart (<span id="cart-count">0</span>)</a>
+      <a href="cart.html">
+        <i class="fas fa-shopping-cart"></i> 
+        <span id="cart-count">0</span>
+      </a>
     </div>
 
   </header>
@@ -155,7 +158,27 @@
   } else {
     copyright.textContent = `© ${startYear} - ${currentYear} Markas Enterprise MKE. All rights reserved.`;
   }
+  //cart logics
+   function updateCartCount() {
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const cartCount = document.getElementById('cart-count');
+  const cartIcon = document.getElementById('cart-icon');
 
+  if (cartCount) {
+    cartCount.textContent = cart.length;
+  }
+
+  if (cartIcon) {
+    if (cart.length > 0) {
+      cartIcon.classList.add('show');  // Show the cart icon using CSS
+    } else {
+      cartIcon.classList.remove('show');  // Hide the cart icon using CSS
+    }
+  }
+}
+
+window.addEventListener('DOMContentLoaded', updateCartCount);
+  //end of cart
    
   //hamburger setup
   
