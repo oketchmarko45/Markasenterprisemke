@@ -751,6 +751,33 @@ button:hover {
     text-align: left;
   }
 }
+
+/*feed back */
+form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input, select, textarea {
+            padding: 10px;
+            font-size: 1em;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            border: none;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #555;
+        }
 /*end*/
 /* end body */
 /* Footer styles */
