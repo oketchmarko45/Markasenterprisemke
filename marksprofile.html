@@ -3,12 +3,64 @@
 <head>
   <meta charset="UTF-8">
   <title>Ochieng Mark Oketch | Portfolio</title>
+
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-</head>
-<body style="font-family: Arial, sans-serif; margin: 0; background-color: #f9f9f9; color: #333;">
 
-<main class="content" style="max-width: 900px; margin: 40px auto; background-color: white; padding: 30px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+  <!-- Responsive Social Styles -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+
+    main.content {
+      max-width: 900px;
+      margin: 40px auto;
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .social-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .social-links a {
+      flex: 1 1 calc(25% - 10px);
+      min-width: 120px;
+      text-align: center;
+      padding: 10px 12px;
+      color: white;
+      border-radius: 5px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @media (max-width: 768px) {
+      .social-links a {
+        flex: 1 1 calc(50% - 10px);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .social-links a {
+        flex: 1 1 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<main class="content">
 
   <!-- Profile Section -->
   <section style="display: flex; flex-wrap: wrap; align-items: center; margin-bottom: 40px;">
@@ -73,33 +125,35 @@
   <!-- Social Media -->
   <section style="margin-bottom: 30px;">
     <h2>Connect With Me</h2>
-    <a href="https://facebook.com/oketchmarko45" target="_blank" style="margin: 5px; color: white; background-color: #3b5998; padding: 8px 12px; border-radius: 5px; text-decoration: none;">
-      <i class="fab fa-facebook-f"></i> Facebook
-    </a>
-    <a href="https://wa.me/254712711088" target="_blank" style="margin: 5px; color: white; background-color: green; padding: 8px 12px; border-radius: 5px; text-decoration: none;">
-       <i class="fab fa-whatsapp"></i> WhatsApp
-    </a>
-    <a href="https://x.com/oketchmarko45" target="_blank" style="margin: 5px; color: white; background-color: #000000; padding: 8px 12px; border-radius: 5px; text-decoration: none;">
-      <i class="fab fa-x-twitter"></i> X
-    </a>
-    <a href="https://instagram.com/oketchmarko45" target="_blank" style="margin: 5px; color: white; background-color: #E1306C; padding: 8px 12px; border-radius: 5px; text-decoration: none;">
-      <i class="fab fa-instagram"></i> Instagram
-    </a>
-    <a href="https://tiktok.com/@oketchmarko45" target="_blank" style="margin: 5px; color: white; background-color: #010101; padding: 8px 12px; border-radius: 5px; text-decoration: none;">
-      <i class="fab fa-tiktok"></i> TikTok
-    </a>
-    <a href="https://github.com/oketchmarko45" target="_blank" style="margin: 5px; color: white; background-color: #333; padding: 8px 12px; border-radius: 5px; text-decoration: none;">
-      <i class="fab fa-github"></i> GitHub
-    </a>
-    <a href="https://www.linkedin.com/in/oketchmarko45" target="_blank" style="margin: 5px; color: white; background-color: #0077B5; padding: 8px 12px; border-radius: 5px; text-decoration: none;">
-      <i class="fab fa-linkedin"></i> LinkedIn
-    </a>
-    <a href="https://www.youtube.com/@oketchmarko45" target="_blank" style="margin: 5px; color: white; background-color: #FF0000; padding: 8px 12px; border-radius: 5px; text-decoration: none;">
-      <i class="fab fa-youtube"></i> YouTube
-    </a>
-    <a href="https://oketchmarko45.wordpress.com" target="_blank" style="margin: 5px; color: white; background-color: #21759B; padding: 8px 12px; border-radius: 5px; text-decoration: none;">
-      <i class="fab fa-wordpress"></i> WordPress
-    </a>
+    <div class="social-links">
+      <a href="https://facebook.com/oketchmarko45" target="_blank" style="background-color: #3b5998;">
+        <i class="fab fa-facebook-f"></i>&nbsp;Facebook
+      </a>
+      <a href="https://wa.me/254712711088" target="_blank" style="background-color: green;">
+        <i class="fab fa-whatsapp"></i>&nbsp;WhatsApp
+      </a>
+      <a href="https://x.com/oketchmarko45" target="_blank" style="background-color: #000000;">
+        <i class="fab fa-x-twitter"></i>&nbsp;X
+      </a>
+      <a href="https://instagram.com/oketchmarko45" target="_blank" style="background-color: #E1306C;">
+        <i class="fab fa-instagram"></i>&nbsp;Instagram
+      </a>
+      <a href="https://tiktok.com/@oketchmarko45" target="_blank" style="background-color: #010101;">
+        <i class="fab fa-tiktok"></i>&nbsp;TikTok
+      </a>
+      <a href="https://github.com/oketchmarko45" target="_blank" style="background-color: #333;">
+        <i class="fab fa-github"></i>&nbsp;GitHub
+      </a>
+      <a href="https://www.linkedin.com/in/oketchmarko45" target="_blank" style="background-color: #0077B5;">
+        <i class="fab fa-linkedin"></i>&nbsp;LinkedIn
+      </a>
+      <a href="https://www.youtube.com/@oketchmarko45" target="_blank" style="background-color: #FF0000;">
+        <i class="fab fa-youtube"></i>&nbsp;YouTube
+      </a>
+      <a href="https://oketchmarko45.wordpress.com" target="_blank" style="background-color: #21759B;">
+        <i class="fab fa-wordpress"></i>&nbsp;WordPress
+      </a>
+    </div>
   </section>
 
   <!-- Back to Home Button -->
