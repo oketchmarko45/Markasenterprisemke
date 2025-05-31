@@ -22,15 +22,17 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: var(--light-bg);
       margin: 0;
+      padding: 0;
       color: var(--text-color);
       line-height: 1.6;
     }
     
     .content {
-      max-width: 600px;
+      width: 90%;
+      max-width: 800px;  /* Increased from 600px */
       margin: 40px auto;
       background-color: var(--white);
-      padding: 30px;
+      padding: 40px;
       border-radius: var(--border-radius);
       box-shadow: var(--box-shadow);
     }
@@ -49,7 +51,7 @@
     
     input, textarea, button {
       width: 100%;
-      padding: 12px;
+      padding: 15px;  /* Increased padding */
       margin-bottom: 20px;
       border: 1px solid #ddd;
       border-radius: var(--border-radius);
@@ -66,7 +68,7 @@
     }
     
     textarea {
-      min-height: 120px;
+      min-height: 150px;  /* Increased height */
       resize: vertical;
     }
     
@@ -78,7 +80,8 @@
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 1px;
-      margin-top: 10px;
+      margin-top: 20px;  /* Increased margin */
+      padding: 15px;
     }
     
     button:hover {
@@ -124,14 +127,15 @@
       display: none;
     }
     
-    @media (max-width: 650px) {
+    @media (max-width: 768px) {
       .content {
+        width: 95%;
+        padding: 25px;
         margin: 20px auto;
-        padding: 20px;
       }
       
       input, textarea, button {
-        padding: 10px;
+        padding: 12px;
       }
     }
   </style>
@@ -147,13 +151,13 @@
   <h2>Book a Service</h2>
   <p style="text-align: center; margin-bottom: 25px;">Fill out the form below and we'll get back to you shortly</p>
 
-  <!-- Netlify Form -->
+  <!-- Netlify Form - Fixed action URL -->
   <form 
     name="book-service" 
     method="POST" 
     data-netlify="true"
     netlify-honeypot="bot-field"
-    action="/thankyou.html"
+    action="thankyou.html"  <!-- Changed from /thankyou.html -->
   >
     <input type="hidden" name="form-name" value="book-service">
     <p class="hidden">
