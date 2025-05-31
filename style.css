@@ -668,6 +668,38 @@ button:hover {
     text-decoration: none;
   }
 
+/* Shared pricing tables */
+.daycare-pricing, .boarding-pricing, .grooming-pricing {
+  margin-top: 20px;
+}
+
+.daycare-pricing h4,
+.boarding-pricing h4,
+.grooming-pricing h4 {
+  margin-bottom: 10px;
+  color: #444;
+}
+
+.daycare-pricing table,
+.boarding-pricing table,
+.grooming-pricing table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.daycare-pricing th, .daycare-pricing td,
+.boarding-pricing th, .boarding-pricing td,
+.grooming-pricing th, .grooming-pricing td {
+  padding: 10px;
+  border: 1px solid #ccc;
+  text-align: left;
+}
+
+.daycare-pricing th,
+.boarding-pricing th,
+.grooming-pricing th {
+  background-color: #f0f0f0;
+}
 /*end*/
 /* end body */
 /* Footer styles */
