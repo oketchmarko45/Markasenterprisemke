@@ -1,1 +1,23 @@
+  <main id="content">
+        <h2>Feedback Form</h2>
+        <form action="#" method="post">
+            <label for="name">Your Name:</label>
+            <input type="text" id="name" name="name" required>
 
+            <label for="email">Your Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="service">Which service are you giving feedback on?</label>
+            <select id="service" name="service" required>
+                <option value="">-- Select a Service --</option>
+                <option value="kennel">Kennel Service</option>
+                <option value="petstore">Pet Store</option>
+                <option value="bookstore">Dog Book Store</option>
+            </select>
+
+            <label for="message">Your Feedback:</label>
+            <textarea id="message" name="message" rows="6" required></textarea>
+
+            <button type="submit">Submit Feedback</button>
+        </form>
+    </main>
