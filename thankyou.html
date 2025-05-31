@@ -2,28 +2,156 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Thank You</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thank You | Markas Enterprise MKE</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #0056b3;
+      --secondary-color: #003366;
+      --accent-color: #ff7e00;
+      --text-color: #333;
+      --light-bg: #f9f9f9;
+      --white: #ffffff;
+      --border-radius: 8px;
+      --box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--light-bg);
+      margin: 0;
+      color: var(--text-color);
+      line-height: 1.6;
+      text-align: center;
+    }
+    
+    .thank-you-container {
+      max-width: 600px;
+      margin: 80px auto;
+      background-color: var(--white);
+      padding: 40px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+    }
+    
+    h1 {
+      color: var(--primary-color);
+      margin-bottom: 20px;
+    }
+    
+    .checkmark {
+      color: #28a745;
+      font-size: 60px;
+      margin-bottom: 20px;
+    }
+    
+    .btn {
+      display: inline-block;
+      background-color: var(--primary-color);
+      color: white;
+      padding: 12px 24px;
+      text-decoration: none;
+      border-radius: var(--border-radius);
+      margin-top: 30px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .btn:hover {
+      background-color: #004494;
+      transform: translateY(-2px);
+    }
+    
+    footer {
+      background-color: var(--secondary-color);
+      color: var(--white);
+      text-align: center;
+      padding: 30px 20px;
+      width: 100%;
+      box-sizing: border-box;
+      margin-top: 40px;
+    }
+    
+    footer a {
+      color: var(--white);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    
+    footer a:hover {
+      color: var(--accent-color);
+      text-decoration: underline;
+    }
+    
+    .social-links {
+      margin: 20px 0;
+    }
+    
+    .social-links a {
+      display: inline-block;
+      margin: 0 15px;
+      font-size: 20px;
+    }
+    
+    .social-links a:hover {
+      transform: scale(1.1);
+    }
+    
+    @media (max-width: 650px) {
+      .thank-you-container {
+        margin: 40px 20px;
+        padding: 30px 20px;
+      }
+    }
+  </style>
 </head>
-<body style="font-family: Arial, sans-serif; background-color: #f9f9f9; margin: 0; color: #333;">
+<body>
 
-<!-- HEADER (Same as above) -->
-<header>
-    <!-- Your header and nav goes here -->
-   <div id="header-placeholder"></div>
-</header>
+  <div class="thank-you-container">
+    <div class="checkmark">
+      <i class="fas fa-check-circle"></i>
+    </div>
+    <h1>Thank You!</h1>
+    <p>Your booking request has been submitted successfully.</p>
+    <p>We'll contact you within 24 hours to confirm your appointment.</p>
+    <a href="booking.html" class="btn">
+      <i class="fas fa-arrow-left" style="margin-right: 8px;"></i> Return to Booking
+    </a>
+  </div>
+  
+  <!-- Footer -->
+  <footer>
+    <h4>Markas Enterprise MKE</h4>
+    <p>Created by 
+      <a href="marksprofile.html">Ochieng' Mark Oketch</a>
+      – Dogtrovert, Writer, Developer</p>
+    <p>Contact: 
+      <a href="mailto:markasenterprisemke@gmail.com">Markas Enterprise MKE via mail</a>
+    </p>
 
-<main class="content" style="max-width: 600px; margin: 40px auto; background-color: white; padding: 30px; border-radius: 10px; text-align: center; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
-  <h2 style="color: #28a745;">Thank You!</h2>
-  <p>Your booking was submitted successfully.</p>
-  <p>I’ll be in touch soon via email or phone.</p>
+    <div class="social-links">
+      <a href="https://whatsapp.com/channel/0029VaQvCIiAYlUSCFIT903y" target="_blank" rel="noopener noreferrer" aria-label="Whatsapp">
+        <i class="fab fa-whatsapp"></i>
+      </a>
+      <a href="https://www.facebook.com/markasenterprisemke" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a href="https://youtube.com/@markasenterprisemke" target="_blank" rel="noopener noreferrer" aria-label="Youtube">
+        <i class="fab fa-youtube"></i>
+      </a>
+      <a href="https://www.linkedin.com/in/mark-oketch-ochieng-6a9b0b1b4/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+        <i class="fab fa-linkedin-in"></i>
+      </a>
+    </div>
 
-  <a href="index.html" style="margin-top: 20px; display: inline-block; padding: 10px 15px; background-color: #0056b3; color: white; border-radius: 5px; text-decoration: none;">
-    &larr; Back to Home
-  </a>
-</main>
+    <p id="copyright" style="margin-top: 20px; font-size: 0.9em;"></p>
+  </footer>
 
-<!-- FOOTER -->
-
+  <script>
+    // Dynamic copyright year
+    document.getElementById('copyright').innerHTML = `&copy; ${new Date().getFullYear()} Markas Enterprise MKE. All rights reserved.`;
+  </script>
 
 </body>
 </html>
