@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Book My Services | Markas Enterprise MKE</title>
-  <meta name="description" content="Book professional services with Markas Enterprise MKE. Contact us for all your service needs.">
+  <title>Book Services | Markas Enterprise MKE</title>
+  <meta name="description" content="Book professional services with Markas Enterprise MKE">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
@@ -120,6 +120,10 @@
       transform: scale(1.1);
     }
     
+    .hidden {
+      display: none;
+    }
+    
     @media (max-width: 650px) {
       .content {
         margin: 20px auto;
@@ -140,27 +144,39 @@
 </header>
 
 <main class="content">
-        <h2>Book a Service</h2>
-        <p style="text-align: center; margin-bottom: 25px;">Fill out the form below and we'll get back to you shortly</p>
+  <h2>Book a Service</h2>
+  <p style="text-align: center; margin-bottom: 25px;">Fill out the form below and we'll get back to you shortly</p>
 
-        <form action="send_email.php" method="POST">
-            <label for="name">Full Name:</label>
-            <input type="text" id="name" name="name" required placeholder="Enter your full name">
+  <!-- Netlify Form -->
+  <form 
+    name="book-service" 
+    method="POST" 
+    data-netlify="true"
+    netlify-honeypot="bot-field"
+    action="/thankyou.html"
+  >
+    <input type="hidden" name="form-name" value="book-service">
+    <p class="hidden">
+      <label>Don't fill this out if you're human: <input name="bot-field"></label>
+    </p>
 
-            <label for="email">Email Address:</label>
-            <input type="email" id="email" name="email" required placeholder="Enter your email address">
+    <label for="name">Full Name:</label>
+    <input type="text" id="name" name="name" required placeholder="Enter your full name">
 
-            <label for="phone">Phone Number:</label>
-            <input type="tel" id="phone" name="phone" required placeholder="Enter your phone number">
+    <label for="email">Email Address:</label>
+    <input type="email" id="email" name="email" required placeholder="Enter your email address">
 
-            <label for="service">What service do you need?</label>
-            <textarea id="service" name="service" required placeholder="Describe the service you're interested in..."></textarea>
+    <label for="phone">Phone Number:</label>
+    <input type="tel" id="phone" name="phone" required placeholder="Enter your phone number">
 
-            <button type="submit">
-                <i class="fas fa-paper-plane" style="margin-right: 8px;"></i> Submit Booking
-            </button>
-        </form>
-    </main>
+    <label for="service">What service do you need?</label>
+    <textarea id="service" name="service" required placeholder="Describe the service you're interested in..."></textarea>
+
+    <button type="submit">
+      <i class="fas fa-paper-plane" style="margin-right: 8px;"></i> Submit Booking
+    </button>
+  </form>
+</main>
   
 <!-- Footer -->
 <footer>
@@ -192,23 +208,14 @@
 
 <script>
   // Dynamic copyright year
+  document.getElementById('copyright').innerHTML = `&copy; ${new Date().getFullYear()} Markas Enterprise MKE. All rights reserved.`;
+  
+  // Form submission handling
   document.querySelector('form').addEventListener('submit', function(e) {
-    const name = document.getElementById('name').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const phone = document.getElementById('phone').value.trim();
-    const service = document.getElementById('service').value.trim();
-
-    if (!name || !email || !phone || !service) {
-        e.preventDefault();
-        alert("Please fill in all fields.");
-        return;
-    }
-
     const submitBtn = this.querySelector('button[type="submit"]');
     submitBtn.disabled = true;
     submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
-});
-    
+  });
 </script>
 
 </body>
