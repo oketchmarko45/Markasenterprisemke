@@ -69,25 +69,53 @@
 <main class="content">
 
   <!-- Profile Section -->
-  <section style="display: flex; flex-wrap: wrap; align-items: center; margin-bottom: 40px;">
-    <div style="flex: 1; min-width: 120px;">
-      <img src="Images/passport.jpg" alt="Ochieng Mark Oketch" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover;">
+<section style="display: flex; align-items: center; margin-bottom: 40px; position: relative;">
+  <!-- Circular Profile Image (Left Border) -->
+  <div style="width: 120px; height: 120px; border-radius: 50%; overflow: hidden; border: 3px solid #003366; margin-right: 30px;">
+    <img src="Images/passport.jpg" alt="Ochieng Mark Oketch" style="width: 100%; height: 100%; object-fit: cover;">
+  </div>
+  
+  <!-- Profile Details -->
+  <div style="flex: 1;">
+    <h1 style="margin: 0 0 5px 0; color: #003366;">Ochieng Mark Oketch</h1>
+    <p style="margin: 0 0 5px 0; font-size: 18px;"><strong>Founder and CEO</strong></p>
+    <p style="margin: 0 0 15px 0; font-size: 16px;">Markas Enterprise MKE</p>
+    
+    <div style="margin: 0 0 20px 0; display: flex; align-items: center; flex-wrap: wrap; gap: 10px;">
+      <span style="display: flex; align-items: center;">
+        <i class="fas fa-envelope" style="color: #003366;"></i> 
+        <a href="mailto:oketchmarko45@gmail.com" style="color: #0056b3; text-decoration: none; margin-left: 5px;">
+          oketchmarko45@gmail.com
+        </a>
+      </span>
+      
+      <span style="color: #003366;">|</span>
+      
+      <span style="display: flex; align-items: center;">
+        <i class="fab fa-linkedin" style="color: #0077B5;"></i> 
+        <a href="https://www.linkedin.com/in/oketchmarko45" target="_blank" style="color: #0077B5; text-decoration: none; margin-left: 5px;">
+          LinkedIn Profile
+        </a>
+      </span>
     </div>
-   <p style="margin: 5px 0;">
-  <a href="mailto:oketchmarko45@gmail.com" style="color: #0056b3; text-decoration: none;">oketchmarko45@gmail.com</a> |
-  <a href="https://www.linkedin.com/in/oketchmarko45" target="_blank" style="color: #0077B5; text-decoration: none;">LinkedIn Profile</a>
-</p>
-
-<!-- Buttons under email/linkedin -->
-<div style="margin-top: 10px;">
-  <a href="Documents/Ochieng_Mark_CV.pdf" target="_blank" style="display: inline-block; background-color: #333; color: white; padding: 8px 16px; margin-right: 10px; border-radius: 5px; text-decoration: none;">
-    Download CV
-  </a>
-  <a href="booking.html" style="display: inline-block; background-color: #003366; color: white; padding: 8px 16px; border-radius: 5px; text-decoration: none;">
-    Book Services
-  </a>
-</div>
-  </section>
+    
+    <!-- Action Buttons -->
+    <div style="display: flex; gap: 15px;">
+      <a href="cv.pdf" download style="display: inline-block; background-color: #003366; color: white; padding: 8px 20px; border-radius: 5px; text-decoration: none; font-weight: bold; transition: all 0.3s ease;"
+         onmouseover="this.style.transform='scale(1.05)'; this.style.opacity='0.9';" 
+         onmouseout="this.style.transform='scale(1)'; this.style.opacity='1';">
+        <i class="fas fa-download"></i> Download CV
+      </a>
+      
+      <a href="booking.html" style="display: inline-block; background-color: #25D366; color: white; padding: 8px 20px; border-radius: 5px; text-decoration: none; font-weight: bold; transition: all 0.3s ease;"
+         onmouseover="this.style.transform='scale(1.05)'; this.style.opacity='0.9';" 
+         onmouseout="this.style.transform='scale(1)'; this.style.opacity='1';">
+        <i class="fas fa-calendar-check"></i> Book Service
+      </a>
+    </div>
+  </div>
+</section>
+  
 
   <!-- About -->
   <section style="margin-bottom: 30px;">
