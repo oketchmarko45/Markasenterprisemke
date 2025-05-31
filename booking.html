@@ -2,76 +2,209 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Book My Services</title>
-  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book My Services | Markas Enterprise MKE</title>
+  <meta name="description" content="Book professional services with Markas Enterprise MKE. Contact us for all your service needs.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #0056b3;
+      --secondary-color: #003366;
+      --accent-color: #ff7e00;
+      --text-color: #333;
+      --light-bg: #f9f9f9;
+      --white: #ffffff;
+      --border-radius: 8px;
+      --box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--light-bg);
+      margin: 0;
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+    
+    .content {
+      max-width: 600px;
+      margin: 40px auto;
+      background-color: var(--white);
+      padding: 30px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+    }
+    
+    h2 {
+      text-align: center;
+      color: var(--primary-color);
+      margin-bottom: 25px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+    
+    input, textarea, button {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border: 1px solid #ddd;
+      border-radius: var(--border-radius);
+      box-sizing: border-box;
+      font-family: inherit;
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+    
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(0,86,179,0.1);
+    }
+    
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+    
+    button {
+      background-color: var(--primary-color);
+      color: var(--white);
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 10px;
+    }
+    
+    button:hover {
+      background-color: #004494;
+      transform: translateY(-2px);
+    }
+    
+    footer {
+      background-color: var(--secondary-color);
+      color: var(--white);
+      text-align: center;
+      padding: 30px 20px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    
+    footer a {
+      color: var(--white);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    
+    footer a:hover {
+      color: var(--accent-color);
+      text-decoration: underline;
+    }
+    
+    .social-links {
+      margin: 20px 0;
+    }
+    
+    .social-links a {
+      display: inline-block;
+      margin: 0 15px;
+      font-size: 20px;
+    }
+    
+    .social-links a:hover {
+      transform: scale(1.1);
+    }
+    
+    @media (max-width: 650px) {
+      .content {
+        margin: 20px auto;
+        padding: 20px;
+      }
+      
+      input, textarea, button {
+        padding: 10px;
+      }
+    }
+  </style>
 </head>
-<body style="font-family: Arial, sans-serif; background-color: #f9f9f9; margin: 0; color: #333;">
+<body>
 
 <!-- HEADER -->
 <header>
-    <!-- Your header and nav goes here -->
-   <div id="header-placeholder"></div>
+  <div id="header-placeholder"></div>
 </header>
 
-<main class="content" style="max-width: 600px; margin: 40px auto; background-color: white; padding: 30px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
-  <h2 style="text-align: center;">Book a Service</h2>
+<main class="content">
+  <h2>Book a Service</h2>
+  <p style="text-align: center; margin-bottom: 25px;">Fill out the form below and we'll get back to you shortly</p>
 
   <form action="https://formsubmit.co/oketchmarko45@gmail.com" method="POST">
     <input type="hidden" name="_captcha" value="false">
     <input type="hidden" name="_next" value="thankyou.html">
+    <input type="hidden" name="_subject" value="New Service Booking Request">
 
-    <label>Name:</label><br>
-    <input type="text" name="name" required style="width: 100%; padding: 10px; margin-bottom: 15px;"><br>
+    <label for="name">Full Name:</label>
+    <input type="text" id="name" name="name" required placeholder="Enter your full name">
 
-    <label>Email Address:</label><br>
-    <input type="email" name="email" required style="width: 100%; padding: 10px; margin-bottom: 15px;"><br>
+    <label for="email">Email Address:</label>
+    <input type="email" id="email" name="email" required placeholder="Enter your email address">
 
-    <label>Phone Number:</label><br>
-    <input type="tel" name="phone" required style="width: 100%; padding: 10px; margin-bottom: 15px;"><br>
+    <label for="phone">Phone Number:</label>
+    <input type="tel" id="phone" name="phone" required placeholder="Enter your phone number">
 
-    <label>What service do you need?</label><br>
-    <textarea name="service" rows="4" required style="width: 100%; padding: 10px; margin-bottom: 20px;"></textarea><br>
+    <label for="service">What service do you need?</label>
+    <textarea id="service" name="service" required placeholder="Describe the service you're interested in..."></textarea>
 
-    <button type="submit" style="background-color: #0056b3; color: white; padding: 10px 20px; border: none; border-radius: 5px;">Submit Booking</button>
+    <button type="submit">
+      <i class="fas fa-paper-plane" style="margin-right: 8px;"></i> Submit Booking
+    </button>
   </form>
 </main>
   
 <!-- Footer -->
-<footer style="background-color: #003366; color: white; text-align: center; padding: 20px; width: 100%; margin: 0 auto; box-sizing: border-box;">
-  <h4 style="margin: 10px 0;">Markas Enterprise MKE</h4>
-  <p style="margin: 10px 0;">Created by 
-    <a href="marksprofile.html" style="color: #ffffff; text-decoration: underline;">Ochieng' Mark Oketch</a>
+<footer>
+  <h4>Markas Enterprise MKE</h4>
+  <p>Created by 
+    <a href="marksprofile.html">Ochieng' Mark Oketch</a>
     – Dogtrovert, Writer, Developer</p>
-  <p style="margin: 10px 0;">Contact : 
-    <a href="mailto:markasenterprisemke@gmail.com" style="color: #ffffff; text-decoration: underline;">Markas Enterprise MKE via mail</a>
+  <p>Contact: 
+    <a href="mailto:markasenterprisemke@gmail.com">Markas Enterprise MKE via mail</a>
   </p>
 
-  <div class="social-links" style="margin-top: 15px;">
-    <a href="https://whatsapp.com/channel/0029VaQvCIiAYlUSCFIT903y" target="_blank" rel="noopener noreferrer" aria-label="Whatsapp" style="margin: 0 10px; color: white;">
+  <div class="social-links">
+    <a href="https://whatsapp.com/channel/0029VaQvCIiAYlUSCFIT903y" target="_blank" rel="noopener noreferrer" aria-label="Whatsapp">
       <i class="fab fa-whatsapp"></i>
     </a>
-    <a href="https://www.facebook.com/markasenterprisemke" target="_blank" rel="noopener noreferrer" aria-label="Facebook" style="margin: 0 10px; color: white;">
+    <a href="https://www.facebook.com/markasenterprisemke" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
       <i class="fab fa-facebook-f"></i>
     </a>
-    <a href="https://youtube.com/@markasenterprisemke" target="_blank" rel="noopener noreferrer" aria-label="Youtube" style="margin: 0 10px; color: white;">
+    <a href="https://youtube.com/@markasenterprisemke" target="_blank" rel="noopener noreferrer" aria-label="Youtube">
       <i class="fab fa-youtube"></i>
+    </a>
+    <a href="https://www.linkedin.com/in/mark-oketch-ochieng-6a9b0b1b4/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+      <i class="fab fa-linkedin-in"></i>
     </a>
   </div>
 
-  <p id="copyright" style="margin-top: 20px;"></p>
+  <p id="copyright" style="margin-top: 20px; font-size: 0.9em;"></p>
 </footer>
 
-  <script>
-  const copyright = document.getElementById('copyright');
-  const startYear = 2024;
-  const currentYear = new Date().getFullYear();
-  if (currentYear === startYear) {
-    copyright.textContent = `© ${startYear} Markas Enterprise MKE. All rights reserved.`;
-  } else {
-    copyright.textContent = `© ${startYear} - ${currentYear} Markas Enterprise MKE. All rights reserved.`;
-  }
-  </script>
-<!-- FOOTER -->
+<script>
+  // Dynamic copyright year
+  document.getElementById('copyright').innerHTML = `&copy; ${new Date().getFullYear()} Markas Enterprise MKE. All rights reserved.`;
+  
+  // Form submission enhancement
+  document.querySelector('form').addEventListener('submit', function(e) {
+    const submitBtn = this.querySelector('button[type="submit"]');
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+  });
+</script>
 
 </body>
 </html>
