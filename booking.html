@@ -192,14 +192,22 @@
 
 <script>
   // Dynamic copyright year
-  document.getElementById('copyright').innerHTML = `&copy; ${new Date().getFullYear()} Markas Enterprise MKE. All rights reserved.`;
-  
-  // Form submission enhancement
-        document.querySelector('form').addEventListener('submit', function(e) {
-            const submitBtn = this.querySelector('button[type="submit"]');
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
-        });
+  document.querySelector('form').addEventListener('submit', function(e) {
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const service = document.getElementById('service').value.trim();
+
+    if (!name || !email || !phone || !service) {
+        e.preventDefault();
+        alert("Please fill in all fields.");
+        return;
+    }
+
+    const submitBtn = this.querySelector('button[type="submit"]');
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+});
     
 </script>
 
