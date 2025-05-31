@@ -1,42 +1,31 @@
 <?php
+header('Content-Type: text/html; charset=utf-8');
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Collect and sanitize form data
-    $name = strip_tags(trim($_POST["name"]));
-    $email = filter_var(trim($_POST["email"]), FILTER_SANITIZE_EMAIL);
-    $phone = strip_tags(trim($_POST["phone"]));
-    $service = strip_tags(trim($_POST["service"]));
+    $name = htmlspecialchars($_POST['name']);
+    $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
+    $phone = htmlspecialchars($_POST['phone']);
+    $service = htmlspecialchars($_POST['service']);
 
-    // Validate data
-    if (empty($name) || empty($service) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        http_response_code(400);
-        echo "Please complete the form and try again.";
-        exit;
+    // Validate email
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        die("Invalid email format.");
     }
-
-    // Set recipient email (change to yours)
-    $recipient = "oketchmarko45@gmail.com";
-    $subject = "New Service Booking from $name";
-
-    // Build email content
-    $email_content = "Name: $name\n";
-    $email_content .= "Email: $email\n";
-    $email_content .= "Phone: $phone\n\n";
-    $email_content .= "Service Request:\n$service\n";
-
-    // Build email headers
-    $headers = "From: $name <$email>";
 
     // Send email
-    if (mail($recipient, $subject, $email_content, $headers)) {
-        // Redirect to thank you page
+    $to = "oketchmarko45@gmail.com";
+    $subject = "New Booking Request from $name";
+    $message = "Name: $name\nEmail: $email\nPhone: $phone\nService: $service";
+    $headers = "From: $email";
+
+    if (mail($to, $subject, $message, $headers)) {
         header("Location: thankyou.html");
-        exit;
+        exit();
     } else {
-        http_response_code(500);
-        echo "Oops! Something went wrong and we couldn't send your message.";
+        echo "<script>alert('Failed to send email. Please try again later.'); window.history.back();</script>";
     }
 } else {
-    http_response_code(403);
-    echo "There was a problem with your submission, please try again.";
+    header("Location: index.html");
+    exit();
 }
 ?>
