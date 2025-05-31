@@ -700,6 +700,57 @@ button:hover {
 .grooming-pricing th {
   background-color: #f0f0f0;
 }
+
+@media (max-width: 768px) {
+  .daycare-pricing table,
+  .boarding-pricing table,
+  .grooming-pricing table,
+  table {
+    width: 100%;
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+
+  .daycare-pricing table thead,
+  .boarding-pricing table thead,
+  .grooming-pricing table thead {
+    display: none; /* Hide the table header on small screens */
+  }
+
+  .daycare-pricing table tbody tr,
+  .boarding-pricing table tbody tr,
+  .grooming-pricing table tbody tr {
+    display: block;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    background-color: #fff;
+  }
+
+  .daycare-pricing table td,
+  .boarding-pricing table td,
+  .grooming-pricing table td {
+    display: block;
+    text-align: right;
+    position: relative;
+    padding-left: 50%;
+    white-space: normal;
+  }
+
+  .daycare-pricing table td::before,
+  .boarding-pricing table td::before,
+  .grooming-pricing table td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    font-weight: bold;
+    text-align: left;
+  }
+}
 /*end*/
 /* end body */
 /* Footer styles */
