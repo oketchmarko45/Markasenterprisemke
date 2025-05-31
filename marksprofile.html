@@ -2,12 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ochieng Mark Oketch | Portfolio</title>
-
-  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  
-  <!-- Responsive Social Styles -->
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -15,7 +12,6 @@
       background-color: #f9f9f9;
       color: #333;
     }
-
     main.content {
       max-width: 900px;
       margin: 40px auto;
@@ -24,14 +20,12 @@
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-
     .social-links {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
       gap: 10px;
     }
-
     .social-links a {
       flex: 1 1 calc(25% - 10px);
       min-width: 120px;
@@ -43,17 +37,27 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: all 0.3s ease;
     }
-
+    .social-links a:hover {
+      transform: scale(1.05);
+      opacity: 0.9;
+    }
     @media (max-width: 768px) {
       .social-links a {
         flex: 1 1 calc(50% - 10px);
       }
     }
-
     @media (max-width: 480px) {
       .social-links a {
         flex: 1 1 100%;
+      }
+      .profile-section {
+        flex-direction: column;
+      }
+      .profile-image {
+        margin-right: 0;
+        margin-bottom: 20px;
       }
     }
   </style>
@@ -62,119 +66,109 @@
 <body>
 
   <header>
-    <!-- Your header and nav goes here -->
-   <div id="header-placeholder"></div>
+    <div id="header-placeholder"></div>
   </header>
   
 <main class="content">
 
   <!-- Profile Section -->
-<section style="display: flex; align-items: center; margin-bottom: 40px; position: relative;">
-  <!-- Circular Profile Image (Left Border) -->
-  <div style="width: 120px; height: 120px; border-radius: 50%; overflow: hidden; border: 3px solid #003366; margin-right: 30px;">
-    <img src="Images/passport.jpg" alt="Ochieng Mark Oketch" style="width: 100%; height: 100%; object-fit: cover;">
-  </div>
-  
-  <!-- Profile Details -->
-  <div style="flex: 1;">
-    <h1 style="margin: 0 0 5px 0; color: #003366;">Ochieng Mark Oketch</h1>
-    <p style="margin: 0 0 5px 0; font-size: 18px;"><strong>Founder and CEO</strong></p>
-    <p style="margin: 0 0 15px 0; font-size: 16px;">Markas Enterprise MKE</p>
-    
-    <div style="margin: 0 0 20px 0; display: flex; align-items: center; flex-wrap: wrap; gap: 10px;">
-      <span style="display: flex; align-items: center;">
-        <i class="fas fa-envelope" style="color: #003366;"></i> 
-        <a href="mailto:oketchmarko45@gmail.com" style="color: #0056b3; text-decoration: none; margin-left: 5px;">
-          oketchmarko45@gmail.com
-        </a>
-      </span>
-      
-      <span style="color: #003366;">|</span>
-      
-      <span style="display: flex; align-items: center;">
-        <i class="fab fa-linkedin" style="color: #0077B5;"></i> 
-        <a href="https://www.linkedin.com/in/oketchmarko45" target="_blank" style="color: #0077B5; text-decoration: none; margin-left: 5px;">
-          LinkedIn Profile
-        </a>
-      </span>
+  <section class="profile-section" style="display: flex; align-items: center; margin-bottom: 40px; position: relative;">
+    <div class="profile-image" style="width: 120px; height: 120px; border-radius: 50%; overflow: hidden; border: 3px solid #003366; margin-right: 30px;">
+      <img src="Images/passport.jpg" alt="Ochieng Mark Oketch" style="width: 100%; height: 100%; object-fit: cover;">
     </div>
     
-    <!-- Action Buttons -->
-    <div style="display: flex; gap: 15px;">
-      <a href="cv.pdf" download style="display: inline-block; background-color: #003366; color: white; padding: 8px 20px; border-radius: 5px; text-decoration: none; font-weight: bold; transition: all 0.3s ease;"
-         onmouseover="this.style.transform='scale(1.05)'; this.style.opacity='0.9';" 
-         onmouseout="this.style.transform='scale(1)'; this.style.opacity='1';">
-        <i class="fas fa-download"></i> Download CV
-      </a>
+    <div style="flex: 1;">
+      <h1 style="margin: 0 0 5px 0; color: #003366; font-size: 28px;">Ochieng Mark Oketch</h1>
+      <p style="margin: 0 0 5px 0; font-size: 18px; color: #555;"><strong>Founder and CEO</strong></p>
+      <p style="margin: 0 0 15px 0; font-size: 16px; color: #666;">Markas Enterprise MKE</p>
       
-      <a href="booking.html" style="display: inline-block; background-color: #25D366; color: white; padding: 8px 20px; border-radius: 5px; text-decoration: none; font-weight: bold; transition: all 0.3s ease;"
-         onmouseover="this.style.transform='scale(1.05)'; this.style.opacity='0.9';" 
-         onmouseout="this.style.transform='scale(1)'; this.style.opacity='1';">
-        <i class="fas fa-calendar-check"></i> Book Service
-      </a>
+      <div style="margin: 0 0 20px 0; display: flex; align-items: center; flex-wrap: wrap; gap: 8px;">
+        <span style="display: flex; align-items: center;">
+          <i class="fas fa-envelope" style="color: #003366;"></i> 
+          <a href="mailto:oketchmarko45@gmail.com" style="color: #0056b3; text-decoration: none; margin-left: 5px;">
+            oketchmarko45@gmail.com
+          </a>
+        </span>
+        
+        <span style="color: #003366;">|</span>
+        
+        <span style="display: flex; align-items: center;">
+          <i class="fab fa-linkedin" style="color: #0077B5;"></i> 
+          <a href="https://www.linkedin.com/in/oketchmarko45" target="_blank" style="color: #0077B5; text-decoration: none; margin-left: 5px;">
+            LinkedIn Profile
+          </a>
+        </span>
+      </div>
+      
+      <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+        <a href="cv.pdf" download style="display: inline-block; background-color: #003366; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-weight: bold; transition: all 0.3s ease;"
+           onmouseover="this.style.transform='scale(1.05)'; this.style.opacity='0.9';" 
+           onmouseout="this.style.transform='scale(1)'; this.style.opacity='1';">
+          <i class="fas fa-download"></i> Download CV
+        </a>
+        
+        <a href="booking.html" style="display: inline-block; background-color: #25D366; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-weight: bold; transition: all 0.3s ease;"
+           onmouseover="this.style.transform='scale(1.05)'; this.style.opacity='0.9';" 
+           onmouseout="this.style.transform='scale(1)'; this.style.opacity='1';">
+          <i class="fas fa-calendar-check"></i> Book Service
+        </a>
+      </div>
     </div>
-  </div>
-</section>
-  
+  </section>
 
   <!-- About -->
   <section style="margin-bottom: 30px;">
-    <h2>About Me</h2>
-    <p>I’m a passionate techie and storyteller who loves coding, crafting content, and connecting with canines. My mission is to blend technology and pet care to build unique solutions that make both people and pets happy.</p>
+    <h2 style="color: #003366; border-bottom: 2px solid #003366; padding-bottom: 5px;">About Me</h2>
+    <p style="line-height: 1.6;">I'm a passionate techie and storyteller who loves coding, crafting content, and connecting with canines. My mission is to blend technology and pet care to build unique solutions that make both people and pets happy.</p>
   </section>
 
   <!-- Skills -->
   <section style="margin-bottom: 30px;">
-    <h2>Skills</h2>
-    <ul>
-      <li><strong>Web Skills:</strong> HTML, CSS, JavaScript, WordPress</li>
-      <li><strong>Tools:</strong> GitHub, VS Code, Figma</li>
-      <li><strong>Writing:</strong> Blogging, Technical Writing, Storytelling</li>
-      <li><strong>Other:</strong> Dog handling, Communication, Teamwork</li>
+    <h2 style="color: #003366; border-bottom: 2px solid #003366; padding-bottom: 5px;">Skills</h2>
+    <ul style="padding-left: 20px; line-height: 1.6;">
+      <li style="margin-bottom: 8px;"><strong>Web Skills:</strong> HTML, CSS, JavaScript, WordPress</li>
+      <li style="margin-bottom: 8px;"><strong>Tools:</strong> GitHub, VS Code, Figma</li>
+      <li style="margin-bottom: 8px;"><strong>Writing:</strong> Blogging, Technical Writing, Storytelling</li>
+      <li style="margin-bottom: 8px;"><strong>Other:</strong> Dog handling, Communication, Teamwork</li>
     </ul>
   </section>
 
   <!-- Projects -->
   <section style="margin-bottom: 30px;">
-    <h2>Projects</h2>
-    <ul>
-      <li><strong>Dog Care Booking Site:</strong> Built a simple HTML/CSS system for booking pet care services.</li>
-      <li><strong>Dev Blog:</strong> Published articles on coding and dog analogies via WordPress and Medium.</li>
-      <li><strong>Portfolio Website:</strong> This one-page site created with pure HTML and inline CSS!</li>
+    <h2 style="color: #003366; border-bottom: 2px solid #003366; padding-bottom: 5px;">Projects</h2>
+    <ul style="padding-left: 20px; line-height: 1.6;">
+      <li style="margin-bottom: 8px;"><strong>Dog Care Booking Site:</strong> Built a simple HTML/CSS system for booking pet care services.</li>
+      <li style="margin-bottom: 8px;"><strong>Dev Blog:</strong> Published articles on coding and dog analogies via WordPress and Medium.</li>
+      <li style="margin-bottom: 8px;"><strong>Portfolio Website:</strong> This one-page site created with pure HTML and inline CSS!</li>
     </ul>
   </section>
   
-<!-- Services -->
-<section style="margin-bottom: 30px;">
-  <h2>Services</h2>
-  <ul>
-    <li>Custom Website Development</li>
-    <li>Blog Writing & Editing</li>
-    <li>Dog Care Advice & Training Tips</li>
-    <li>Cyber Services: Cyber Café Access, Printing, Photocopying, Scanning, CV Writing, Online Applications</li>
-  </ul>
-  <div style="margin-top: 15px;">
-    <a href="booking.html" style="display: inline-block; background-color: #000; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none;">
-      Book Services
-    </a>
-  </div>
-</section>
+  <!-- Services -->
+  <section style="margin-bottom: 30px;">
+    <h2 style="color: #003366; border-bottom: 2px solid #003366; padding-bottom: 5px;">Services</h2>
+    <ul style="padding-left: 20px; line-height: 1.6;">
+      <li style="margin-bottom: 8px;">Custom Website Development</li>
+      <li style="margin-bottom: 8px;">Blog Writing & Editing</li>
+      <li style="margin-bottom: 8px;">Dog Care Advice & Training Tips</li>
+      <li style="margin-bottom: 8px;">Cyber Services: Cyber Café Access, Printing, Photocopying, Scanning, CV Writing, Online Applications</li>
+    </ul>
+  </section>
   
   <!-- Contact -->
   <section style="margin-bottom: 30px;">
-    <h2>Contact Me</h2>
-    <p>Email: <a href="mailto:oketchmarko45@gmail.com" style="color: #0056b3;">oketchmarko45@gmail.com</a></p>
-    <p>Phone: <a href="tel:+254712711088" style="color: #0056b3;">+254 712 711 088</a></p>
+    <h2 style="color: #003366; border-bottom: 2px solid #003366; padding-bottom: 5px;">Contact Me</h2>
+    <p style="line-height: 1.6;"><i class="fas fa-envelope" style="color: #003366;"></i> Email: <a href="mailto:oketchmarko45@gmail.com" style="color: #0056b3; text-decoration: none;">oketchmarko45@gmail.com</a></p>
+    <p style="line-height: 1.6;"><i class="fas fa-phone" style="color: #003366;"></i> Phone: <a href="tel:+254712711088" style="color: #0056b3; text-decoration: none;">+254 712 711 088</a></p>
   </section>
 
   <!-- Social Media -->
   <section style="margin-bottom: 30px;">
-    <h2>Connect With Me</h2>
+    <h2 style="color: #003366; border-bottom: 2px solid #003366; padding-bottom: 5px;">Connect With Me</h2>
     <div class="social-links">
       <a href="https://facebook.com/oketchmarko45" target="_blank" style="background-color: #3b5998;">
         <i class="fab fa-facebook-f"></i>&nbsp;Facebook
       </a>
-      <a href="https://wa.me/254712711088" target="_blank" style="background-color: green;">
+      <a href="https://wa.me/254712711088" target="_blank" style="background-color: #25D366;">
         <i class="fab fa-whatsapp"></i>&nbsp;WhatsApp
       </a>
       <a href="https://x.com/oketchmarko45" target="_blank" style="background-color: #000000;">
@@ -201,50 +195,41 @@
     </div>
   </section>
 
-  <!-- Back to Home Button -->
-  <div style="text-align: center; margin-top: 30px;">
-    <a href="index.html" style="padding: 10px 20px; background-color: #003366; color: white; text-decoration: none; border-radius: 5px;">
-      &larr; Back to Home
-    </a>
-  </div>
-  
   <!-- Footer -->
-<footer style="background-color: #003366; color: white; text-align: center; padding: 20px; width: 100%; margin: 0 auto; box-sizing: border-box;">
-  <h4 style="margin: 10px 0;">Markas Enterprise MKE</h4>
-  <p style="margin: 10px 0;">Created by 
-    <a href="marksprofile.html" style="color: #ffffff; text-decoration: underline;">Ochieng' Mark Oketch</a>
-    – Dogtrovert, Writer, Developer</p>
-  <p style="margin: 10px 0;">Contact : 
-    <a href="mailto:markasenterprisemke@gmail.com" style="color: #ffffff; text-decoration: underline;">Markas Enterprise MKE via mail</a>
-  </p>
+  <footer style="background-color: #003366; color: white; text-align: center; padding: 20px; border-radius: 5px;">
+    <h4 style="margin: 10px 0;">Markas Enterprise MKE</h4>
+    <p style="margin: 10px 0;">Created by 
+      <a href="marksprofile.html" style="color: #ffffff; text-decoration: underline;">Ochieng' Mark Oketch</a>
+      – Dogtrovert, Writer, Developer</p>
+    <p style="margin: 10px 0;">Contact : 
+      <a href="mailto:markasenterprisemke@gmail.com" style="color: #ffffff; text-decoration: underline;">Markas Enterprise MKE via mail</a>
+    </p>
 
-  <div class="social-links" style="margin-top: 15px;">
-    <a href="https://whatsapp.com/channel/0029VaQvCIiAYlUSCFIT903y" target="_blank" rel="noopener noreferrer" aria-label="Whatsapp" style="margin: 0 10px; color: white;">
-      <i class="fab fa-whatsapp"></i>
-    </a>
-    <a href="https://www.facebook.com/markasenterprisemke" target="_blank" rel="noopener noreferrer" aria-label="Facebook" style="margin: 0 10px; color: white;">
-      <i class="fab fa-facebook-f"></i>
-    </a>
-    <a href="https://youtube.com/@markasenterprisemke" target="_blank" rel="noopener noreferrer" aria-label="Youtube" style="margin: 0 10px; color: white;">
-      <i class="fab fa-youtube"></i>
-    </a>
-  </div>
+    <div style="display: flex; justify-content: center; margin-top: 15px;">
+      <a href="https://whatsapp.com/channel/0029VaQvCIiAYlUSCFIT903y" target="_blank" rel="noopener noreferrer" aria-label="Whatsapp" style="margin: 0 10px; color: white; font-size: 20px;">
+        <i class="fab fa-whatsapp"></i>
+      </a>
+      <a href="https://www.facebook.com/markasenterprisemke" target="_blank" rel="noopener noreferrer" aria-label="Facebook" style="margin: 0 10px; color: white; font-size: 20px;">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a href="https://youtube.com/@markasenterprisemke" target="_blank" rel="noopener noreferrer" aria-label="Youtube" style="margin: 0 10px; color: white; font-size: 20px;">
+        <i class="fab fa-youtube"></i>
+      </a>
+    </div>
 
-  <p id="copyright" style="margin-top: 20px;"></p>
-</footer>
+    <p id="copyright" style="margin-top: 20px;"></p>
+  </footer>
 
   <script>
-  const copyright = document.getElementById('copyright');
-  const startYear = 2024;
-  const currentYear = new Date().getFullYear();
-  if (currentYear === startYear) {
-    copyright.textContent = `© ${startYear} Markas Enterprise MKE. All rights reserved.`;
-  } else {
-    copyright.textContent = `© ${startYear} - ${currentYear} Markas Enterprise MKE. All rights reserved.`;
-  }
+    const copyright = document.getElementById('copyright');
+    const startYear = 2024;
+    const currentYear = new Date().getFullYear();
+    if (currentYear === startYear) {
+      copyright.textContent = `© ${startYear} Markas Enterprise MKE. All rights reserved.`;
+    } else {
+      copyright.textContent = `© ${startYear} - ${currentYear} Markas Enterprise MKE. All rights reserved.`;
+    }
   </script>
-<!-- FOOTER -->
-  
 </main>
 </body>
 </html>
