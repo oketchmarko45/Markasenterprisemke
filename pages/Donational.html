@@ -86,13 +86,13 @@
     .close-btn:hover {
         color: #333;
     }
-    .donate-button {
+    .manual-donate-button {
         text-align: center;
         margin-top: 20px;
     }
-    #donate-btn {
+    #manual-donate-btn {
         padding: 12px 24px;
-        background-color: #28a745;
+        background-color: #6c757d;
         color: white;
         border: none;
         border-radius: 4px;
@@ -100,8 +100,8 @@
         transition: background-color 0.3s;
         font-size: 16px;
     }
-    #donate-btn:hover {
-        background-color: #218838;
+    #manual-donate-btn:hover {
+        background-color: #5a6268;
     }
     .payment-instructions {
         background: #f8f9fa;
@@ -113,23 +113,51 @@
     .tab-buttons {
         display: flex;
         margin-bottom: 15px;
+        border-bottom: 1px solid #dee2e6;
     }
     .tab-btn {
         flex: 1;
         padding: 10px;
         background: #e9ecef;
         border: none;
+        border-bottom: 3px solid transparent;
         cursor: pointer;
+        transition: all 0.3s;
     }
     .tab-btn.active {
-        background: #007bff;
-        color: white;
+        background: #f8f9fa;
+        border-bottom: 3px solid #007bff;
+        color: #007bff;
+        font-weight: bold;
     }
     .tab-content {
         display: none;
+        padding: 10px 0;
     }
     .tab-content.active {
         display: block;
+    }
+    .instruction-step {
+        margin-bottom: 15px;
+        padding-left: 20px;
+        position: relative;
+    }
+    .instruction-step:before {
+        content: counter(step);
+        counter-increment: step;
+        position: absolute;
+        left: 0;
+        background: #007bff;
+        color: white;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 20px;
+        font-size: 12px;
+    }
+    .instructions-list {
+        counter-reset: step;
     }
 </style>
 
@@ -147,12 +175,6 @@
     <div class="donation-form">
       <label for="donor-name">Your Name:</label>
       <input type="text" id="donor-name" placeholder="Enter your name" required>
-
-      <label for="donor-phone">Your Mobile Number:</label>
-      <input type="tel" id="donor-phone" placeholder="Enter your phone number" required>
-
-      <label for="donor-email">Your Email Address:</label>
-      <input type="email" id="donor-email" placeholder="Enter your email">
 
       <label for="donation-amount">Donation Amount (KES):</label>
       <input type="number" id="donation-amount" placeholder="Enter amount" min="100" required>
@@ -174,9 +196,9 @@
     </div>
   </section>
 
-  <!-- Donate Now Button -->
-  <section class="donate-button">
-    <button id="donate-btn" onclick="showPaymentInstructions()">Donate Now</button>
+  <!-- Manual Donation Button -->
+  <section class="manual-donate-button">
+    <button id="manual-donate-btn" onclick="showPaymentInstructions()">How to Donate Manually</button>
   </section>
 </main>
 
@@ -184,44 +206,69 @@
 <div id="payment-instructions-modal" class="modal">
   <div class="modal-content">
     <span class="close-btn" onclick="closeModal('payment-instructions-modal')">&times;</span>
-    <h3>Complete Your Donation</h3>
+    <h3>Manual Donation Instructions</h3>
     
     <div class="tab-buttons">
-      <button class="tab-btn active" onclick="openTab('mpesa-tab')">MPESA</button>
-      <button class="tab-btn" onclick="openTab('bank-tab')">Bank Transfer</button>
+      <button class="tab-btn active" onclick="openTab(event, 'mpesa-tab')">MPESA</button>
+      <button class="tab-btn" onclick="openTab(event, 'bank-tab')">Bank Transfer</button>
     </div>
     
     <div id="mpesa-tab" class="tab-content active">
       <div class="payment-instructions">
         <h4>Lipa na M-PESA</h4>
-        <ol>
-          <li>Go to <strong>M-PESA</strong> on your phone</li>
-          <li>Select <strong>Lipa na M-PESA</strong></li>
-          <li>Select <strong>Pay Bill</strong></li>
-          <li>Enter Business Number: <strong>8861950</strong></li>
-          <li>Enter Account Number: <span id="mpesa-account-name">Your Name</span></li>
-          <li>Enter Amount: <strong id="mpesa-amount">0</strong> Ksh</li>
-          <li>Enter your M-PESA PIN and confirm</li>
-        </ol>
-        <p>You'll receive a confirmation message from M-PESA.</p>
+        <div class="instructions-list">
+          <div class="instruction-step">
+            Go to <strong>M-PESA</strong> on your phone
+          </div>
+          <div class="instruction-step">
+            Select <strong>Lipa na M-PESA</strong>
+          </div>
+          <div class="instruction-step">
+            Select <strong>Pay Bill</strong>
+          </div>
+          <div class="instruction-step">
+            Enter Business Number: <strong>8861950</strong>
+          </div>
+          <div class="instruction-step">
+            Enter Account Number: <strong><span id="mpesa-account-name">Your Name</span></strong>
+          </div>
+          <div class="instruction-step">
+            Enter Amount: <strong><span id="mpesa-amount">0</span> Ksh</strong>
+          </div>
+          <div class="instruction-step">
+            Enter your M-PESA PIN and confirm
+          </div>
+        </div>
+        <p style="margin-top: 20px;">You'll receive a confirmation message from M-PESA once payment is complete.</p>
       </div>
     </div>
     
     <div id="bank-tab" class="tab-content">
       <div class="payment-instructions">
         <h4>Bank Transfer Details</h4>
-        <ul style="list-style-type: none; padding: 0;">
-          <li><strong>Bank:</strong> Standard Chartered Bank</li>
-          <li><strong>Account Name:</strong> Mark Oketch</li>
-          <li><strong>Account Number:</strong> 0100428580200</li>
-          <li><strong>Branch:</strong> Thika</li>
-          <li><strong>Amount:</strong> <span id="bank-amount">0</span> Ksh</li>
-        </ul>
-        <p>After making the transfer, please email your receipt to donations@example.com</p>
+        <div class="instructions-list">
+          <div class="instruction-step">
+            Transfer to our bank account:
+            <ul style="list-style-type: none; padding-left: 20px; margin-top: 10px;">
+              <li><strong>Bank:</strong> Standard Chartered Bank</li>
+              <li><strong>Account Name:</strong> Mark Oketch</li>
+              <li><strong>Account Number:</strong> 0100428580200</li>
+              <li><strong>Branch:</strong> Thika</li>
+              <li><strong>Amount:</strong> <span id="bank-amount">0</span> Ksh</li>
+            </ul>
+          </div>
+          <div class="instruction-step">
+            Use your name as the reference
+          </div>
+          <div class="instruction-step">
+            Complete the transfer through your bank's app, website, or branch
+          </div>
+        </div>
+        <p style="margin-top: 20px;">After making the transfer, please email your receipt to donations@example.com for our records.</p>
       </div>
     </div>
     
-    <button style="margin-top: 15px; padding: 8px 16px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;" onclick="closeModal('payment-instructions-modal')">Close</button>
+    <button style="margin-top: 25px; padding: 10px 20px; background: #6c757d; color: white; border: none; border-radius: 4px; cursor: pointer; width: 100%;" onclick="closeModal('payment-instructions-modal')">Close Instructions</button>
   </div>
 </div>
 
@@ -238,7 +285,7 @@
   // Select payment method
   function selectPayment(method) {
     selectedPaymentMethod = method;
-    // Highlight selected button (optional visual feedback)
+    // Highlight selected button
     const buttons = document.querySelectorAll('.payment-btn');
     buttons.forEach(btn => btn.style.backgroundColor = '#007bff');
     event.target.style.backgroundColor = '#0056b3';
@@ -259,9 +306,9 @@
     
     // Show the appropriate tab based on selected payment
     if (selectedPaymentMethod === 'bank') {
-      openTab('bank-tab');
+      openTab(event, 'bank-tab');
     } else {
-      openTab('mpesa-tab');
+      openTab(event, 'mpesa-tab');
     }
     
     openModal('payment-instructions-modal');
@@ -279,7 +326,7 @@
   }
 
   // Tab functions
-  function openTab(tabId) {
+  function openTab(evt, tabId) {
     // Hide all tab contents
     const tabContents = document.querySelectorAll('.tab-content');
     tabContents.forEach(content => content.classList.remove('active'));
@@ -290,13 +337,16 @@
     
     // Activate selected tab
     document.getElementById(tabId).classList.add('active');
-    event.target.classList.add('active');
+    evt.currentTarget.classList.add('active');
   }
 
   // Close modal when clicking outside
   window.onclick = function(event) {
     if (event.target.classList.contains('modal')) {
-      event.target.style.display = "none";
+      const modals = document.querySelectorAll('.modal');
+      modals.forEach(modal => {
+        modal.style.display = "none";
+      });
       document.body.style.overflow = "auto";
     }
   }
