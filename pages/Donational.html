@@ -103,19 +103,33 @@
     #donate-btn:hover {
         background-color: #218838;
     }
-    .bank-details {
+    .payment-instructions {
         background: #f8f9fa;
         padding: 15px;
         border-radius: 6px;
         margin-top: 15px;
         border-left: 4px solid #007bff;
     }
-    .mpesa-instructions {
-        background: #f0f8ff;
-        padding: 15px;
-        border-radius: 6px;
-        margin-top: 15px;
-        border-left: 4px solid #006400;
+    .tab-buttons {
+        display: flex;
+        margin-bottom: 15px;
+    }
+    .tab-btn {
+        flex: 1;
+        padding: 10px;
+        background: #e9ecef;
+        border: none;
+        cursor: pointer;
+    }
+    .tab-btn.active {
+        background: #007bff;
+        color: white;
+    }
+    .tab-content {
+        display: none;
+    }
+    .tab-content.active {
+        display: block;
     }
 </style>
 
@@ -123,7 +137,7 @@
 <main class="content">
   <section class="donation-info">
     <h2>💖 Support Our Work</h2>
-    <p>Your donation helps us continue our mission of supporting pets and their owners. Choose your donation amount below and proceed with your preferred payment method.</p>
+    <p>Your donation helps us continue our mission. Enter your details and choose a payment method below.</p>
   </section>
 
   <section class="donation-options">
@@ -134,11 +148,11 @@
       <label for="donor-name">Your Name:</label>
       <input type="text" id="donor-name" placeholder="Enter your name" required>
 
-      <label for="donor-phone">Your Mobile Number (For MPESA):</label>
+      <label for="donor-phone">Your Mobile Number:</label>
       <input type="tel" id="donor-phone" placeholder="Enter your phone number" required>
 
       <label for="donor-email">Your Email Address:</label>
-      <input type="email" id="donor-email" placeholder="Enter your email" required>
+      <input type="email" id="donor-email" placeholder="Enter your email">
 
       <label for="donation-amount">Donation Amount (KES):</label>
       <input type="number" id="donation-amount" placeholder="Enter amount" min="100" required>
@@ -151,63 +165,69 @@
 
   <!-- Payment Methods -->
   <section class="payment-methods">
-    <h3>Choose Your Payment Method</h3>
+    <h3>Choose Payment Method</h3>
     
-    <!-- MPESA, PayPal, and Bank Transfer buttons in a horizontal layout -->
     <div class="payment-buttons">
-      <button class="payment-btn" onclick="processMPesa()">Pay with MPESA</button>
-      <button class="payment-btn" onclick="processPayPal()">Pay with PayPal</button>
-      <button class="payment-btn" onclick="openModal('bank-transfer-modal')">Bank Transfer</button>
+      <button class="payment-btn" onclick="selectPayment('mpesa')">MPESA</button>
+      <button class="payment-btn" onclick="selectPayment('paypal')">PayPal</button>
+      <button class="payment-btn" onclick="selectPayment('bank')">Bank Transfer</button>
     </div>
   </section>
 
-  <!-- Bank Transfer Modal (Popup) -->
-  <div id="bank-transfer-modal" class="modal">
-    <div class="modal-content">
-      <span class="close-btn" onclick="closeModal('bank-transfer-modal')">&times;</span>
-      <h3><i class="fas fa-university"></i> Bank Transfer Details</h3>
-      <div class="bank-details">
-        <p>You can make a bank deposit or transfer using the following details:</p>
+  <!-- Donate Now Button -->
+  <section class="donate-button">
+    <button id="donate-btn" onclick="showPaymentInstructions()">Donate Now</button>
+  </section>
+</main>
+
+<!-- Payment Instructions Modal -->
+<div id="payment-instructions-modal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeModal('payment-instructions-modal')">&times;</span>
+    <h3>Complete Your Donation</h3>
+    
+    <div class="tab-buttons">
+      <button class="tab-btn active" onclick="openTab('mpesa-tab')">MPESA</button>
+      <button class="tab-btn" onclick="openTab('bank-tab')">Bank Transfer</button>
+    </div>
+    
+    <div id="mpesa-tab" class="tab-content active">
+      <div class="payment-instructions">
+        <h4>Lipa na M-PESA</h4>
+        <ol>
+          <li>Go to <strong>M-PESA</strong> on your phone</li>
+          <li>Select <strong>Lipa na M-PESA</strong></li>
+          <li>Select <strong>Pay Bill</strong></li>
+          <li>Enter Business Number: <strong>8861950</strong></li>
+          <li>Enter Account Number: <span id="mpesa-account-name">Your Name</span></li>
+          <li>Enter Amount: <strong id="mpesa-amount">0</strong> Ksh</li>
+          <li>Enter your M-PESA PIN and confirm</li>
+        </ol>
+        <p>You'll receive a confirmation message from M-PESA.</p>
+      </div>
+    </div>
+    
+    <div id="bank-tab" class="tab-content">
+      <div class="payment-instructions">
+        <h4>Bank Transfer Details</h4>
         <ul style="list-style-type: none; padding: 0;">
           <li><strong>Bank:</strong> Standard Chartered Bank</li>
           <li><strong>Account Name:</strong> Mark Oketch</li>
           <li><strong>Account Number:</strong> 0100428580200</li>
           <li><strong>Branch:</strong> Thika</li>
+          <li><strong>Amount:</strong> <span id="bank-amount">0</span> Ksh</li>
         </ul>
+        <p>After making the transfer, please email your receipt to donations@example.com</p>
       </div>
-      <button style="margin-top: 15px; padding: 8px 16px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;" onclick="closeModal('bank-transfer-modal')">Close</button>
     </div>
+    
+    <button style="margin-top: 15px; padding: 8px 16px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;" onclick="closeModal('payment-instructions-modal')">Close</button>
   </div>
-
-  <!-- M-Pesa Fallback Modal (Popup) -->
-  <div id="mpesa-fallback-modal" class="modal">
-    <div class="modal-content">
-      <span class="close-btn" onclick="closeModal('mpesa-fallback-modal')">&times;</span>
-      <h3><i class="fas fa-mobile-alt"></i> Lipa na M-PESA</h3>
-      <div class="mpesa-instructions">
-        <p>If the M-PESA payment didn't work, you can manually send money via:</p>
-        <ol>
-          <li>Go to <strong>M-PESA</strong> on your phone</li>
-          <li>Select <strong>Lipa na M-PESA</strong></li>
-          <li>Select <strong>Buy Goods</strong></li>
-          <li>TillNumber: <strong>8861950</strong></li>
-          <li>Enter Amount: <strong id="mpesa-amount">0</strong></li>
-          <li>Enter your M-PESA PIN and confirm</li>
-        </ol>
-        <p>You'll receive a confirmation message from M-PESA.</p>
-      </div>
-      <button style="margin-top: 15px; padding: 8px 16px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;" onclick="closeModal('mpesa-fallback-modal')">Close</button>
-    </div>
-  </div>
-
-  <!-- Donate Now Button -->
-  <section class="donate-button">
-    <button id="donate-btn" onclick="processDonation()">Donate Now</button>
-  </section>
-</main>
+</div>
 
 <script>
   let donationAmount = 0;
+  let selectedPaymentMethod = 'mpesa'; // Default to MPESA
 
   // Set donation amount
   document.getElementById('donation-amount').addEventListener('input', function() {
@@ -215,15 +235,62 @@
     document.getElementById('total-amount').textContent = donationAmount >= 100 ? donationAmount : 0;
   });
 
+  // Select payment method
+  function selectPayment(method) {
+    selectedPaymentMethod = method;
+    // Highlight selected button (optional visual feedback)
+    const buttons = document.querySelectorAll('.payment-btn');
+    buttons.forEach(btn => btn.style.backgroundColor = '#007bff');
+    event.target.style.backgroundColor = '#0056b3';
+  }
+
+  // Show payment instructions
+  function showPaymentInstructions() {
+    if (donationAmount < 100) {
+      alert("Please enter a valid donation amount (minimum Ksh 100).");
+      return;
+    }
+    
+    // Set the amounts in the modal
+    document.getElementById('mpesa-amount').textContent = donationAmount;
+    document.getElementById('bank-amount').textContent = donationAmount;
+    document.getElementById('mpesa-account-name').textContent = 
+      document.getElementById('donor-name').value || 'Your Name';
+    
+    // Show the appropriate tab based on selected payment
+    if (selectedPaymentMethod === 'bank') {
+      openTab('bank-tab');
+    } else {
+      openTab('mpesa-tab');
+    }
+    
+    openModal('payment-instructions-modal');
+  }
+
   // Modal functions
   function openModal(modalId) {
     document.getElementById(modalId).style.display = "block";
-    document.body.style.overflow = "hidden"; // Prevent scrolling when modal is open
+    document.body.style.overflow = "hidden";
   }
 
   function closeModal(modalId) {
     document.getElementById(modalId).style.display = "none";
-    document.body.style.overflow = "auto"; // Re-enable scrolling
+    document.body.style.overflow = "auto";
+  }
+
+  // Tab functions
+  function openTab(tabId) {
+    // Hide all tab contents
+    const tabContents = document.querySelectorAll('.tab-content');
+    tabContents.forEach(content => content.classList.remove('active'));
+    
+    // Deactivate all tab buttons
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    tabButtons.forEach(button => button.classList.remove('active'));
+    
+    // Activate selected tab
+    document.getElementById(tabId).classList.add('active');
+    event.target.classList.add('active');
   }
 
   // Close modal when clicking outside
@@ -232,64 +299,5 @@
       event.target.style.display = "none";
       document.body.style.overflow = "auto";
     }
-  }
-
-  // Process MPESA payment
-  function processMPesa() {
-    const phone = document.getElementById('donor-phone').value;
-    if (!phone || donationAmount < 100) {
-      alert("Please enter a valid phone number and donation amount (minimum Ksh 100).");
-      return;
-    }
-    
-    // Try to process M-PESA payment
-    const mpesaSuccess = tryProcessMPesa(phone, donationAmount);
-    
-    if (!mpesaSuccess) {
-      // Show fallback M-PESA instructions
-      document.getElementById('mpesa-amount').textContent = donationAmount;
-      openModal('mpesa-fallback-modal');
-    }
-  }
-
-  // Simulate M-PESA processing (in a real app, this would call an API)
-  function tryProcessMPesa(phone, amount) {
-    // For demo purposes, we'll simulate a 50% chance of failure
-    // In a real application, this would be based on the API response
-    const success = Math.random() > 0.5;
-    
-    if (success) {
-      alert(`M-PESA payment request sent to ${phone} for Ksh ${amount}. Please check your phone to complete the payment.`);
-      return true;
-    }
-    return false;
-  }
-
-  // Process PayPal payment
-  function processPayPal() {
-    const email = document.getElementById('donor-email').value;
-    if (!email || donationAmount < 100) {
-      alert("Please enter a valid email address and donation amount (minimum Ksh 100).");
-      return;
-    }
-    alert(`You are being redirected to PayPal for payment of Ksh ${donationAmount}. We'll send a receipt to ${email}.`);
-    // Here you would typically integrate with PayPal API
-  }
-
-  // Process the donation and reset after success
-  function processDonation() {
-    if (donationAmount < 100) {
-      alert("Please enter a valid donation amount (minimum Ksh 100).");
-      return;
-    }
-    alert(`Thank you for your donation of Ksh ${donationAmount}.`);
-    resetDonationAmount();
-  }
-
-  // Reset donation amount after success
-  function resetDonationAmount() {
-    donationAmount = 0;
-    document.getElementById('total-amount').textContent = donationAmount;
-    document.getElementById('donation-amount').value = '';
   }
 </script>
