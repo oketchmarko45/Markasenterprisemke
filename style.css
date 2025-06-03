@@ -301,6 +301,40 @@ main p, main li, main span {
     }
 /*end home.html*/
 
+/* chatbot */
+
+#paw-chatbot-icon {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #003366;
+  color: white;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 9999;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease;
+}
+
+/* Paw icon styling */
+#paw-chatbot-icon i {
+  font-size: 28px;
+}
+
+/* Shake animation */
+@keyframes shake {
+  0% { transform: translate(0); }
+  25% { transform: translateX(-2px) rotate(-5deg); }
+  50% { transform: translateX(2px) rotate(5deg); }
+  75% { transform: translateX(-1px) rotate(-3deg); }
+  100% { transform: translate(0); }
+}
+
 /* Modal (Popup) Styles */
 .modal {
   display: none; /* Hidden by default */
