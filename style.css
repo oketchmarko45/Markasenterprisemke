@@ -321,6 +321,32 @@ main p, main li, main span {
   transition: transform 0.3s ease;
 }
 
+#inline-chatbot {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  width: 100%;
+  max-width: 400px;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  z-index: 9998;
+  border-radius: 8px;
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+#inline-chatbot.active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
 /* Paw icon styling */
 #paw-chatbot-icon i {
   font-size: 28px;
