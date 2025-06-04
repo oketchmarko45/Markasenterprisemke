@@ -326,6 +326,10 @@ main p, main li, main span {
   font-size: 28px;
 }
 
+.shake {
+  animation: shake 0.5s;
+}
+
 /* Shake animation */
 @keyframes shake {
   0% { transform: translate(0); }
