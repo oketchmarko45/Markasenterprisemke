@@ -240,133 +240,146 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      const chatBox = document.getElementById('chat-box');
-      const userInput = document.getElementById('user-input');
-      const sendBtn = document.getElementById('send-btn');
-      const closeBtn = document.getElementById('close-btn');
-      
-      // Configuration - Update this to your backend endpoint
-      // const OPENAI_API_KEY = "asst_"; // 🔴 CHANGE THIS
-      // const OPENAI_API_URL = "https://api.openai.com/v1/chat/completions";
-      const API_BASE_URL = 'http://localhost:3001'; // Change in production
-      const CHAT_ENDPOINT = '/api/chat';
+  const chatBox = document.getElementById('chat-box');
+  const userInput = document.getElementById('user-input');
+  const sendBtn = document.getElementById('send-btn');
+  const closeBtn = document.getElementById('close-btn');
+  
+  let currentThreadId = null;
 
-      // Quick action buttons
-      document.querySelectorAll('.quick-action-btn').forEach(btn => {
+  // Configuration - Update this to your backend endpoint
+  const API_BASE_URL = window.location.hostname === 'localhost' 
+    ? 'http://localhost:3001' 
+    : 'https://markasenterprisemke.netlify.app';
+  const CHAT_ENDPOINT = '/.netlify/functions/petbot';
+
+  // Quick action buttons
+  document.querySelectorAll('.quick-action-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      userInput.value = this.getAttribute('data-question');
+      userInput.focus();
+    });
+  });
+
+  // Close button functionality
+  closeBtn.addEventListener('click', function() {
+    document.querySelector('.chatbot-container').style.display = 'none';
+  });
+
+  // Send message function
+  async function sendMessage() {
+    const input = userInput.value.trim();
+    if (!input) {
+      appendMessage('error', 'Please enter a question');
+      return;
+    }
+    
+    appendMessage('user', input);
+    userInput.value = '';
+    sendBtn.disabled = true;
+    userInput.disabled = true;
+    
+    // Show typing indicator
+    const typingIndicator = document.createElement('div');
+    typingIndicator.className = 'typing-indicator';
+    typingIndicator.innerHTML = '<span></span><span></span><span></span>';
+    chatBox.appendChild(typingIndicator);
+    chatBox.scrollTop = chatBox.scrollHeight;
+
+    try {
+      const response = await fetch(`${API_BASE_URL}${CHAT_ENDPOINT}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          message: input,
+          thread_id: currentThreadId 
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`Request failed with status ${response.status}`);
+      }
+
+      const data = await response.json();
+      currentThreadId = data.thread_id || null;
+      chatBox.removeChild(typingIndicator);
+      appendMessage('bot', data.reply);
+      
+      // Add quick follow-up questions if appropriate
+      addFollowUpQuestions(data.reply);
+    } catch (err) {
+      console.error('Error:', err);
+      chatBox.removeChild(typingIndicator);
+      const errorMsg = err.message.includes('Failed to fetch')
+        ? "⚠️ Couldn't connect to server. Please check your network."
+        : "⚠️ Sorry, something went wrong. Please try again.";
+      appendMessage('error', errorMsg);
+    } finally {
+      sendBtn.disabled = false;
+      userInput.disabled = false;
+      userInput.focus();
+    }
+  }
+
+  function appendMessage(sender, message) {
+    const msg = document.createElement('div');
+    msg.classList.add('message', `${sender}-message`);
+    
+    // Basic sanitization (consider using DOMPurify in production)
+    const sanitizedMessage = message
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/\n/g, '<br>');
+    
+    msg.innerHTML = sanitizedMessage;
+    chatBox.appendChild(msg);
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }
+
+  function addFollowUpQuestions(response) {
+    const commonFollowUps = {
+      'dog': ['What are the best toys for my dog?', 'How often should I bathe my dog?'],
+      'cat': ['How can I stop my cat from scratching furniture?', 'What are signs of a happy cat?']
+    };
+
+    const lowerResponse = response.toLowerCase();
+    let followUps = [];
+    
+    if (lowerResponse.includes('dog')) {
+      followUps = commonFollowUps.dog;
+    } else if (lowerResponse.includes('cat')) {
+      followUps = commonFollowUps.cat;
+    }
+
+    if (followUps.length > 0) {
+      const quickActions = document.createElement('div');
+      quickActions.className = 'quick-actions';
+      
+      followUps.forEach(question => {
+        const btn = document.createElement('button');
+        btn.className = 'quick-action-btn';
+        btn.textContent = question;
+        btn.setAttribute('data-question', question);
         btn.addEventListener('click', function() {
           userInput.value = this.getAttribute('data-question');
           userInput.focus();
         });
+        quickActions.appendChild(btn);
       });
+      
+      chatBox.appendChild(quickActions);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+  }
 
-      // Close button functionality
-      closeBtn.addEventListener('click', function() {
-        // In a real implementation, this would close/minimize the chat
-        alert('Chat window would close here in a full implementation');
-      });
-
-      // Send message function
-      async function sendMessage() {
-        const input = userInput.value.trim();
-        if (!input) return;
-
-        appendMessage('user', input);
-        userInput.value = '';
-        sendBtn.disabled = true;
-        
-        // Show typing indicator
-        const typingIndicator = document.createElement('div');
-        typingIndicator.className = 'typing-indicator';
-        typingIndicator.innerHTML = '<span></span><span></span><span></span>';
-        chatBox.appendChild(typingIndicator);
-        chatBox.scrollTop = chatBox.scrollHeight;
-
-        try {
-          const response = await fetch(`${API_BASE_URL}${CHAT_ENDPOINT}`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ message: input })
-          });
-
-          if (!response.ok) {
-            throw new Error(`Request failed with status ${response.status}`);
-          }
-
-          const data = await response.json();
-          chatBox.removeChild(typingIndicator);
-          appendMessage('bot', data.reply);
-          
-          // Add quick follow-up questions if appropriate
-          addFollowUpQuestions(data.reply);
-          
-        } catch (err) {
-          console.error('Error:', err);
-          chatBox.removeChild(typingIndicator);
-          appendMessage('error', '⚠️ Sorry, I encountered an error. Please try again later.');
-        } finally {
-          sendBtn.disabled = false;
-        }
-      }
-
-      function appendMessage(sender, message) {
-        const msg = document.createElement('div');
-        msg.classList.add('message', `${sender}-message`);
-        
-        // Basic sanitization (consider using DOMPurify in production)
-        const sanitizedMessage = message
-          .replace(/</g, '&lt;')
-          .replace(/>/g, '&gt;')
-          .replace(/\n/g, '<br>');
-        
-        msg.innerHTML = sanitizedMessage;
-        chatBox.appendChild(msg);
-        chatBox.scrollTop = chatBox.scrollHeight;
-      }
-
-      function addFollowUpQuestions(response) {
-        const commonFollowUps = {
-          'dog': ['What are the best toys for my dog?', 'How often should I bathe my dog?'],
-          'cat': ['How can I stop my cat from scratching furniture?', 'What are signs of a happy cat?']
-        };
-
-        const lowerResponse = response.toLowerCase();
-        let followUps = [];
-        
-        if (lowerResponse.includes('dog')) {
-          followUps = commonFollowUps.dog;
-        } else if (lowerResponse.includes('cat')) {
-          followUps = commonFollowUps.cat;
-        }
-
-        if (followUps.length > 0) {
-          const quickActions = document.createElement('div');
-          quickActions.className = 'quick-actions';
-          
-          followUps.forEach(question => {
-            const btn = document.createElement('button');
-            btn.className = 'quick-action-btn';
-            btn.textContent = question;
-            btn.setAttribute('data-question', question);
-            btn.addEventListener('click', function() {
-              userInput.value = this.getAttribute('data-question');
-              userInput.focus();
-            });
-            quickActions.appendChild(btn);
-          });
-          
-          chatBox.appendChild(quickActions);
-          chatBox.scrollTop = chatBox.scrollHeight;
-        }
-      }
-
-      // Event listeners
-      sendBtn.addEventListener('click', sendMessage);
-      userInput.addEventListener('keydown', e => {
-        if (e.key === 'Enter') sendMessage();
-      });
-    });
+  // Event listeners
+  sendBtn.addEventListener('click', sendMessage);
+  userInput.addEventListener('keydown', e => {
+    if (e.key === 'Enter') sendMessage();
+  });
+});
   </script>
 </body>
 </html>
