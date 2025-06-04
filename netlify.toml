@@ -1,0 +1,3 @@
+[build]
+  functions = "functions"
+  publish = "."  # Your static files (HTML, CSS, JS)
