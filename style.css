@@ -447,7 +447,8 @@ main p, main li, main span {
 }
 
 .quick-action-btn {
-  background-color: #e6f0ff;
+  background-color:  #003366; /* Dark blue background */
+  color: white !important; /* White text with !important to override any other styles */
   border: 1px solid #ddd;
   border-radius: 16px;
   padding: 6px 12px;
