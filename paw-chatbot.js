@@ -2,14 +2,21 @@
 const pawIcon = document.createElement("div");
 pawIcon.id = "paw-chatbot-icon";
 pawIcon.innerHTML = '<i class="fas fa-paw"></i>';
+pawIcon.setAttribute("tabindex", "0");
+pawIcon.setAttribute("aria-label", "Open PetBot Chat");
+pawIcon.setAttribute("role", "button");
 document.body.appendChild(pawIcon);
+
+// Keyboard accessibility
+pawIcon.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" || e.key === " ") pawIcon.click();
+});
 
 // Inject chatbot UI into the page if it doesn't exist yet
 if (!document.getElementById("inline-chatbot")) {
   const chatContainer = document.createElement("div");
   chatContainer.id = "inline-chatbot";
   chatContainer.className = "chatbot-container";
-  chatContainer.style.display = "none"; // initially hidden
 
   chatContainer.innerHTML = `
     <div class="chat-header">🐾 PetBot</div>
@@ -30,13 +37,22 @@ if (!document.getElementById("inline-chatbot")) {
 // Toggle chat visibility on paw click
 pawIcon.addEventListener("click", () => {
   const chat = document.getElementById("inline-chatbot");
-  chat.style.display = chat.style.display === "none" ? "flex" : "none";
+
+  if (chat.classList.contains("active")) {
+    chat.classList.remove("active");
+    setTimeout(() => chat.style.display = "none", 300);
+  } else {
+    chat.style.display = "flex";
+    setTimeout(() => chat.classList.add("active"), 10);
+  }
 });
 
 // Close chat button functionality
 document.addEventListener("click", (e) => {
   if (e.target && e.target.id === "close-chat-btn") {
-    document.getElementById("inline-chatbot").style.display = "none";
+    const chat = document.getElementById("inline-chatbot");
+    chat.classList.remove("active");
+    setTimeout(() => chat.style.display = "none", 300);
   }
 });
 
