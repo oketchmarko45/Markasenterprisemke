@@ -339,7 +339,25 @@ main p, main li, main span {
   transform: translateY(20px);
   pointer-events: none;
   transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  @media (max-width: 480px) {
+  #inline-chatbot {
+    width: 90%;
+    right: 5%;
+    bottom: 90px;
+    height: 80vh;
+  }
+
+  #paw-chatbot-icon {
+    width: 50px;
+    height: 50px;
+  }
+
+  #paw-chatbot-icon i {
+    font-size: 24px;
+  }
 }
+
 
 #inline-chatbot.active {
   opacity: 1;
