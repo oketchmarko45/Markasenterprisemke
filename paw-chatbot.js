@@ -1,6 +1,5 @@
-// paw-chatbot.js
 document.addEventListener('DOMContentLoaded', function() {
-  // Create chatbot elements
+  // Create and append chatbot elements
   const chatbotLauncher = document.createElement('div');
   chatbotLauncher.className = 'chatbot-launcher';
   chatbotLauncher.innerHTML = '<i class="fas fa-paw"></i>';
@@ -9,7 +8,6 @@ document.addEventListener('DOMContentLoaded', function() {
   const chatbotContainer = document.createElement('div');
   chatbotContainer.className = 'chatbot-container';
   chatbotContainer.id = 'chatbot-container';
-  chatbotContainer.style.display = 'none';
   chatbotContainer.innerHTML = `
     <div class="chat-header">
       <span>🐾 PetBot Assistant</span>
@@ -37,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
   `;
   document.body.appendChild(chatbotContainer);
 
-  // Chatbot functionality
+  // DOM elements
   const chatBox = document.getElementById('chat-box');
   const userInput = document.getElementById('user-input');
   const sendBtn = document.getElementById('send-btn');
@@ -46,13 +44,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Toggle chatbot visibility
   launcher.addEventListener('click', function() {
-    chatbotContainer.style.display = 'flex';
+    chatbotContainer.classList.add('active');
     launcher.style.display = 'none';
+    // Ensure proper scrolling on mobile
+    if (window.innerWidth <= 480) {
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        document.documentElement.style.overflow = 'hidden';
+      }, 50);
+    }
   });
 
   closeBtn.addEventListener('click', function() {
-    chatbotContainer.style.display = 'none';
-    launcher.style.display = 'flex';
+    chatbotContainer.classList.remove('active');
+    setTimeout(() => {
+      launcher.style.display = 'flex';
+      document.documentElement.style.overflow = '';
+    }, 300);
   });
 
   // Quick action buttons
@@ -65,13 +73,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Send message function
   async function sendMessage() {
-    const input = userInput.value.trim();
-    if (!input) return;
+    const message = userInput.value.trim();
+    if (!message) return;
 
-    appendMessage('user', input);
+    appendMessage('user', message);
     userInput.value = '';
     sendBtn.disabled = true;
-    
+
     // Show typing indicator
     const typingIndicator = document.createElement('div');
     typingIndicator.className = 'typing-indicator';
@@ -80,47 +88,53 @@ document.addEventListener('DOMContentLoaded', function() {
     chatBox.scrollTop = chatBox.scrollHeight;
 
     try {
-      // Simulate API response (replace with actual API call in production)
+      // Simulate API response
+      const response = await simulateAPIResponse(message);
+      chatBox.removeChild(typingIndicator);
+      appendMessage('bot', response);
+    } catch (error) {
+      chatBox.removeChild(typingIndicator);
+      appendMessage('error', '⚠️ Sorry, I encountered an error. Please try again later.');
+    } finally {
+      sendBtn.disabled = false;
+    }
+  }
+
+  function simulateAPIResponse(message) {
+    return new Promise((resolve) => {
       setTimeout(() => {
-        chatBox.removeChild(typingIndicator);
         const responses = {
           "How often should I feed my puppy?": "Puppies typically need 3-4 small meals per day. The exact amount depends on their breed and age.",
           "What's the best way to groom a long-haired cat?": "Regular brushing (2-3 times a week) is essential. Use a wide-toothed comb and be gentle around sensitive areas.",
           "How much exercise does my dog need daily?": "Most dogs need 30 minutes to 2 hours of exercise daily, depending on breed and age.",
           "default": "I'm sorry, I can't answer that right now. Please try asking about pet care, grooming, or feeding."
         };
-        
-        const reply = responses[input] || responses["default"];
-        appendMessage('bot', reply);
-        sendBtn.disabled = false;
+        resolve(responses[message] || responses["default"]);
       }, 1500);
-      
-    } catch (err) {
-      console.error('Error:', err);
-      chatBox.removeChild(typingIndicator);
-      appendMessage('error', '⚠️ Sorry, I encountered an error. Please try again later.');
-      sendBtn.disabled = false;
-    }
+    });
   }
 
-  function appendMessage(sender, message) {
-    const msg = document.createElement('div');
-    msg.classList.add('message', `${sender}-message`);
-    
-    // Basic sanitization
-    const sanitizedMessage = message
+  function appendMessage(sender, content) {
+    const messageElement = document.createElement('div');
+    messageElement.className = `message ${sender}-message`;
+    messageElement.innerHTML = content
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;')
       .replace(/\n/g, '<br>');
-    
-    msg.innerHTML = sanitizedMessage;
-    chatBox.appendChild(msg);
+    chatBox.appendChild(messageElement);
     chatBox.scrollTop = chatBox.scrollHeight;
   }
 
   // Event listeners
   sendBtn.addEventListener('click', sendMessage);
-  userInput.addEventListener('keydown', e => {
+  userInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') sendMessage();
+  });
+
+  // Handle window resize
+  window.addEventListener('resize', function() {
+    if (window.innerWidth > 480) {
+      document.documentElement.style.overflow = '';
+    }
   });
 });
