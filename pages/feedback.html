@@ -1,6 +1,9 @@
-  <main class="content">
+    <main class="content">
         <h2>Feedback Form</h2>
-        <form action="#" method="post">
+        <!-- Netlify Form Configuration -->
+        <form name="feedback" method="POST" netlify data-netlify="true">
+            <input type="hidden" name="form-name" value="feedback" />
+            
             <label for="name">Your Name:</label>
             <input type="text" id="name" name="name" required>
 
@@ -13,6 +16,7 @@
                 <option value="kennel">Kennel Service</option>
                 <option value="petstore">Pet Store</option>
                 <option value="bookstore">Dog Book Store</option>
+                <option value="other">Other (Please specify in feedback)</option>
             </select>
 
             <label for="message">Your Feedback:</label>
