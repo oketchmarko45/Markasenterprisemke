@@ -17,7 +17,7 @@ def handler(event, context):
         message = unquote(data.get("message", ""))
         
         # Email configuration
-        sender = "your-bot-email@gmail.com"  # Replace with your Gmail
+        sender = "markasenterprisemke@gmail.com"  # Replace with your Gmail
         receiver = "markasenterprisemke@gmail.com"
         subject = f"New Feedback: {service}"
         
