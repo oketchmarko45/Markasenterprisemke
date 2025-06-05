@@ -1,0 +1,4 @@
+# requirements.txt
+python-dotenv
+requests
+# Add other Python packages your send_email.py needs
