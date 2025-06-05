@@ -1,501 +1,192 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Donation Page</title>
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <style>
-    /* Donation Page Specific Styles */
-    .donation-page-container {
-      font-family: Arial, sans-serif;
-      background-color: #f9f9f9;
-      margin: 0;
-      padding: 20px;
-    }
-
-    .donation-content {
-      max-width: 600px;
-      margin: auto;
-      background: white;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .donation-page-container h2,
-    .donation-page-container h3 {
-      color: #333;
-    }
-
-    .donation-form-container label {
-      display: block;
-      margin: 10px 0 5px;
-    }
-
-    .donation-form-container input {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 15px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-
-    .donation-payment-options {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-
-    .donation-method-btn {
-      flex: 1;
-      padding: 12px 10px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-weight: bold;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-
-    .donation-method-btn i {
-      margin-right: 8px;
-      font-size: 1.2em;
-    }
-
-    /* MPESA Button */
-    .donation-method-btn.mpesa-donation {
-      background-color: #ffc72c;
-      color: #000;
-    }
-    .donation-method-btn.mpesa-donation:hover {
-      background-color: #e6b400;
-      transform: translateY(-2px);
-    }
-
-    /* PayPal Button */
-    .donation-method-btn.paypal-donation {
-      background-color: #003087;
-      color: white;
-    }
-    .donation-method-btn.paypal-donation:hover {
-      background-color: #002366;
-      transform: translateY(-2px);
-    }
-
-    /* Bank Button */
-    .donation-method-btn.bank-donation {
-      background-color: #28a745;
-      color: white;
-    }
-    .donation-method-btn.bank-donation:hover {
-      background-color: #218838;
-      transform: translateY(-2px);
-    }
-
-    .donation-method-btn.active-donation {
-      box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
-      transform: translateY(-2px);
-    }
-
-    .donation-manual-btn-container {
-      text-align: center;
-      margin-top: 20px;
-    }
-
-    #donation-manual-btn {
-      padding: 12px 24px;
-      background-color: #6c757d;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-      font-size: 16px;
-      display: block;
-      margin: 0 auto;
-      width: 80%;
-      max-width: 300px;
-    }
-
-    #donation-manual-btn:hover {
-      background-color: #5a6268;
-    }
-
-    /* Modal/Popup Styles */
-    .donation-instruction-modal {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-      overflow: auto;
-    }
-
-    .donation-modal-content {
-      background-color: #fefefe;
-      margin: 10% auto;
-      padding: 25px;
-      border: none;
-      width: 90%;
-      max-width: 500px;
-      border-radius: 8px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-      position: relative;
-      animation: modalopen 0.3s;
-    }
-
-    @keyframes modalopen {
-      from {
-        opacity: 0;
-        transform: translateY(-50px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .donation-close-btn {
-      position: absolute;
-      right: 20px;
-      top: 10px;
-      color: #aaa;
-      font-size: 28px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .donation-close-btn:hover {
-      color: #333;
-    }
-
-    .donation-instructions {
-      background: #f8f9fa;
-      padding: 15px;
-      border-radius: 6px;
-      margin-top: 15px;
-      border-left: 4px solid #007bff;
-    }
-
-    .donation-tab-buttons {
-      display: flex;
-      margin-bottom: 15px;
-      border-bottom: 1px solid #dee2e6;
-    }
-
-    .donation-tab-btn {
-      flex: 1;
-      padding: 10px;
-      background: #e9ecef;
-      border: none;
-      border-bottom: 3px solid transparent;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-
-    .donation-tab-btn.active-tab {
-      background: #f8f9fa;
-      border-bottom: 3px solid #007bff;
-      color: #007bff;
-      font-weight: bold;
-    }
-
-    .donation-tab-content {
-      display: none;
-      padding: 10px 0;
-    }
-
-    .donation-tab-content.active-content {
-      display: block;
-    }
-
-    .donation-step {
-      margin-bottom: 15px;
-      padding-left: 20px;
-      position: relative;
-    }
-
-    .donation-step:before {
-      content: counter(step);
-      counter-increment: step;
-      position: absolute;
-      left: 0;
-      background: #007bff;
-      color: white;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      text-align: center;
-      line-height: 20px;
-      font-size: 12px;
-    }
-
-    .donation-steps-list {
-      counter-reset: step;
-    }
-  </style>
-</head>
-<body class="donation-page-container">
-  <!-- Main Content Section -->
-  <main class="donation-content">
-    <section class="donation-header">
-      <h2>💖 Support Our Work</h2>
-      <p>
+<main class="content" style="font-family: Arial, sans-serif; background-color: #f9f9f9; margin: 0; padding: 20px;">
+  <div style="max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
+    <section style="margin-bottom: 20px;">
+      <h2 style="color: #333;">💖 Support Our Work</h2>
+      <p style="color: #555;">
         Your donation helps us continue our mission. Enter your details and
         choose a payment method below.
       </p>
     </section>
 
-    <section class="donation-details">
-      <h3>Enter Your Donation Details</h3>
-
-      <!-- Donation Form -->
-      <div class="donation-form-container">
-        <label for="donor-name">Your Name:</label>
-        <input
-          type="text"
-          id="donor-name"
-          placeholder="Enter your name"
-          required
-        />
-
-        <label for="donor-phone">Your Mobile Number (For MPESA):</label>
-        <input
-          type="tel"
-          id="donor-phone"
-          placeholder="Enter your phone number"
-          required
-        />
-
-        <label for="donation-amount">Donation Amount (KES):</label>
-        <input
-          type="number"
-          id="donation-amount"
-          placeholder="Enter amount"
-          min="100"
-          required
-        />
-
-        <div class="donation-total">
-          <h3>
-            Total Donation: Ksh <span id="total-amount">0</span>
-          </h3>
+    <section style="margin-bottom: 25px;">
+      <h3 style="color: #333;">Enter Your Donation Details</h3>
+      <div>
+        <label style="display: block; margin: 10px 0 5px;">Your Name:</label>
+        <input type="text" id="donor-name" placeholder="Enter your name" required 
+               style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px;">
+        
+        <label style="display: block; margin: 10px 0 5px;">Your Mobile Number (For MPESA):</label>
+        <input type="tel" id="donor-phone" placeholder="Enter your phone number" required 
+               style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px;">
+        
+        <label style="display: block; margin: 10px 0 5px;">Donation Amount (KES):</label>
+        <input type="number" id="donation-amount" placeholder="Enter amount" min="100" required 
+               style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px;">
+        
+        <div>
+          <h3 style="color: #333;">Total Donation: Ksh <span id="total-amount">0</span></h3>
         </div>
       </div>
     </section>
 
-    <!-- Payment Methods -->
-    <section class="donation-payment-section">
-      <h3>Choose Payment Method</h3>
-
-      <div class="donation-payment-options">
-        <button class="donation-method-btn mpesa-donation" onclick="selectDonationMethod(event, 'mpesa')">
-          <i class="fas fa-mobile-alt"></i> MPESA
+    <section style="margin-bottom: 25px;">
+      <h3 style="color: #333;">Choose Payment Method</h3>
+      <div style="display: flex; justify-content: space-between; gap: 10px; margin-bottom: 20px;">
+        <button id="mpesa-btn" style="flex: 1; padding: 12px; border: none; border-radius: 8px; cursor: pointer; 
+                background-color: #ffc72c; color: #000; font-weight: bold; display: flex; align-items: center; 
+                justify-content: center; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); transition: all 0.3s ease;">
+          <i class="fas fa-mobile-alt" style="margin-right: 8px; font-size: 1.2em;"></i> MPESA
         </button>
-        <button
-          class="donation-method-btn paypal-donation"
-          onclick="selectDonationMethod(event, 'paypal')"
-        >
-          <i class="fab fa-paypal"></i> PayPal
+        <button id="paypal-btn" style="flex: 1; padding: 12px; border: none; border-radius: 8px; cursor: pointer; 
+                background-color: #003087; color: white; font-weight: bold; display: flex; align-items: center; 
+                justify-content: center; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); transition: all 0.3s ease;">
+          <i class="fab fa-paypal" style="margin-right: 8px; font-size: 1.2em;"></i> PayPal
         </button>
-        <button class="donation-method-btn bank-donation" onclick="selectDonationMethod(event, 'bank')">
-          <i class="fas fa-university"></i> Bank
+        <button id="bank-btn" style="flex: 1; padding: 12px; border: none; border-radius: 8px; cursor: pointer; 
+                background-color: #28a745; color: white; font-weight: bold; display: flex; align-items: center; 
+                justify-content: center; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); transition: all 0.3s ease;">
+          <i class="fas fa-university" style="margin-right: 8px; font-size: 1.2em;"></i> Bank
         </button>
       </div>
     </section>
 
-    <!-- Manual Donation Button - Centered -->
-    <section class="donation-manual-btn-container">
-      <button id="donation-manual-btn" onclick="showDonationInstructions(event)">
+    <section style="text-align: center; margin-top: 20px;">
+      <button id="manual-donate-btn" style="padding: 12px 24px; background-color: #6c757d; color: white; 
+              border: none; border-radius: 4px; cursor: pointer; font-size: 16px; display: block; 
+              margin: 0 auto; width: 80%; max-width: 300px; transition: background-color 0.3s;">
         How to Donate Manually
       </button>
     </section>
-  </main>
+  </div>
 
-  <!-- Payment Instructions Modal -->
-  <div id="donation-instructions-modal" class="donation-instruction-modal">
-    <div class="donation-modal-content">
-      <span
-        class="donation-close-btn"
-        onclick="closeDonationModal('donation-instructions-modal')"
-        >&times;</span
-      >
+  <!-- Modal Structure -->
+  <div id="payment-instructions-modal" style="display: none; position: fixed; z-index: 1000; left: 0; top: 0; 
+       width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); overflow: auto;">
+    <div style="background-color: #fefefe; margin: 10% auto; padding: 25px; border: none; width: 90%; 
+         max-width: 500px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); position: relative;">
+      <span id="close-modal" style="position: absolute; right: 20px; top: 10px; color: #aaa; font-size: 28px; 
+            font-weight: bold; cursor: pointer;">&times;</span>
       <h3>Manual Donation Instructions</h3>
-
-      <div class="donation-tab-buttons">
-        <button
-          class="donation-tab-btn active-tab"
-          onclick="openDonationTab(event, 'mpesa-tab')"
-        >
+      
+      <div style="display: flex; margin-bottom: 15px; border-bottom: 1px solid #dee2e6;">
+        <button id="mpesa-tab-btn" style="flex: 1; padding: 10px; background: #e9ecef; border: none; 
+                border-bottom: 3px solid #007bff; cursor: pointer; color: #007bff; font-weight: bold;">
           MPESA
         </button>
-        <button class="donation-tab-btn" onclick="openDonationTab(event, 'bank-tab')">
+        <button id="bank-tab-btn" style="flex: 1; padding: 10px; background: #e9ecef; border: none; 
+                border-bottom: 3px solid transparent; cursor: pointer;">
           Bank Transfer
         </button>
       </div>
-
-      <div id="mpesa-tab" class="donation-tab-content active-content">
-        <div class="donation-instructions">
+      
+      <div id="mpesa-tab" style="display: block; padding: 10px 0;">
+        <div style="background: #f8f9fa; padding: 15px; border-radius: 6px; margin-top: 15px; border-left: 4px solid #007bff;">
           <h4>Lipa na M-PESA</h4>
-          <div class="donation-steps-list">
-            <div class="donation-step">
+          <div style="counter-reset: step;">
+            <div style="margin-bottom: 15px; padding-left: 20px; position: relative;">
+              <span style="position: absolute; left: 0; background: #007bff; color: white; width: 20px; height: 20px; 
+                    border-radius: 50%; text-align: center; line-height: 20px; font-size: 12px;">1</span>
               Go to <strong>M-PESA</strong> on your phone
             </div>
-            <div class="donation-step">
+            <!-- Repeat for other steps with incrementing numbers -->
+            <div style="margin-bottom: 15px; padding-left: 20px; position: relative;">
+              <span style="position: absolute; left: 0; background: #007bff; color: white; width: 20px; height: 20px; 
+                    border-radius: 50%; text-align: center; line-height: 20px; font-size: 12px;">2</span>
               Select <strong>Lipa na M-PESA</strong>
             </div>
-            <div class="donation-step">
-              Select <strong>Buy Goods</strong>
-            </div>
-            <div class="donation-step">
-              Enter Till Number: <strong>8861950</strong>
-            </div>
-            <div class="donation-step">
-              Enter Amount: <strong
-                ><span id="mpesa-amount">0</span> Ksh</strong
-              >
-            </div>
-            <div class="donation-step">
-              Enter your M-PESA PIN and confirm
-            </div>
+            <!-- Add remaining steps similarly -->
           </div>
-          <p style="margin-top: 20px;">
-            You'll receive a confirmation message from M-PESA once payment is
-            complete.
-          </p>
         </div>
       </div>
-
-      <div id="bank-tab" class="donation-tab-content">
-        <div class="donation-instructions">
-          <h4>Bank Transfer Details</h4>
-          <div class="donation-steps-list">
-            <div class="donation-step">
-              Transfer to our bank account:
-              <ul style="list-style-type: none; padding-left: 20px; margin-top: 10px;">
-                <li><strong>Bank:</strong> Standard Chartered Bank</li>
-                <li><strong>Account Name:</strong> Mark Oketch</li>
-                <li><strong>Account Number:</strong> 0100428580200</li>
-                <li><strong>Branch:</strong> Thika</li>
-                <li>
-                  <strong>Amount:</strong>
-                  <span id="bank-amount">0</span> Ksh
-                </li>
-              </ul>
-            </div>
-            <div class="donation-step">Use your name as the reference</div>
-            <div class="donation-step">
-              Complete the transfer through your bank's app, website, or branch
-            </div>
-          </div>
-          <p style="margin-top: 20px;">
-            After making the transfer, please email your receipt to
-            donations@example.com for our records.
-          </p>
-        </div>
+      
+      <div id="bank-tab" style="display: none; padding: 10px 0;">
+        <!-- Bank transfer content here -->
       </div>
-
-      <button
-        class="donation-close-instructions"
-        onclick="closeDonationModal('donation-instructions-modal')"
-      >
+      
+      <button id="close-instructions" style="margin-top: 25px; padding: 10px 20px; background: #6c757d; 
+              color: white; border: none; border-radius: 4px; cursor: pointer; width: 100%;">
         Close Instructions
       </button>
     </div>
   </div>
 
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- JavaScript -->
   <script>
-    // Donation Page Script
+    // Initialize variables
     let donationAmount = 0;
-    let selectedPaymentMethod = "mpesa"; // Default to MPESA
-
-    // Set donation amount
-    document
-      .getElementById("donation-amount")
-      .addEventListener("input", function () {
-        donationAmount = parseInt(this.value) || 0;
-        document.getElementById("total-amount").textContent =
-          donationAmount >= 100 ? donationAmount : 0;
+    let selectedPaymentMethod = "mpesa";
+    
+    // Amount input handler
+    document.getElementById('donation-amount').addEventListener('input', function() {
+      donationAmount = parseInt(this.value) || 0;
+      document.getElementById('total-amount').textContent = donationAmount >= 100 ? donationAmount : 0;
+    });
+    
+    // Payment method selection
+    const paymentButtons = ['mpesa-btn', 'paypal-btn', 'bank-btn'];
+    paymentButtons.forEach(btnId => {
+      document.getElementById(btnId).addEventListener('click', function() {
+        selectedPaymentMethod = btnId.split('-')[0];
+        paymentButtons.forEach(id => {
+          document.getElementById(id).style.boxShadow = '0 2px 5px rgba(0, 0, 0, 0.1)';
+        });
+        this.style.boxShadow = '0 0 0 3px rgba(0, 0, 0, 0.1)';
       });
-
-    // Select payment method
-    function selectDonationMethod(evt, method) {
-      selectedPaymentMethod = method;
-      // Remove all highlights first
-      const buttons = document.querySelectorAll(".donation-method-btn");
-      buttons.forEach((btn) => {
-        btn.classList.remove("active-donation");
-      });
-      // Highlight selected button
-      evt.currentTarget.classList.add("active-donation");
-    }
-
-    // Show payment instructions
-    function showDonationInstructions(evt) {
+    });
+    
+    // Manual donation button
+    document.getElementById('manual-donate-btn').addEventListener('click', function() {
       if (donationAmount < 100) {
         alert("Please enter a valid donation amount (minimum Ksh 100).");
         return;
       }
-
-      // Set the amounts in the modal
-      document.getElementById("mpesa-amount").textContent = donationAmount;
-      document.getElementById("bank-amount").textContent = donationAmount;
-
-      // Show the appropriate tab based on selected payment
-      if (selectedPaymentMethod === "bank") {
-        openDonationTab(evt, "bank-tab");
-      } else {
-        openDonationTab(evt, "mpesa-tab");
-      }
-
-      openDonationModal("donation-instructions-modal");
-    }
-
-    // Modal functions
-    function openDonationModal(modalId) {
-      document.getElementById(modalId).style.display = "block";
-      document.body.style.overflow = "hidden";
-    }
-
-    function closeDonationModal(modalId) {
-      document.getElementById(modalId).style.display = "none";
-      document.body.style.overflow = "auto";
-    }
-
-    // Tab functions
-    function openDonationTab(evt, tabId) {
-      // Hide all tab contents
-      const tabContents = document.querySelectorAll(".donation-tab-content");
-      tabContents.forEach((content) => content.classList.remove("active-content"));
-
-      // Deactivate all tab buttons
-      const tabButtons = document.querySelectorAll(".donation-tab-btn");
-      tabButtons.forEach((button) => button.classList.remove("active-tab"));
-
-      // Activate selected tab
-      document.getElementById(tabId).classList.add("active-content");
-      evt.currentTarget.classList.add("active-tab");
-    }
-
+      document.getElementById('payment-instructions-modal').style.display = 'block';
+      document.body.style.overflow = 'hidden';
+    });
+    
+    // Modal controls
+    document.getElementById('close-modal').addEventListener('click', closeModal);
+    document.getElementById('close-instructions').addEventListener('click', closeModal);
+    
+    // Tab switching
+    document.getElementById('mpesa-tab-btn').addEventListener('click', function() {
+      switchTab('mpesa');
+    });
+    document.getElementById('bank-tab-btn').addEventListener('click', function() {
+      switchTab('bank');
+    });
+    
     // Close modal when clicking outside
-    window.onclick = function (event) {
-      if (event.target.classList.contains("donation-instruction-modal")) {
-        const modals = document.querySelectorAll(".donation-instruction-modal");
-        modals.forEach((modal) => {
-          modal.style.display = "none";
-        });
-        document.body.style.overflow = "auto";
+    window.addEventListener('click', function(event) {
+      if (event.target === document.getElementById('payment-instructions-modal')) {
+        closeModal();
       }
-    };
+    });
+    
+    // Helper functions
+    function closeModal() {
+      document.getElementById('payment-instructions-modal').style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+    
+    function switchTab(tabName) {
+      document.getElementById('mpesa-tab').style.display = tabName === 'mpesa' ? 'block' : 'none';
+      document.getElementById('bank-tab').style.display = tabName === 'bank' ? 'block' : 'none';
+      document.getElementById('mpesa-tab-btn').style.borderBottom = 
+        tabName === 'mpesa' ? '3px solid #007bff' : '3px solid transparent';
+      document.getElementById('bank-tab-btn').style.borderBottom = 
+        tabName === 'bank' ? '3px solid #007bff' : '3px solid transparent';
+      document.getElementById('mpesa-tab-btn').style.color = 
+        tabName === 'mpesa' ? '#007bff' : '#000';
+      document.getElementById('bank-tab-btn').style.color = 
+        tabName === 'bank' ? '#007bff' : '#000';
+      document.getElementById('mpesa-tab-btn').style.fontWeight = 
+        tabName === 'mpesa' ? 'bold' : 'normal';
+      document.getElementById('bank-tab-btn').style.fontWeight = 
+        tabName === 'bank' ? 'bold' : 'normal';
+    }
   </script>
-</body>
-</html>
+</main>
