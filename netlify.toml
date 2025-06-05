@@ -1,7 +1,7 @@
 [build]
-  functions = "netlify/functions"  # Keeps your Python functions directory
-  publish = "public"              # Points to your public folder for static files
+  command = "pip install -r requirements.txt && npm install"
+  functions = "netlify/functions"
+  publish = "public"
 
 [context.production.environment]
-  # Disable Netlify's default form notifications
   NETLIFY_IMPLICIT_FORM_SUBMISSIONS = "false"
