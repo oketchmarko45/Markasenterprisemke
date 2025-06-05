@@ -1,7 +1,7 @@
 {
-  "name": "your-project",
+  "name": "chatbot",
   "version": "1.0.0",
   "dependencies": {
-    "openai": "^4.0.0"
+    "openai": "^3.2.1"  // Use v3.x if you're on GPT-3.5
   }
 }
