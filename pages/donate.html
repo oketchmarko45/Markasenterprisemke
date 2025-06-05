@@ -5,18 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Donation Page</title>
   <!-- Font Awesome -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-  />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
-    body {
+    /* Donation Page Specific Styles */
+    .donation-page-container {
       font-family: Arial, sans-serif;
       background-color: #f9f9f9;
       margin: 0;
       padding: 20px;
     }
-    .content {
+
+    .donation-content {
       max-width: 600px;
       margin: auto;
       background: white;
@@ -24,28 +23,33 @@
       border-radius: 8px;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
-    h2,
-    h3 {
+
+    .donation-page-container h2,
+    .donation-page-container h3 {
       color: #333;
     }
-    .donation-form label {
+
+    .donation-form-container label {
       display: block;
       margin: 10px 0 5px;
     }
-    .donation-form input {
+
+    .donation-form-container input {
       width: 100%;
       padding: 10px;
       margin-bottom: 15px;
       border: 1px solid #ccc;
       border-radius: 4px;
     }
-    .donation-payment-buttons {
+
+    .donation-payment-options {
       display: flex;
       justify-content: space-between;
       gap: 10px;
       margin-bottom: 20px;
     }
-    .donation-payment-btn {
+
+    .donation-method-btn {
       flex: 1;
       padding: 12px 10px;
       border: none;
@@ -58,46 +62,53 @@
       justify-content: center;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
-    .donation-payment-btn i {
+
+    .donation-method-btn i {
       margin-right: 8px;
       font-size: 1.2em;
     }
+
     /* MPESA Button */
-    .donation-payment-btn.mpesa-btn {
+    .donation-method-btn.mpesa-donation {
       background-color: #ffc72c;
       color: #000;
     }
-    .donation-payment-btn.mpesa-btn:hover {
+    .donation-method-btn.mpesa-donation:hover {
       background-color: #e6b400;
       transform: translateY(-2px);
     }
+
     /* PayPal Button */
-    .donation-payment-btn.paypal-btn {
+    .donation-method-btn.paypal-donation {
       background-color: #003087;
       color: white;
     }
-    .donation-payment-btn.paypal-btn:hover {
+    .donation-method-btn.paypal-donation:hover {
       background-color: #002366;
       transform: translateY(-2px);
     }
+
     /* Bank Button */
-    .donation-payment-btn.bank-btn {
+    .donation-method-btn.bank-donation {
       background-color: #28a745;
       color: white;
     }
-    .donation-payment-btn.bank-btn:hover {
+    .donation-method-btn.bank-donation:hover {
       background-color: #218838;
       transform: translateY(-2px);
     }
-    .donation-payment-btn.active {
+
+    .donation-method-btn.active-donation {
       box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
       transform: translateY(-2px);
     }
-    .manual-donate-button {
+
+    .donation-manual-btn-container {
       text-align: center;
       margin-top: 20px;
     }
-    #manual-donate-btn {
+
+    #donation-manual-btn {
       padding: 12px 24px;
       background-color: #6c757d;
       color: white;
@@ -111,11 +122,13 @@
       width: 80%;
       max-width: 300px;
     }
-    #manual-donate-btn:hover {
+
+    #donation-manual-btn:hover {
       background-color: #5a6268;
     }
+
     /* Modal/Popup Styles */
-    .donation-modal {
+    .donation-instruction-modal {
       display: none;
       position: fixed;
       z-index: 1000;
@@ -126,6 +139,7 @@
       background-color: rgba(0, 0, 0, 0.5);
       overflow: auto;
     }
+
     .donation-modal-content {
       background-color: #fefefe;
       margin: 10% auto;
@@ -138,6 +152,7 @@
       position: relative;
       animation: modalopen 0.3s;
     }
+
     @keyframes modalopen {
       from {
         opacity: 0;
@@ -148,6 +163,7 @@
         transform: translateY(0);
       }
     }
+
     .donation-close-btn {
       position: absolute;
       right: 20px;
@@ -157,21 +173,25 @@
       font-weight: bold;
       cursor: pointer;
     }
+
     .donation-close-btn:hover {
       color: #333;
     }
-    .donation-payment-instructions {
+
+    .donation-instructions {
       background: #f8f9fa;
       padding: 15px;
       border-radius: 6px;
       margin-top: 15px;
       border-left: 4px solid #007bff;
     }
+
     .donation-tab-buttons {
       display: flex;
       margin-bottom: 15px;
       border-bottom: 1px solid #dee2e6;
     }
+
     .donation-tab-btn {
       flex: 1;
       padding: 10px;
@@ -181,25 +201,30 @@
       cursor: pointer;
       transition: all 0.3s;
     }
-    .donation-tab-btn.active {
+
+    .donation-tab-btn.active-tab {
       background: #f8f9fa;
       border-bottom: 3px solid #007bff;
       color: #007bff;
       font-weight: bold;
     }
+
     .donation-tab-content {
       display: none;
       padding: 10px 0;
     }
-    .donation-tab-content.active {
+
+    .donation-tab-content.active-content {
       display: block;
     }
-    .donation-instruction-step {
+
+    .donation-step {
       margin-bottom: 15px;
       padding-left: 20px;
       position: relative;
     }
-    .donation-instruction-step:before {
+
+    .donation-step:before {
       content: counter(step);
       counter-increment: step;
       position: absolute;
@@ -213,15 +238,16 @@
       line-height: 20px;
       font-size: 12px;
     }
-    .donation-instructions-list {
+
+    .donation-steps-list {
       counter-reset: step;
     }
   </style>
 </head>
-<body>
+<body class="donation-page-container">
   <!-- Main Content Section -->
-  <main class="content">
-    <section class="donation-info">
+  <main class="donation-content">
+    <section class="donation-header">
       <h2>💖 Support Our Work</h2>
       <p>
         Your donation helps us continue our mission. Enter your details and
@@ -229,11 +255,11 @@
       </p>
     </section>
 
-    <section class="donation-options">
+    <section class="donation-details">
       <h3>Enter Your Donation Details</h3>
 
       <!-- Donation Form -->
-      <div class="donation-form">
+      <div class="donation-form-container">
         <label for="donor-name">Your Name:</label>
         <input
           type="text"
@@ -259,7 +285,7 @@
           required
         />
 
-        <div class="total-donation">
+        <div class="donation-total">
           <h3>
             Total Donation: Ksh <span id="total-amount">0</span>
           </h3>
@@ -268,77 +294,77 @@
     </section>
 
     <!-- Payment Methods -->
-    <section class="payment-methods">
+    <section class="donation-payment-section">
       <h3>Choose Payment Method</h3>
 
-      <div class="donation-payment-buttons">
-        <button class="donation-payment-btn mpesa-btn" onclick="selectPayment(event, 'mpesa')">
+      <div class="donation-payment-options">
+        <button class="donation-method-btn mpesa-donation" onclick="selectDonationMethod(event, 'mpesa')">
           <i class="fas fa-mobile-alt"></i> MPESA
         </button>
         <button
-          class="donation-payment-btn paypal-btn"
-          onclick="selectPayment(event, 'paypal')"
+          class="donation-method-btn paypal-donation"
+          onclick="selectDonationMethod(event, 'paypal')"
         >
           <i class="fab fa-paypal"></i> PayPal
         </button>
-        <button class="donation-payment-btn bank-btn" onclick="selectPayment(event, 'bank')">
+        <button class="donation-method-btn bank-donation" onclick="selectDonationMethod(event, 'bank')">
           <i class="fas fa-university"></i> Bank
         </button>
       </div>
     </section>
 
     <!-- Manual Donation Button - Centered -->
-    <section class="manual-donate-button">
-      <button id="manual-donate-btn" onclick="showPaymentInstructions(event)">
+    <section class="donation-manual-btn-container">
+      <button id="donation-manual-btn" onclick="showDonationInstructions(event)">
         How to Donate Manually
       </button>
     </section>
   </main>
 
   <!-- Payment Instructions Modal -->
-  <div id="payment-instructions-modal" class="donation-modal">
+  <div id="donation-instructions-modal" class="donation-instruction-modal">
     <div class="donation-modal-content">
       <span
         class="donation-close-btn"
-        onclick="closeModal('payment-instructions-modal')"
+        onclick="closeDonationModal('donation-instructions-modal')"
         >&times;</span
       >
       <h3>Manual Donation Instructions</h3>
 
       <div class="donation-tab-buttons">
         <button
-          class="donation-tab-btn active"
-          onclick="openTab(event, 'mpesa-tab')"
+          class="donation-tab-btn active-tab"
+          onclick="openDonationTab(event, 'mpesa-tab')"
         >
           MPESA
         </button>
-        <button class="donation-tab-btn" onclick="openTab(event, 'bank-tab')">
+        <button class="donation-tab-btn" onclick="openDonationTab(event, 'bank-tab')">
           Bank Transfer
         </button>
       </div>
 
-      <div id="mpesa-tab" class="donation-tab-content active">
-        <div class="donation-payment-instructions">
+      <div id="mpesa-tab" class="donation-tab-content active-content">
+        <div class="donation-instructions">
           <h4>Lipa na M-PESA</h4>
-          <div class="donation-instructions-list">
-            <div class="donation-instruction-step">
+          <div class="donation-steps-list">
+            <div class="donation-step">
               Go to <strong>M-PESA</strong> on your phone
             </div>
-            <div class="donation-instruction-step">
+            <div class="donation-step">
               Select <strong>Lipa na M-PESA</strong>
             </div>
-            <div class="donation-instruction-step">
+            <div class="donation-step">
               Select <strong>Buy Goods</strong>
             </div>
-            <div class="donation-instruction-step">
+            <div class="donation-step">
               Enter Till Number: <strong>8861950</strong>
             </div>
-            <div class="donation-instruction-step">
+            <div class="donation-step">
               Enter Amount: <strong
                 ><span id="mpesa-amount">0</span> Ksh</strong
               >
             </div>
-            <div class="donation-instruction-step">
+            <div class="donation-step">
               Enter your M-PESA PIN and confirm
             </div>
           </div>
@@ -350,10 +376,10 @@
       </div>
 
       <div id="bank-tab" class="donation-tab-content">
-        <div class="donation-payment-instructions">
+        <div class="donation-instructions">
           <h4>Bank Transfer Details</h4>
-          <div class="donation-instructions-list">
-            <div class="donation-instruction-step">
+          <div class="donation-steps-list">
+            <div class="donation-step">
               Transfer to our bank account:
               <ul style="list-style-type: none; padding-left: 20px; margin-top: 10px;">
                 <li><strong>Bank:</strong> Standard Chartered Bank</li>
@@ -366,8 +392,8 @@
                 </li>
               </ul>
             </div>
-            <div class="donation-instruction-step">Use your name as the reference</div>
-            <div class="donation-instruction-step">
+            <div class="donation-step">Use your name as the reference</div>
+            <div class="donation-step">
               Complete the transfer through your bank's app, website, or branch
             </div>
           </div>
@@ -379,17 +405,8 @@
       </div>
 
       <button
-        style="
-          margin-top: 25px;
-          padding: 10px 20px;
-          background: #6c757d;
-          color: white;
-          border: none;
-          border-radius: 4px;
-          cursor: pointer;
-          width: 100%;
-        "
-        onclick="closeModal('payment-instructions-modal')"
+        class="donation-close-instructions"
+        onclick="closeDonationModal('donation-instructions-modal')"
       >
         Close Instructions
       </button>
@@ -397,6 +414,7 @@
   </div>
 
   <script>
+    // Donation Page Script
     let donationAmount = 0;
     let selectedPaymentMethod = "mpesa"; // Default to MPESA
 
@@ -410,19 +428,19 @@
       });
 
     // Select payment method
-    function selectPayment(evt, method) {
+    function selectDonationMethod(evt, method) {
       selectedPaymentMethod = method;
       // Remove all highlights first
-      const buttons = document.querySelectorAll(".donation-payment-btn");
+      const buttons = document.querySelectorAll(".donation-method-btn");
       buttons.forEach((btn) => {
-        btn.classList.remove("active");
+        btn.classList.remove("active-donation");
       });
       // Highlight selected button
-      evt.currentTarget.classList.add("active");
+      evt.currentTarget.classList.add("active-donation");
     }
 
     // Show payment instructions
-    function showPaymentInstructions(evt) {
+    function showDonationInstructions(evt) {
       if (donationAmount < 100) {
         alert("Please enter a valid donation amount (minimum Ksh 100).");
         return;
@@ -431,49 +449,47 @@
       // Set the amounts in the modal
       document.getElementById("mpesa-amount").textContent = donationAmount;
       document.getElementById("bank-amount").textContent = donationAmount;
-      document.getElementById("mpesa-account-name").textContent =
-        document.getElementById("donor-name").value || "Your Name";
 
       // Show the appropriate tab based on selected payment
       if (selectedPaymentMethod === "bank") {
-        openTab(evt, "bank-tab");
+        openDonationTab(evt, "bank-tab");
       } else {
-        openTab(evt, "mpesa-tab");
+        openDonationTab(evt, "mpesa-tab");
       }
 
-      openModal("payment-instructions-modal");
+      openDonationModal("donation-instructions-modal");
     }
 
     // Modal functions
-    function openModal(modalId) {
+    function openDonationModal(modalId) {
       document.getElementById(modalId).style.display = "block";
       document.body.style.overflow = "hidden";
     }
 
-    function closeModal(modalId) {
+    function closeDonationModal(modalId) {
       document.getElementById(modalId).style.display = "none";
       document.body.style.overflow = "auto";
     }
 
     // Tab functions
-    function openTab(evt, tabId) {
+    function openDonationTab(evt, tabId) {
       // Hide all tab contents
       const tabContents = document.querySelectorAll(".donation-tab-content");
-      tabContents.forEach((content) => content.classList.remove("active"));
+      tabContents.forEach((content) => content.classList.remove("active-content"));
 
       // Deactivate all tab buttons
       const tabButtons = document.querySelectorAll(".donation-tab-btn");
-      tabButtons.forEach((button) => button.classList.remove("active"));
+      tabButtons.forEach((button) => button.classList.remove("active-tab"));
 
       // Activate selected tab
-      document.getElementById(tabId).classList.add("active");
-      evt.currentTarget.classList.add("active");
+      document.getElementById(tabId).classList.add("active-content");
+      evt.currentTarget.classList.add("active-tab");
     }
 
     // Close modal when clicking outside
     window.onclick = function (event) {
-      if (event.target.classList.contains("donation-modal")) {
-        const modals = document.querySelectorAll(".donation-modal");
+      if (event.target.classList.contains("donation-instruction-modal")) {
+        const modals = document.querySelectorAll(".donation-instruction-modal");
         modals.forEach((modal) => {
           modal.style.display = "none";
         });
