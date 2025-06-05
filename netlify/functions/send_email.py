@@ -2,6 +2,12 @@ import smtplib
 import os
 from email.mime.text import MIMEText
 from email.utils import formatdate
+from urllib.parse import unquote
+import re
+
+def is_valid_email(email):
+    # Simple regex for validating an email address
+    return re.match(r"[^@]+@[^@]+\.[^@]+", email) is not None
 
 def handler(event, context):
     try:
@@ -10,11 +16,17 @@ def handler(event, context):
         data = dict(pair.split("=") for pair in body.split("&"))
         
         # URL decode and prepare email content
-        from urllib.parse import unquote
         name = unquote(data.get("name", ""))
         email = unquote(data.get("email", ""))
         service = unquote(data.get("service", ""))
         message = unquote(data.get("message", ""))
+        
+        # Validate email
+        if not is_valid_email(email):
+            return {
+                "statusCode": 400,
+                "body": "Error: Invalid email address."
+            }
         
         # Email configuration
         sender = "markasenterprisemke@gmail.com"  # Replace with your Gmail
@@ -48,7 +60,9 @@ def handler(event, context):
         }
 
     except Exception as e:
+        # Log the error (consider using a logging library)
+        print(f"Error: {str(e)}")
         return {
             "statusCode": 500,
-            "body": f"Error: {str(e)}"
+            "body": "Error: An unexpected error occurred."
         }
