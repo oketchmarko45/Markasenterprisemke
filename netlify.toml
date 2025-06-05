@@ -1,7 +1,7 @@
 [build]
   command = "pip install -r requirements.txt && npm install"
   functions = "netlify/functions"
-  publish = "public"
+  publish = "."
 
 [context.production.environment]
   NETLIFY_IMPLICIT_FORM_SUBMISSIONS = "false"
