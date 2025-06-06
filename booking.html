@@ -29,7 +29,7 @@
     
     .content {
       width: 90%;
-      max-width: 1000px;  /* Increased max-width for larger screens */
+      max-width: 1000px;
       margin: 40px auto;
       background-color: var(--white);
       padding: 40px;
@@ -41,19 +41,19 @@
       text-align: center;
       color: var(--primary-color);
       margin-bottom: 25px;
-      font-size: 2.2rem;  /* Larger font size for headings */
+      font-size: 2.2rem;
     }
     
     label {
       display: block;
-      margin-bottom: 12px;  /* Increased margin */
+      margin-bottom: 12px;
       font-weight: 600;
       font-size: 1.1rem;
     }
     
     input, textarea, button {
       width: 100%;
-      padding: 18px;  /* Increased padding for larger screens */
+      padding: 18px;
       margin-bottom: 25px;
       border: 1px solid #ddd;
       border-radius: var(--border-radius);
@@ -70,7 +70,7 @@
     }
     
     textarea {
-      min-height: 180px;  /* Increased height */
+      min-height: 180px;
       resize: vertical;
     }
     
@@ -96,7 +96,7 @@
       background-color: var(--secondary-color);
       color: var(--white);
       text-align: center;
-      padding: 40px 20px;  /* Increased padding */
+      padding: 40px 20px;
       width: 100%;
       box-sizing: border-box;
     }
@@ -118,8 +118,8 @@
     
     .social-links a {
       display: inline-block;
-      margin: 0 20px;  /* Increased margin */
-      font-size: 24px;  /* Larger icons */
+      margin: 0 20px;
+      font-size: 24px;
     }
     
     .social-links a:hover {
@@ -130,7 +130,6 @@
       display: none;
     }
 
-    /* Close Button - Top Right */
     .close-btn {
       position: fixed;
       top: 30px;
@@ -157,7 +156,6 @@
       transform: scale(1.1);
     }
     
-    /* Success message */
     .success-message {
       display: none;
       background-color: #d4edda;
@@ -168,7 +166,16 @@
       text-align: center;
     }
     
-    /* Medium screens (tablets) */
+    .error-message {
+      display: none;
+      background-color: #f8d7da;
+      color: #721c24;
+      padding: 15px;
+      border-radius: var(--border-radius);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    
     @media (max-width: 992px) {
       .content {
         max-width: 800px;
@@ -191,7 +198,6 @@
       }
     }
     
-    /* Small screens (mobile) */
     @media (max-width: 768px) {
       .content {
         width: 95%;
@@ -229,7 +235,6 @@
       }
     }
 
-    /* Extra large screens */
     @media (min-width: 1600px) {
       .content {
         max-width: 1200px;
@@ -277,12 +282,11 @@
 
 <!-- Close Button - Top Right -->
 <div class="close-btn">
-  <a href="pages/marksprofile.html">
+  <a href="#" onclick="loadPage('pages/marksprofile.html')">
     <i class="fas fa-times"></i>
   </a>
 </div>
   
-<!-- HEADER -->
 <header>
   <div id="header-placeholder"></div>
 </header>
@@ -291,27 +295,34 @@
   <h2>Book a Service</h2>
   <p style="text-align: center; margin-bottom: 25px; font-size: 1.1rem;">Fill out the form below and we'll get back to you shortly</p>
 
-  <!-- Success message (hidden by default) -->
+  <!-- Success message -->
   <div id="success-message" class="success-message">
     <i class="fas fa-check-circle" style="font-size: 2rem; margin-bottom: 10px;"></i>
     <h3>Thank you for your submission!</h3>
     <p>We've received your message and will get back to you soon.</p>
+    <button onclick="window.location.href='index.html'" style="width: auto; margin: 15px auto 0; padding: 10px 20px;">
+      Return Home
+    </button>
+  </div>
+
+  <!-- Error message -->
+  <div id="error-message" class="error-message hidden">
+    <i class="fas fa-exclamation-circle" style="font-size: 2rem; margin-bottom: 10px;"></i>
+    <h3>Submission Error</h3>
+    <p id="error-text">There was a problem submitting your form. Please try again later.</p>
   </div>
 
   <!-- FormSubmit Form -->
-  <form 
-    id="service-form"
-    action="https://formsubmit.co/markasenterprisemke@gmail.com" 
-    method="POST">
-    
+  <form id="service-form" action="https://formsubmit.co/markasenterprisemke@gmail.com" method="POST">
     <!-- FormSubmit configuration -->
     <input type="hidden" name="_subject" value="New Service Booking Request">
-    <input type="hidden" name="_next" value="thankyou.html">
+    <input type="hidden" name="_next" value="https://yourdomain.com/thankyou.html">
     <input type="hidden" name="_captcha" value="false">
     <input type="hidden" name="_template" value="table">
     <input type="hidden" name="_autoresponse" value="Thank you for contacting Markas Enterprise MKE! We've received your service booking request and will get back to you shortly.">
+    <input type="hidden" name="_replyto" value="">
 
-    <!-- Honeypot field for spam protection -->
+    <!-- Honeypot field -->
     <input type="text" name="_honey" style="display:none">
 
     <!-- Form fields -->
@@ -319,7 +330,7 @@
     <input type="text" id="name" name="name" required placeholder="Enter your full name">
 
     <label for="email">Email Address:</label>
-    <input type="email" id="email" name="email" required placeholder="Enter your email address">
+    <input type="email" id="email" name="email" required placeholder="Enter your email address" oninput="document.querySelector('input[name=_replyto]').value = this.value">
 
     <label for="phone">Phone Number:</label>
     <input type="tel" id="phone" name="phone" required placeholder="Enter your phone number">
@@ -333,11 +344,10 @@
   </form>
 </main>
   
-<!-- Footer -->
 <footer>
   <h4>Markas Enterprise MKE</h4>
   <p>Created by 
-    <a href="pages/marksprofile.html">Ochieng' Mark Oketch</a>
+    <a href="#" onclick="loadPage('pages/marksprofile.html')">Ochieng' Mark Oketch</a>
     – Dogtrovert, Writer, Developer</p>
   <p>Contact: 
     <a href="mailto:markasenterprisemke@gmail.com">Markas Enterprise MKE via mail</a>
@@ -389,16 +399,37 @@
       if (response.ok) {
         // Show success message
         document.getElementById('success-message').style.display = 'block';
+        document.getElementById('error-message').classList.add('hidden');
         form.style.display = 'none';
+        
+        // Reset form after success (optional)
+        setTimeout(() => {
+          form.reset();
+          form.style.display = 'block';
+          document.getElementById('success-message').style.display = 'none';
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalBtnText;
+        }, 5000);
       } else {
-        throw new Error('Form submission failed');
+        const errorData = await response.json();
+        const errorText = errorData.message || 'Form submission failed';
+        document.getElementById('error-text').textContent = errorText;
+        document.getElementById('error-message').classList.remove('hidden');
+        throw new Error(errorText);
       }
     } catch (error) {
-      alert('There was a problem submitting your form. Please try again later.');
+      console.error('Form submission error:', error);
       submitBtn.disabled = false;
       submitBtn.innerHTML = originalBtnText;
     }
   });
+
+  // Function to handle page navigation
+  function loadPage(url) {
+    // You can implement your SPA navigation logic here
+    // For now, we'll use standard navigation
+    window.location.href = url;
+  }
 </script>
 
 </body>
