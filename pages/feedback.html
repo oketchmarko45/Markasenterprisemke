@@ -1,27 +1,33 @@
-    <main class="content">
-        <h2>Feedback Form</h2>
-        <!-- Netlify Form Configuration -->
-        <form name="feedback" method="POST" netlify data-netlify="true">
-            <input type="hidden" name="form-name" value="feedback" />
-            
-            <label for="name">Your Name:</label>
-            <input type="text" id="name" name="name" required>
+<main class="content">
+    <h2>Feedback Form</h2>
+    <!-- FormSubmit Configuration -->
+    <form id="feedback-form" action="https://formsubmit.co/markasenterprisemke@gmail.com" method="POST">
+        <!-- FormSubmit hidden fields -->
+        <input type="hidden" name="_subject" value="New Feedback Submission">
+        <input type="hidden" name="_next" value="https://your-netlify-site.netlify.app/thank-you.html">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_autoresponse" value="Thank you for your feedback to Markas Enterprise MKE! We appreciate your input.">
+        
+        <!-- Your existing form fields -->
+        <label for="name">Your Name:</label>
+        <input type="text" id="name" name="name" required>
 
-            <label for="email">Your Email:</label>
-            <input type="email" id="email" name="email" required>
+        <label for="email">Your Email:</label>
+        <input type="email" id="email" name="email" required>
 
-            <label for="service">Which service are you giving feedback on?</label>
-            <select id="service" name="service" required>
-                <option value="">-- Select a Service --</option>
-                <option value="other">Other (Please specify in feedback)</option>
-                <option value="kennel">Kennel Service</option>
-                <option value="petstore">Pet Store</option>
-                <option value="bookstore">Dog Book Store</option>
-            </select>
+        <label for="service">Which service are you giving feedback on?</label>
+        <select id="service" name="service" required>
+            <option value="">-- Select a Service --</option>
+            <option value="other">Other (Please specify in feedback)</option>
+            <option value="kennel">Kennel Service</option>
+            <option value="petstore">Pet Store</option>
+            <option value="bookstore">Dog Book Store</option>
+        </select>
 
-            <label for="message">Your Feedback:</label>
-            <textarea id="message" name="message" rows="6" required></textarea>
+        <label for="message">Your Feedback:</label>
+        <textarea id="message" name="message" rows="6" required></textarea>
 
-            <button type="submit">Submit Feedback</button>
-        </form>
-    </main>
+        <button type="submit">Submit Feedback</button>
+    </form>
+</main>
