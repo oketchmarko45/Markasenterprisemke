@@ -240,146 +240,181 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-  const chatBox = document.getElementById('chat-box');
-  const userInput = document.getElementById('user-input');
-  const sendBtn = document.getElementById('send-btn');
-  const closeBtn = document.getElementById('close-btn');
-  
-  let currentThreadId = null;
-
-  // Configuration - Update this to your backend endpoint
-  const API_BASE_URL = window.location.hostname === 'localhost' 
-    ? 'http://localhost:3001' 
-    : 'https://markasenterprisemke.netlify.app';
-  const CHAT_ENDPOINT = '/.netlify/functions/petbot';
-
-  // Quick action buttons
-  document.querySelectorAll('.quick-action-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-      userInput.value = this.getAttribute('data-question');
-      userInput.focus();
-    });
-  });
-
-  // Close button functionality
-  closeBtn.addEventListener('click', function() {
-    document.querySelector('.chatbot-container').style.display = 'none';
-  });
-
-  // Send message function
-  async function sendMessage() {
-    const input = userInput.value.trim();
-    if (!input) {
-      appendMessage('error', 'Please enter a question');
-      return;
-    }
-    
-    appendMessage('user', input);
-    userInput.value = '';
-    sendBtn.disabled = true;
-    userInput.disabled = true;
-    
-    // Show typing indicator
-    const typingIndicator = document.createElement('div');
-    typingIndicator.className = 'typing-indicator';
-    typingIndicator.innerHTML = '<span></span><span></span><span></span>';
-    chatBox.appendChild(typingIndicator);
-    chatBox.scrollTop = chatBox.scrollHeight;
-
-    try {
-      const response = await fetch(`${API_BASE_URL}${CHAT_ENDPOINT}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ 
-          message: input,
-          thread_id: currentThreadId 
-        })
-      });
-
-      if (!response.ok) {
-        throw new Error(`Request failed with status ${response.status}`);
-      }
-
-      const data = await response.json();
-      currentThreadId = data.thread_id || null;
-      chatBox.removeChild(typingIndicator);
-      appendMessage('bot', data.reply);
+      const chatBox = document.getElementById('chat-box');
+      const userInput = document.getElementById('user-input');
+      const sendBtn = document.getElementById('send-btn');
+      const closeBtn = document.getElementById('close-btn');
       
-      // Add quick follow-up questions if appropriate
-      addFollowUpQuestions(data.reply);
-    } catch (err) {
-      console.error('Error:', err);
-      chatBox.removeChild(typingIndicator);
-      const errorMsg = err.message.includes('Failed to fetch')
-        ? "⚠️ Couldn't connect to server. Please check your network."
-        : "⚠️ Sorry, something went wrong. Please try again.";
-      appendMessage('error', errorMsg);
-    } finally {
-      sendBtn.disabled = false;
-      userInput.disabled = false;
-      userInput.focus();
-    }
-  }
+      // Local knowledge base as fallback
+      const localKnowledgeBase = {
+        "how often should i feed my puppy": "Puppies need 3-4 meals per day. Feed high-quality puppy food according to package instructions based on weight and breed.",
+        "what's the best way to groom a long-haired cat": "Brush long-haired cats daily with a stainless steel comb and slicker brush. Professional grooming every 6-8 weeks helps prevent mats.",
+        "how much exercise does my dog need daily": "Most dogs need 30 mins-2 hours of exercise daily. High-energy breeds need more. Break into multiple walks/play sessions.",
+        "default": "I recommend consulting your veterinarian for personalized advice. For general tips, ask about feeding, grooming, or exercise routines."
+      };
 
-  function appendMessage(sender, message) {
-    const msg = document.createElement('div');
-    msg.classList.add('message', `${sender}-message`);
-    
-    // Basic sanitization (consider using DOMPurify in production)
-    const sanitizedMessage = message
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/\n/g, '<br>');
-    
-    msg.innerHTML = sanitizedMessage;
-    chatBox.appendChild(msg);
-    chatBox.scrollTop = chatBox.scrollHeight;
-  }
-
-  function addFollowUpQuestions(response) {
-    const commonFollowUps = {
-      'dog': ['What are the best toys for my dog?', 'How often should I bathe my dog?'],
-      'cat': ['How can I stop my cat from scratching furniture?', 'What are signs of a happy cat?']
-    };
-
-    const lowerResponse = response.toLowerCase();
-    let followUps = [];
-    
-    if (lowerResponse.includes('dog')) {
-      followUps = commonFollowUps.dog;
-    } else if (lowerResponse.includes('cat')) {
-      followUps = commonFollowUps.cat;
-    }
-
-    if (followUps.length > 0) {
-      const quickActions = document.createElement('div');
-      quickActions.className = 'quick-actions';
-      
-      followUps.forEach(question => {
-        const btn = document.createElement('button');
-        btn.className = 'quick-action-btn';
-        btn.textContent = question;
-        btn.setAttribute('data-question', question);
+      // Quick action buttons - now auto-send when clicked
+      document.querySelectorAll('.quick-action-btn').forEach(btn => {
         btn.addEventListener('click', function() {
           userInput.value = this.getAttribute('data-question');
-          userInput.focus();
+          sendMessage(); // Auto-send the question
         });
-        quickActions.appendChild(btn);
       });
-      
-      chatBox.appendChild(quickActions);
-      chatBox.scrollTop = chatBox.scrollHeight;
-    }
-  }
 
-  // Event listeners
-  sendBtn.addEventListener('click', sendMessage);
-  userInput.addEventListener('keydown', e => {
-    if (e.key === 'Enter') sendMessage();
-  });
-});
+      // Close button functionality
+      closeBtn.addEventListener('click', function() {
+        document.querySelector('.chatbot-container').style.display = 'none';
+      });
+
+      // Send message function
+      async function sendMessage() {
+        const input = userInput.value.trim();
+        if (!input) {
+          appendMessage('error', 'Please enter a question');
+          return;
+        }
+        
+        appendMessage('user', input);
+        userInput.value = '';
+        sendBtn.disabled = true;
+        userInput.disabled = true;
+        
+        // Show typing indicator
+        const typingIndicator = showTypingIndicator();
+
+        try {
+          // First check local knowledge
+          const lowerInput = input.toLowerCase();
+          let localMatch = null;
+          
+          for (const [key, value] of Object.entries(localKnowledgeBase)) {
+            if (lowerInput.includes(key)) {
+              localMatch = value;
+              break;
+            }
+          }
+          
+          if (localMatch) {
+            // Use local response if available
+            await new Promise(resolve => setTimeout(resolve, 800)); // Simulate delay
+            chatBox.removeChild(typingIndicator);
+            appendMessage('bot', localMatch);
+            addFollowUpQuestions(localMatch);
+          } else {
+            // Try API call if no local match
+            await callPetBotAPI(input, typingIndicator);
+          }
+          
+        } catch (err) {
+          console.error('Error:', err);
+          chatBox.removeChild(typingIndicator);
+          appendMessage('bot', localKnowledgeBase.default);
+        } finally {
+          sendBtn.disabled = false;
+          userInput.disabled = false;
+          userInput.focus();
+        }
+      }
+
+      async function callPetBotAPI(input, typingIndicator) {
+        try {
+          const response = await fetch('/.netlify/functions/petbot', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ 
+              message: input 
+            })
+          });
+
+          if (!response.ok) {
+            throw new Error(`API request failed with status ${response.status}`);
+          }
+
+          const data = await response.json();
+          chatBox.removeChild(typingIndicator);
+          
+          if (data.reply) {
+            appendMessage('bot', data.reply);
+            addFollowUpQuestions(data.reply);
+          } else {
+            throw new Error('No reply from API');
+          }
+        } catch (err) {
+          console.error('API Error:', err);
+          chatBox.removeChild(typingIndicator);
+          appendMessage('bot', "I'm having trouble connecting. " + localKnowledgeBase.default);
+          throw err; // Re-throw to be caught in outer catch
+        }
+      }
+
+      function showTypingIndicator() {
+        const typingIndicator = document.createElement('div');
+        typingIndicator.className = 'typing-indicator';
+        typingIndicator.innerHTML = '<span></span><span></span><span></span>';
+        chatBox.appendChild(typingIndicator);
+        chatBox.scrollTop = chatBox.scrollHeight;
+        return typingIndicator;
+      }
+
+      function appendMessage(sender, message) {
+        const msg = document.createElement('div');
+        msg.classList.add('message', `${sender}-message`);
+        
+        // Basic sanitization
+        const sanitizedMessage = message
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/\n/g, '<br>');
+        
+        msg.innerHTML = sanitizedMessage;
+        chatBox.appendChild(msg);
+        chatBox.scrollTop = chatBox.scrollHeight;
+      }
+
+      function addFollowUpQuestions(response) {
+        const commonFollowUps = {
+          'dog': ['What are the best toys for my dog?', 'How often should I bathe my dog?'],
+          'cat': ['How can I stop my cat from scratching furniture?', 'What are signs of a happy cat?']
+        };
+
+        const lowerResponse = response.toLowerCase();
+        let followUps = [];
+        
+        if (lowerResponse.includes('dog')) {
+          followUps = commonFollowUps.dog;
+        } else if (lowerResponse.includes('cat')) {
+          followUps = commonFollowUps.cat;
+        }
+
+        if (followUps.length > 0) {
+          const quickActions = document.createElement('div');
+          quickActions.className = 'quick-actions';
+          
+          followUps.forEach(question => {
+            const btn = document.createElement('button');
+            btn.className = 'quick-action-btn';
+            btn.textContent = question;
+            btn.setAttribute('data-question', question);
+            btn.addEventListener('click', function() {
+              userInput.value = this.getAttribute('data-question');
+              sendMessage(); // Auto-send when clicked
+            });
+            quickActions.appendChild(btn);
+          });
+          
+          chatBox.appendChild(quickActions);
+          chatBox.scrollTop = chatBox.scrollHeight;
+        }
+      }
+
+      // Event listeners
+      sendBtn.addEventListener('click', sendMessage);
+      userInput.addEventListener('keydown', e => {
+        if (e.key === 'Enter') sendMessage();
+      });
+    });
   </script>
 </body>
 </html>
