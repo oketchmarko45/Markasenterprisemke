@@ -18,12 +18,12 @@
     </div>
     
     <!-- Hamburger Button -->
-  <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
 
-  <nav id="main-nav">
+    <nav id="main-nav">
       <a href="index.html">Home</a>
-       <a href="#" onclick="loadPage('pages/about.html')">About</a>
-       <a href="#" onclick="loadPage('pages/kennel.html')">Kennel</a>
+      <a href="#" onclick="loadPage('pages/about.html')">About</a>
+      <a href="#" onclick="loadPage('pages/kennel.html')">Kennel</a>
              
       <div class="dropdown">
         <button class="dropbtn">Stores Available</button>
@@ -43,43 +43,39 @@
 
     <!-- Cart icon shown only on specific pages -->
     <div id="cart-icon" style="display: none;">
-      <a href="cart.html">
+      <a href="#" onclick="loadPage('pages/cart.html')">
         <i class="fas fa-shopping-cart"></i> 
         <span id="cart-count">0</span>
       </a>
     </div>
-
   </header>
 
-    <!-- Main Content -->
-
-<main class="content">
-  <!-- body-->
- <!-- Slider -->
-  <div class="slider" id="slider">
-    <div class="slides">
-      <img src="images/slide1.jpg" alt="scoob and the CEO 2024 nov" />
-      <img src="images/slide2.jpg" alt="Markas Enterprise event" />
-      <img src="images/slide3.jpg" alt="Pet supplies and books" />
-      <!-- Add more images as needed -->
+  <!-- Main Content -->
+  <main class="content">
+    <!-- Slider -->
+    <div class="slider" id="slider">
+      <div class="slides">
+        <img src="Images/slide1.jpg" alt="Scoob and the CEO 2024 nov" />
+        <img src="Images/slide2.jpg" alt="Markas Enterprise event" />
+        <img src="Images/slide3.jpg" alt="Pet supplies and books" />
+        <!-- Add more images as needed -->
+      </div>
+      <div class="slider-buttons">
+        <button id="prev">&#10094;</button>
+        <button id="next">&#10095;</button>
+      </div>
     </div>
-    <div class="slider-buttons">
-      <button id="prev">&#10094;</button>
-      <button id="next">&#10095;</button>
-    </div>
-  </div>
 
-  <!-- Intro -->
-  <section class="intro">
-    <h2>Who We Are</h2>
-    <p>
-      Markas Enterprise MKE is your trusted hub for everything dogs and more. From caring for our canine friends, sharing stories, offering essential pet supplies, to inspiring readers with heartfelt blogs—we bring passion and expertise together to serve our community.
-    </p>
-  </section>
-
+    <!-- Intro -->
+    <section class="intro">
+      <h2>Who We Are</h2>
+      <p>
+        Markas Enterprise MKE is your trusted hub for everything dogs and more. From caring for our canine friends, sharing stories, offering essential pet supplies, to inspiring readers with heartfelt blogs—we bring passion and expertise together to serve our community.
+      </p>
+    </section>
 
     <h1>Welcome to Markas Enterprise MKE</h1>
-    <p>We’re glad to have you here. Whether you’re a dog lover, a reader, or someone who enjoys good stories and reliable services—this is your space.</p>
+    <p>We're glad to have you here. Whether you're a dog lover, a reader, or someone who enjoys good stories and reliable services—this is your space.</p>
 
     <section>
       <h2>🐾 The Kennel</h2>
@@ -87,16 +83,16 @@
       <a href="#" onclick="loadPage('pages/kennel.html')">Visit Kennel &rarr;</a>
     </section>
      
-  <div class="section-divider"></div>    
+    <div class="section-divider"></div>    
     
     <section>
       <h2>🛒 Our Stores</h2>
-      <p>We’ve got something for both pets and humans. Visit our Pet Store for essential supplies or browse books in our Book Store.</p>
+      <p>We've got something for both pets and humans. Visit our Pet Store for essential supplies or browse books in our Book Store.</p>
       <a href="#" onclick="loadPage('pages/petstore.html')">Pet Store &rarr;</a> | 
       <a href="#" onclick="loadPage('pages/bookstore.html')">Book Store &rarr;</a>
     </section>
      
-  <div class="section-divider"></div>    
+    <div class="section-divider"></div>    
     
     <section>
       <h2>🖼️ Gallery</h2>
@@ -104,7 +100,7 @@
       <a href="#" onclick="loadPage('pages/gallery.html')">Explore Gallery &rarr;</a>
     </section>
      
-  <div class="section-divider"></div>    
+    <div class="section-divider"></div>    
     
     <section>
       <h2>📖 Blog</h2>
@@ -112,18 +108,18 @@
       <a href="#" onclick="loadPage('pages/blog.html')">Read the Blog &rarr;</a>
     </section>
      
-  <div class="section-divider"></div>    
+    <div class="section-divider"></div>    
     
     <section>
       <h2>📣 Feedback & Support</h2>
-      <p>We’d love to hear from you. Reach out for support or leave us feedback to help improve your experience.</p>
+      <p>We'd love to hear from you. Reach out for support or leave us feedback to help improve your experience.</p>
       <a href="#" onclick="loadPage('pages/support.html')">Get Support</a> | 
       <a href="#" onclick="loadPage('pages/feedback.html')">Leave Feedback</a>
     </section>
      
-  <div class="section-divider"></div>    
+    <div class="section-divider"></div>    
         
-     <section>
+    <section>
       <h2>💖 Support Our Work</h2>
       <p>If you love what we do and want to help us grow, consider making a donation. Every bit helps us continue our mission.</p>
       <a href="#" onclick="loadPage('pages/donate.html')">Donate Now &rarr;</a>
@@ -134,75 +130,70 @@
   <footer>
     <h4>Markas Enterprise MKE</h4>
     <p>Created by 
-     <a href="marksprofile.html">Ochieng' Mark Oketch </a>
+     <a href="#" onclick="loadPage('pages/marksprofile.html')">Ochieng' Mark Oketch </a>
      – Dogtrovert, Writer, Developer</p>
     <p>Contact : <a href="mailto:markasenterprisemke@gmail.com">Markas Enterprise MKE via mail</a></p>
 
-  <div class="social-links">
-          <a href="https://whatsapp.com/channel/0029VaQvCIiAYlUSCFIT903y" target="_blank" rel="noopener noreferrer" aria-label="Whatsapp"><i class="fab fa-whatsapp"></i></a>
-          <a href="https://www.facebook.com/markasenterprisemke" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-    <i class="fab fa-facebook-f"></i></a>
-          <a href="https://youtube.com/@markasenterprisemke" target="_blank" rel="noopener noreferrer" aria-label="Youtube"><i class="fab fa-youtube"></i></a>
-   </div>
-
+    <div class="social-links">
+      <a href="https://whatsapp.com/channel/0029VaQvCIiAYlUSCFIT903y" target="_blank" rel="noopener noreferrer" aria-label="Whatsapp"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://www.facebook.com/markasenterprisemke" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://youtube.com/@markasenterprisemke" target="_blank" rel="noopener noreferrer" aria-label="Youtube"><i class="fab fa-youtube"></i></a>
+    </div>
 
     <p id="copyright"></p>
   </footer>
 
-<!-- Load paw-chatbot.js -->
-<script src="paw-chatbot.js"></script>
+  <!-- Load paw-chatbot.js -->
+  <script src="paw-chatbot.js"></script>
   
   <script>
-  const copyright = document.getElementById('copyright');
-  const startYear = 2024;
-  const currentYear = new Date().getFullYear();
-  if (currentYear === startYear) {
-    copyright.textContent = `© ${startYear} Markas Enterprise MKE. All rights reserved.`;
-  } else {
-    copyright.textContent = `© ${startYear} - ${currentYear} Markas Enterprise MKE. All rights reserved.`;
-  }
-  //cart logics
-   function updateCartCount() {
-  const cart = JSON.parse(localStorage.getItem('cart')) || [];
-  const cartCount = document.getElementById('cart-count');
-  const cartIcon = document.getElementById('cart-icon');
-
-  if (cartCount) {
-    cartCount.textContent = cart.length;
-  }
-
-  if (cartIcon) {
-    if (cart.length > 0) {
-      cartIcon.classList.add('show');  // Show the cart icon using CSS
+    // Copyright year
+    const copyright = document.getElementById('copyright');
+    const startYear = 2024;
+    const currentYear = new Date().getFullYear();
+    if (currentYear === startYear) {
+      copyright.textContent = `© ${startYear} Markas Enterprise MKE. All rights reserved.`;
     } else {
-      cartIcon.classList.remove('show');  // Hide the cart icon using CSS
+      copyright.textContent = `© ${startYear} - ${currentYear} Markas Enterprise MKE. All rights reserved.`;
     }
-  }
-}
-
-window.addEventListener('DOMContentLoaded', updateCartCount);
-  //end of cart
-   
-  //hamburger setup
-  
-  function toggleMenu() {
-    const nav = document.getElementById('main-nav');
-    const button = document.querySelector('.menu-toggle');
-    nav.classList.toggle('show');
-
     
-  if (button.classList.contains('active')) {
-    button.innerText = '☰';
-  } else {
-    button.innerText = '✖';
-  }
+    // Cart logic
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const cartCount = document.getElementById('cart-count');
+      const cartIcon = document.getElementById('cart-icon');
 
-    button.classList.toggle('active');
-  }
-    // end of hamburger
+      if (cartCount) {
+        cartCount.textContent = cart.length;
+      }
+
+      if (cartIcon) {
+        if (cart.length > 0) {
+          cartIcon.style.display = 'block';
+        } else {
+          cartIcon.style.display = 'none';
+        }
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', updateCartCount);
     
-//body section
-     // Slider JS
+    // Hamburger menu toggle
+    function toggleMenu() {
+      const nav = document.getElementById('main-nav');
+      const button = document.querySelector('.menu-toggle');
+      nav.classList.toggle('show');
+
+      if (button.classList.contains('active')) {
+        button.innerText = '☰';
+      } else {
+        button.innerText = '✖';
+      }
+
+      button.classList.toggle('active');
+    }
+    
+    // Slider functionality
     const slides = document.querySelector('.slides');
     const slideCount = document.querySelectorAll('.slides img').length;
     let currentIndex = 0;
@@ -217,56 +208,53 @@ window.addEventListener('DOMContentLoaded', updateCartCount);
       slides.style.transform = `translateX(-${currentIndex * 100}%)`;
     });
 
-    // Optional: Auto slide every 5 seconds
+    // Auto slide every 5 seconds
     setInterval(() => {
       currentIndex = (currentIndex + 1) % slideCount;
       slides.style.transform = `translateX(-${currentIndex * 100}%)`;
     }, 5000);
 
-    //loadpage
-function loadPage(pageUrl) {
-  fetch(pageUrl)
-    .then(response => {
-      if (!response.ok) {
-        // If the requested page is not found, load the 404 page
-        return fetch('404.html')
-          .then(fallback => fallback.text())
-          .then(fallbackContent => {
-            // Create a temporary div to hold the 404 content
-            const fallbackDiv = document.createElement('div');
-            fallbackDiv.innerHTML = fallbackContent;
+    // Page loading function
+    function loadPage(pageUrl) {
+      fetch(pageUrl)
+        .then(response => {
+          if (!response.ok) {
+            // If the requested page is not found, load the 404 page
+            return fetch('pages/404.html')
+              .then(fallback => fallback.text())
+              .then(fallbackContent => {
+                // Create a temporary div to hold the 404 content
+                const fallbackDiv = document.createElement('div');
+                fallbackDiv.innerHTML = fallbackContent;
 
-            // Grab the entire content of the 404 page and inject it into the main content section
-            const fallbackMain = fallbackDiv.querySelector('main.content');
+                // Grab the entire content of the 404 page and inject it into the main content section
+                const fallbackMain = fallbackDiv.querySelector('main.content');
 
-            // If the main content exists, inject it directly into the main.content section
-            if (fallbackMain) {
-              document.querySelector('main.content').innerHTML = fallbackMain.innerHTML;
-            }
+                // If the main content exists, inject it directly into the main.content section
+                if (fallbackMain) {
+                  document.querySelector('main.content').innerHTML = fallbackMain.innerHTML;
+                }
 
-            // No fallback message or title manipulation here
-            throw new Error("Original page not found. Loaded 404.");
-          });
-      }
-      return response.text();
-    })
-    .then(data => {
-      const tempDiv = document.createElement('div');
-      tempDiv.innerHTML = data;
+                throw new Error("Original page not found. Loaded 404.");
+              });
+          }
+          return response.text();
+        })
+        .then(data => {
+          const tempDiv = document.createElement('div');
+          tempDiv.innerHTML = data;
 
-      // Extract and load content from the fetched page
-      const mainContent = tempDiv.querySelector('main.content');
-      if (mainContent) {
-        document.querySelector('main.content').innerHTML = mainContent.innerHTML;
-      }
-    })
-    .catch(error => {
-      console.error("Error loading page:", error);
-    });
-}
-
-    //end of body section
-  
-   </script>
+          // Extract and load content from the fetched page
+          const mainContent = tempDiv.querySelector('main.content');
+          if (mainContent) {
+            document.querySelector('main.content').innerHTML = mainContent.innerHTML;
+            updateCartCount(); // Update cart count after page load
+          }
+        })
+        .catch(error => {
+          console.error("Error loading page:", error);
+        });
+    }
+  </script>
 </body>
 </html>
