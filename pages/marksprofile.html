@@ -28,9 +28,9 @@
     }
     .social-links a {
       flex: 1 1 calc(25% - 10px);
-      min-width: 120px;
+      min-width: 150px; /* Increased minimum width */
       text-align: center;
-      padding: 10px 12px;
+      padding: 12px 15px; /* Increased padding */
       color: white;
       border-radius: 5px;
       text-decoration: none;
@@ -38,6 +38,7 @@
       align-items: center;
       justify-content: center;
       transition: all 0.3s ease;
+      font-size: 15px; /* Increased font size */
     }
     .social-links a:hover {
       transform: scale(1.05);
@@ -59,6 +60,17 @@
         margin-right: 0;
         margin-bottom: 20px;
       }
+    }
+    /* Added spacing for contact icons */
+    .contact-item i {
+      margin-right: 8px;
+      width: 20px;
+      text-align: center;
+    }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
     }
   </style>
 </head>
@@ -84,8 +96,8 @@
       
       <div style="margin: 0 0 20px 0; display: flex; align-items: center; flex-wrap: wrap; gap: 8px;">
         <span style="display: flex; align-items: center;">
-          <i class="fas fa-envelope" style="color: #003366;"></i> 
-          <a href="mailto:oketchmarko45@gmail.com" style="color: #0056b3; text-decoration: none; margin-left: 5px;">
+          <i class="fas fa-envelope" style="color: #003366; margin-right: 5px;"></i> 
+          <a href="mailto:oketchmarko45@gmail.com" style="color: #0056b3; text-decoration: none;">
             oketchmarko45@gmail.com
           </a>
         </span>
@@ -93,8 +105,8 @@
         <span style="color: #003366;">|</span>
         
         <span style="display: flex; align-items: center;">
-          <i class="fab fa-linkedin" style="color: #0077B5;"></i> 
-          <a href="https://www.linkedin.com/in/oketchmarko45" target="_blank" style="color: #0077B5; text-decoration: none; margin-left: 5px;">
+          <i class="fab fa-linkedin" style="color: #0077B5; margin-right: 5px;"></i> 
+          <a href="https://www.linkedin.com/in/oketchmarko45" target="_blank" style="color: #0077B5; text-decoration: none;">
             LinkedIn Profile
           </a>
         </span>
@@ -157,8 +169,14 @@
   <!-- Contact -->
   <section style="margin-bottom: 30px;">
     <h2 style="color: #003366; border-bottom: 2px solid #003366; padding-bottom: 5px;">Contact Me</h2>
-    <p style="line-height: 1.6;"><i class="fas fa-envelope" style="color: #003366;"></i> Email: <a href="mailto:oketchmarko45@gmail.com" style="color: #0056b3; text-decoration: none;">oketchmarko45@gmail.com</a></p>
-    <p style="line-height: 1.6;"><i class="fas fa-phone" style="color: #003366;"></i> Phone: <a href="tel:+254712711088" style="color: #0056b3; text-decoration: none;">+254 712 711 088</a></p>
+    <div class="contact-item">
+      <i class="fas fa-envelope" style="color: #003366;"></i>
+      <span>Email: <a href="mailto:oketchmarko45@gmail.com" style="color: #0056b3; text-decoration: none;">oketchmarko45@gmail.com</a></span>
+    </div>
+    <div class="contact-item">
+      <i class="fas fa-phone" style="color: #003366;"></i>
+      <span>Phone: <a href="tel:+254712711088" style="color: #0056b3; text-decoration: none;">+254 712 711 088</a></span>
+    </div>
   </section>
 
   <!-- Social Media -->
