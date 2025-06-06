@@ -1,33 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feedback Form | Markas Enterprise MKE</title>
+  <meta name="description" content="Provide feedback to Markas Enterprise MKE">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #0056b3;
+      --secondary-color: #003366;
+      --accent-color: #ff7e00;
+      --text-color: #333;
+      --light-bg: #f9f9f9;
+      --white: #ffffff;
+      --border-radius: 8px;
+      --box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--light-bg);
+      margin: 0;
+      padding: 0;
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+    
+    .content {
+      width: 90%;
+      max-width: 1000px;
+      margin: 40px auto;
+      background-color: var(--white);
+      padding: 40px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+    }
+    
+    h2 {
+      text-align: center;
+      color: var(--primary-color);
+      margin-bottom: 25px;
+      font-size: 2.2rem;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 12px;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+    
+    input, textarea, select, button {
+      width: 100%;
+      padding: 18px;
+      margin-bottom: 25px;
+      border: 1px solid #ddd;
+      border-radius: var(--border-radius);
+      box-sizing: border-box;
+      font-family: inherit;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+    
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(0,86,179,0.1);
+    }
+    
+    textarea {
+      min-height: 180px;
+      resize: vertical;
+    }
+    
+    button {
+      background-color: var(--primary-color);
+      color: var(--white);
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 25px;
+      padding: 18px;
+      font-size: 1.1rem;
+    }
+    
+    button:hover {
+      background-color: #004494;
+      transform: translateY(-2px);
+    }
+    
+    .social-links {
+      margin: 25px 0;
+    }
+    
+    .social-links a {
+      display: inline-block;
+      margin: 0 20px;
+      font-size: 24px;
+    }
+    
+    .social-links a:hover {
+      transform: scale(1.1);
+    }
+    
+    .hidden {
+      display: none;
+    }
+
+    .close-btn {
+      position: fixed;
+      top: 30px;
+      right: 30px;
+      z-index: 1000;
+    }
+    
+    .close-btn a {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-size: 28px;
+      background: white;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      box-shadow: var(--box-shadow);
+      transition: all 0.3s ease;
+    }
+    
+    .close-btn a:hover {
+      transform: scale(1.1);
+    }
+    
+    .success-message {
+      display: none;
+      background-color: #d4edda;
+      color: #155724;
+      padding: 20px;
+      border-radius: var(--border-radius);
+      margin-bottom: 25px;
+      text-align: center;
+    }
+    
+    .error-message {
+      display: none;
+      background-color: #f8d7da;
+      color: #721c24;
+      padding: 15px;
+      border-radius: var(--border-radius);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    
+    @media (max-width: 992px) {
+      .content {
+        max-width: 800px;
+        padding: 35px;
+      }
+      
+      input, textarea, select, button {
+        padding: 15px;
+      }
+      
+      .close-btn {
+        top: 25px;
+        right: 25px;
+      }
+      
+      .close-btn a {
+        width: 45px;
+        height: 45px;
+        font-size: 24px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .content {
+        width: 95%;
+        padding: 25px;
+        margin: 20px auto;
+      }
+      
+      h2 {
+        font-size: 1.8rem;
+      }
+      
+      input, textarea, select, button {
+        padding: 12px;
+        font-size: 0.9rem;
+      }
+      
+      button {
+        font-size: 1rem;
+      }
+      
+      .close-btn {
+        top: 15px;
+        right: 15px;
+      }
+      
+      .close-btn a {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+      }
+      
+      .social-links a {
+        margin: 0 15px;
+        font-size: 20px;
+      }
+    }
+
+    @media (min-width: 1600px) {
+      .content {
+        max-width: 1200px;
+        padding: 50px;
+      }
+      
+      h2 {
+        font-size: 2.5rem;
+        margin-bottom: 35px;
+      }
+      
+      label {
+        font-size: 1.2rem;
+        margin-bottom: 15px;
+      }
+      
+      input, textarea, select, button {
+        padding: 20px;
+        font-size: 1.1rem;
+      }
+      
+      textarea {
+        min-height: 200px;
+      }
+
+      button {
+        padding: 20px;
+        font-size: 1.2rem;
+      }
+      
+      .close-btn {
+        top: 40px;
+        right: 40px;
+      }
+      
+      .close-btn a {
+        width: 60px;
+        height: 60px;
+        font-size: 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Close Button - Top Right -->
+<div class="close-btn">
+  <a href="#" onclick="loadPage('pages/marksprofile.html')">
+    <i class="fas fa-times"></i>
+  </a>
+</div>
+  
+<header>
+  <div id="header-placeholder"></div>
+</header>
+
 <main class="content">
-    <h2>Feedback Form</h2>
-    <!-- FormSubmit Configuration -->
-    <form id="feedback-form" action="https://formsubmit.co/markasenterprisemke@gmail.com" method="POST">
-        <!-- FormSubmit hidden fields -->
-        <input type="hidden" name="_subject" value="New Feedback Submission">
-        <input type="hidden" name="_next" value="https://markasenterprisemke.netlify.app/thankyou.html">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_template" value="table">
-        <input type="hidden" name="_autoresponse" value="Thank you for your feedback to Markas Enterprise MKE! We appreciate your input.">
-        
-        <!-- Your existing form fields -->
-        <label for="name">Your Name:</label>
-        <input type="text" id="name" name="name" required>
+  <h2>Feedback Form</h2>
+  <p style="text-align: center; margin-bottom: 25px; font-size: 1.1rem;">We value your feedback! Please share your experience with us.</p>
 
-        <label for="email">Your Email:</label>
-        <input type="email" id="email" name="email" required>
+  <!-- Success message -->
+  <div id="success-message" class="success-message">
+    <i class="fas fa-check-circle" style="font-size: 2rem; margin-bottom: 10px;"></i>
+    <h3>Thank you for your feedback!</h3>
+    <p>We appreciate your input and will use it to improve our services.</p>
+    <button onclick="window.location.href='index.html'" style="width: auto; margin: 15px auto 0; padding: 10px 20px;">
+      Return Home
+    </button>
+  </div>
 
-        <label for="service">Which service are you giving feedback on?</label>
-        <select id="service" name="service" required>
-            <option value="">-- Select a Service --</option>
-            <option value="other">Other (Please specify in feedback)</option>
-            <option value="kennel">Kennel Service</option>
-            <option value="petstore">Pet Store</option>
-            <option value="bookstore">Dog Book Store</option>
-        </select>
+  <!-- Error message -->
+  <div id="error-message" class="error-message hidden">
+    <i class="fas fa-exclamation-circle" style="font-size: 2rem; margin-bottom: 10px;"></i>
+    <h3>Submission Error</h3>
+    <p id="error-text">There was a problem submitting your feedback. Please try again later.</p>
+  </div>
 
-        <label for="message">Your Feedback:</label>
-        <textarea id="message" name="message" rows="6" required></textarea>
+  <!-- FormSubmit Form -->
+  <form id="feedback-form" action="https://formsubmit.co/markasenterprisemke@gmail.com" method="POST">
+    <!-- FormSubmit configuration -->
+    <input type="hidden" name="_subject" value="New Feedback Submission">
+    <input type="hidden" name="_next" value="https://markasenterprisemke.netlify.app/thankyou.html">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_template" value="table">
+    <input type="hidden" name="_autoresponse" value="Thank you for your feedback to Markas Enterprise MKE! We appreciate your input.">
+    <input type="hidden" name="_replyto" value="">
 
-        <button type="submit">Submit Feedback</button>
-    </form>
+    <!-- Honeypot field -->
+    <input type="text" name="_honey" style="display:none">
+
+    <!-- Form fields -->
+    <label for="name">Full Name:</label>
+    <input type="text" id="name" name="name" required placeholder="Enter your full name">
+
+    <label for="email">Email Address:</label>
+    <input type="email" id="email" name="email" required placeholder="Enter your email address" oninput="document.querySelector('input[name=_replyto]').value = this.value">
+
+    <label for="service">Which service are you giving feedback on?</label>
+    <select id="service" name="service" required>
+      <option value="">-- Select a Service --</option>
+      <option value="kennel">Kennel Service</option>
+      <option value="petstore">Pet Store</option>
+      <option value="bookstore">Dog Book Store</option>
+      <option value="other">Other (Please specify in feedback)</option>
+    </select>
+
+    <label for="message">Your Feedback:</label>
+    <textarea id="message" name="message" required placeholder="Please share your thoughts about our service..."></textarea>
+
+    <button type="submit">
+      <i class="fas fa-paper-plane" style="margin-right: 10px;"></i> Submit Feedback
+    </button>
+  </form>
 </main>
+
+<script>
+  // Form submission handling
+  document.getElementById('feedback-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const form = e.target;
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalBtnText = submitBtn.innerHTML;
+    
+    // Disable button and show loading state
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+    
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+      
+      if (response.ok) {
+        // Show success message
+        document.getElementById('success-message').style.display = 'block';
+        document.getElementById('error-message').classList.add('hidden');
+        form.style.display = 'none';
+        
+        // Reset form after success (optional)
+        setTimeout(() => {
+          form.reset();
+          form.style.display = 'block';
+          document.getElementById('success-message').style.display = 'none';
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalBtnText;
+        }, 5000);
+      } else {
+        const errorData = await response.json();
+        const errorText = errorData.message || 'Form submission failed';
+        document.getElementById('error-text').textContent = errorText;
+        document.getElementById('error-message').classList.remove('hidden');
+        throw new Error(errorText);
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalBtnText;
+    }
+  });
+
+  // Function to handle page navigation
+  function loadPage(url) {
+    // You can implement your SPA navigation logic here
+    // For now, we'll use standard navigation
+    window.location.href = url;
+  }
+</script>
+
+</body>
+</html>
