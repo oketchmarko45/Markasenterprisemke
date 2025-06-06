@@ -143,8 +143,17 @@
     <p id="copyright"></p>
   </footer>
 
-  <!-- Load paw-chatbot.js -->
-  <script src="paw-chatbot.js"></script>
+  <!-- Chatbot Container -->
+<div id="chatbot-container" class="chatbot-container">
+  <div class="chatbot-header">
+    <h3>MKE Pet Assistant</h3>
+    <button id="chatbot-close" class="chatbot-close">×</button>
+  </div>
+  <iframe id="chatbot-iframe" src="petbot.html" class="chatbot-iframe"></iframe>
+</div>
+<button id="chatbot-toggle" class="chatbot-toggle">
+  <i class="fas fa-paw"></i>
+</button>
   
   <script>
     // Copyright year
