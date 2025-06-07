@@ -130,7 +130,7 @@
   <footer>
     <h4>Markas Enterprise MKE</h4>
     <p>Created by 
-     <a href="#" onclick="loadPage('pages/marksprofile.html')">Ochieng' Mark Oketch </a>
+     <a href="pages/marksprofile.html">Ochieng' Mark Oketch </a>
      – Dogtrovert, Writer, Developer</p>
     <p>Contact : <a href="mailto:markasenterprisemke@gmail.com">Markas Enterprise MKE via mail</a></p>
 
@@ -224,46 +224,98 @@
     }, 5000);
 
     // Page loading function
-    function loadPage(pageUrl) {
-      fetch(pageUrl)
-        .then(response => {
-          if (!response.ok) {
-            // If the requested page is not found, load the 404 page
-            return fetch('pages/404.html')
-              .then(fallback => fallback.text())
-              .then(fallbackContent => {
-                // Create a temporary div to hold the 404 content
-                const fallbackDiv = document.createElement('div');
-                fallbackDiv.innerHTML = fallbackContent;
+    
+    // Unified Page Loading Function
+function loadPage(pageUrl) {
+  // Special case for marksprofile.html - always do full page load
+  if (pageUrl.includes('marksprofile.html')) {
+    window.location.href = pageUrl;
+    return;
+  }
 
-                // Grab the entire content of the 404 page and inject it into the main content section
-                const fallbackMain = fallbackDiv.querySelector('main.content');
+  fetch(pageUrl)
+    .then(response => {
+      if (!response.ok) {
+        return handlePageError(pageUrl);
+      }
+      return response.text();
+    })
+    .then(html => {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+      const content = doc.querySelector('main.content') || doc.body;
+      
+      // Update main content
+      document.querySelector('main.content').innerHTML = content.innerHTML;
+      
+      // Update cart visibility
+      updateCartCount();
+      
+      // Update URL without reload
+      history.pushState({}, '', pageUrl);
+      
+      // Scroll to top
+      window.scrollTo(0, 0);
+      
+      // Close mobile menu if open
+      const nav = document.getElementById('main-nav');
+      if (nav.classList.contains('show')) {
+        toggleMenu();
+      }
+    })
+    .catch(error => {
+      console.error('Page load failed:', error);
+      handlePageError(pageUrl);
+    });
+}
 
-                // If the main content exists, inject it directly into the main.content section
-                if (fallbackMain) {
-                  document.querySelector('main.content').innerHTML = fallbackMain.innerHTML;
-                }
+// Error handling function
+function handlePageError(failedUrl) {
+  return fetch('pages/404.html')
+    .then(response => response.text())
+    .then(html => {
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = html;
+      const errorContent = tempDiv.querySelector('main.content') || tempDiv;
+      
+      document.querySelector('main.content').innerHTML = errorContent.innerHTML;
+      history.replaceState({}, '', failedUrl);
+    })
+    .catch(error => {
+      // Fallback error message if 404 page fails to load
+      document.querySelector('main.content').innerHTML = `
+        <div class="error-message">
+          <h2>Page Load Error</h2>
+          <p>The requested page could not be loaded.</p>
+          <a href="index.html">Return to Home</a>
+        </div>
+      `;
+    });
+}
 
-                throw new Error("Original page not found. Loaded 404.");
-              });
-          }
-          return response.text();
-        })
-        .then(data => {
-          const tempDiv = document.createElement('div');
-          tempDiv.innerHTML = data;
+// Handle browser back/forward navigation
+window.addEventListener('popstate', function() {
+  loadPage(window.location.pathname);
+});
 
-          // Extract and load content from the fetched page
-          const mainContent = tempDiv.querySelector('main.content');
-          if (mainContent) {
-            document.querySelector('main.content').innerHTML = mainContent.innerHTML;
-            updateCartCount(); // Update cart count after page load
-          }
-        })
-        .catch(error => {
-          console.error("Error loading page:", error);
-        });
-    }
+// Initialize the page
+document.addEventListener('DOMContentLoaded', function() {
+  // Make all SPA links use our loadPage function
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    if (link.hasAttribute('onclick')) return; // Skip links with existing onclick
+    
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetPage = this.getAttribute('href').substring(1);
+      if (targetPage) {
+        loadPage('pages/' + targetPage + '.html');
+      }
+    });
+  });
+  
+  // Initialize cart
+  updateCartCount();
+});
   </script>
 </body>
 </html>
