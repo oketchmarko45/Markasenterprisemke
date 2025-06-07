@@ -99,7 +99,7 @@
 <body>
 
 <!-- Animated X element -->
-<div class="animated-x">✕</div>
+<div class="animated-x" title="Return to Home">✕</div>
   
 <div class="portfolio-page-container">
 
@@ -236,11 +236,10 @@
 </div>
   
   <script>
-    
-    // Animated X movement script
-  const animatedX = document.querySelector('.animated-x');
-  const portfolioContainer = document.querySelector('.portfolio-page-container');
+  // Exit X button functionality
+  const exitX = document.querySelector('.animated-x');
   
+  // Make X move with scroll
   function updateXPosition() {
     const scrollPosition = window.scrollY;
     const windowHeight = window.innerHeight;
@@ -248,33 +247,42 @@
     const maxScroll = documentHeight - windowHeight;
     const scrollPercentage = scrollPosition / maxScroll;
     
-    // Calculate positions
-    const startRight = 20;
-    const endRight = 20;
+    // Calculate positions (20px from right always, moving vertically)
+    const rightPosition = 20;
     const startTop = 20;
-    const endTop = windowHeight - 40; // 40px from bottom
+    const endTop = windowHeight - 60; // 60px from bottom
     
     // Current position
-    const currentRight = startRight + (endRight - startRight) * scrollPercentage;
     const currentTop = startTop + (endTop - startTop) * scrollPercentage;
     
     // Apply styles
-    animatedX.style.right = `${currentRight}px`;
-    animatedX.style.top = `${currentTop}px`;
-    
-    // Optional: Change opacity based on scroll
-    animatedX.style.opacity = 0.3 + (0.7 * scrollPercentage);
+    exitX.style.right = `${rightPosition}px`;
+    exitX.style.top = `${currentTop}px`;
   }
+  
+  // Click handler to return to index.html
+  exitX.addEventListener('click', function() {
+    window.location.href = 'index.html';
+  });
   
   // Initialize position
   updateXPosition();
   
-  // Update on scroll
+  // Update on scroll and resize
   window.addEventListener('scroll', updateXPosition);
-  
-  // Update on resize
   window.addEventListener('resize', updateXPosition);
-  </script>
+  
+  // Add hover effect with JavaScript for better compatibility
+  exitX.addEventListener('mouseenter', function() {
+    this.style.opacity = '1';
+    this.style.transform = 'scale(1.1)';
+  });
+  
+  exitX.addEventListener('mouseleave', function() {
+    this.style.opacity = '0.7';
+    this.style.transform = 'scale(1)';
+  });
+</script>
   
 </body>
 </html>
