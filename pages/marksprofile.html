@@ -6,13 +6,17 @@
   <title>Ochieng Mark Oketch | Portfolio</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
-    body {
-      font-family: Arial, sans-serif;
+    /* Reset to prevent inheritance from other pages */
+    html, body {
       margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
       background-color: #f9f9f9;
       color: #333;
     }
-    main.content {
+    
+    /* Unique container for this page */
+    .portfolio-page-container {
       max-width: 900px;
       margin: 40px auto;
       background-color: white;
@@ -20,17 +24,30 @@
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
+
+    /* Animated X element */
+    .animated-x {
+      position: fixed;
+      font-size: 24px;
+      color: #003366;
+      opacity: 0.5;
+      transition: all 0.1s linear;
+      pointer-events: none;
+      z-index: 1000;
+    }
+    
     .social-links {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
       gap: 10px;
     }
+    
     .social-links a {
       flex: 1 1 calc(25% - 10px);
-      min-width: 150px; /* Increased minimum width */
+      min-width: 150px;
       text-align: center;
-      padding: 12px 15px; /* Increased padding */
+      padding: 12px 15px;
       color: white;
       border-radius: 5px;
       text-decoration: none;
@@ -38,17 +55,32 @@
       align-items: center;
       justify-content: center;
       transition: all 0.3s ease;
-      font-size: 15px; /* Increased font size */
+      font-size: 15px;
     }
+    
     .social-links a:hover {
       transform: scale(1.05);
       opacity: 0.9;
     }
+    
+    .contact-item i {
+      margin-right: 8px;
+      width: 20px;
+      text-align: center;
+    }
+    
+    .contact-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    
     @media (max-width: 768px) {
       .social-links a {
         flex: 1 1 calc(50% - 10px);
       }
     }
+    
     @media (max-width: 480px) {
       .social-links a {
         flex: 1 1 100%;
@@ -61,23 +93,15 @@
         margin-bottom: 20px;
       }
     }
-    /* Added spacing for contact icons */
-    .contact-item i {
-      margin-right: 8px;
-      width: 20px;
-      text-align: center;
-    }
-    .contact-item {
-      display: flex;
-      align-items: center;
-      margin-bottom: 10px;
-    }
   </style>
 </head>
   
 <body>
 
-<main class="content">
+<!-- Animated X element -->
+<div class="animated-x">✕</div>
+  
+<div class="portfolio-page-container">
 
   <!-- Profile Section -->
   <section class="profile-section" style="display: flex; align-items: center; margin-bottom: 40px; position: relative;">
@@ -109,7 +133,7 @@
       </div>
       
       <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-        <a href="https://drive.google.com/uc?export=download&id=10PALuPkHdU7TFobnMzRfd29PGbwlXut7"  download style="display: inline-block; background-color: #003366; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-weight: bold; transition: all 0.3s ease;"
+        <a href="https://drive.google.com/uc?export=download&id=10PALuPkHdU7TFobnMzRfd29PGbwlXut7" download style="display: inline-block; background-color: #003366; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-weight: bold; transition: all 0.3s ease;"
            onmouseover="this.style.transform='scale(1.05)'; this.style.opacity='0.9';" 
            onmouseout="this.style.transform='scale(1)'; this.style.opacity='1';">
           <i class="fas fa-download"></i> Download CV
@@ -209,6 +233,48 @@
     </div>
   </section>
 
-</main>
+</div>
+  
+  <script>
+    
+    // Animated X movement script
+  const animatedX = document.querySelector('.animated-x');
+  const portfolioContainer = document.querySelector('.portfolio-page-container');
+  
+  function updateXPosition() {
+    const scrollPosition = window.scrollY;
+    const windowHeight = window.innerHeight;
+    const documentHeight = document.body.scrollHeight;
+    const maxScroll = documentHeight - windowHeight;
+    const scrollPercentage = scrollPosition / maxScroll;
+    
+    // Calculate positions
+    const startRight = 20;
+    const endRight = 20;
+    const startTop = 20;
+    const endTop = windowHeight - 40; // 40px from bottom
+    
+    // Current position
+    const currentRight = startRight + (endRight - startRight) * scrollPercentage;
+    const currentTop = startTop + (endTop - startTop) * scrollPercentage;
+    
+    // Apply styles
+    animatedX.style.right = `${currentRight}px`;
+    animatedX.style.top = `${currentTop}px`;
+    
+    // Optional: Change opacity based on scroll
+    animatedX.style.opacity = 0.3 + (0.7 * scrollPercentage);
+  }
+  
+  // Initialize position
+  updateXPosition();
+  
+  // Update on scroll
+  window.addEventListener('scroll', updateXPosition);
+  
+  // Update on resize
+  window.addEventListener('resize', updateXPosition);
+  </script>
+  
 </body>
 </html>
