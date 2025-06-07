@@ -28,12 +28,13 @@
     /* Animated X element */
     .animated-x {
       position: fixed;
-      font-size: 24px;
-      color: #003366;
-      opacity: 0.5;
+      font-size: 36px; /* Increased size */
+      color: #006633; /* Changed color */
+      opacity: 0.7; /* Adjusted opacity */
       transition: all 0.1s linear;
-      pointer-events: none;
+      pointer-events: auto; /* Enable pointer events */
       z-index: 1000;
+      cursor: pointer; /* Change cursor to pointer */
     }
     
     .social-links {
@@ -235,7 +236,7 @@
 
 </div>
   
-  <script>
+<script>
   // Exit X button functionality
   const exitX = document.querySelector('.animated-x');
   
