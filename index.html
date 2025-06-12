@@ -233,6 +233,9 @@ function loadPage(pageUrl) {
     return;
   }
 
+// Prevent double or triple 'pages/' stacking
+  const cleanUrl = pageUrl.replace(/^pages\//, '');
+  
   fetch(pageUrl)
     .then(response => {
       if (!response.ok) {
@@ -248,14 +251,11 @@ function loadPage(pageUrl) {
       // Update main content
       document.querySelector('main.content').innerHTML = content.innerHTML;
       
-      // Update cart visibility
-      updateCartCount();
-      
-      // Update URL without reload
-      history.pushState({}, '', '/' + pageUrl);
+      // Update URL cleanly
+      history.pushState({}, '', '/pages/' + cleanUrl);
 
-      
-      // Scroll to top
+      // Other tasks
+      updateCartCount();
       window.scrollTo(0, 0);
       
       // Close mobile menu if open
@@ -296,7 +296,8 @@ function handlePageError(failedUrl) {
 
 // Handle browser back/forward navigation
 window.addEventListener('popstate', function() {
-  loadPage(window.location.pathname);
+  const path = window.location.pathname.replace(/^\/pages\//, '');
+  loadPage(path);
 });
 
 // Initialize the page
