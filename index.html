@@ -252,7 +252,8 @@ function loadPage(pageUrl) {
       updateCartCount();
       
       // Update URL without reload
-      history.pushState({}, '', pageUrl);
+      history.pushState({}, '', '/' + pageUrl);
+
       
       // Scroll to top
       window.scrollTo(0, 0);
