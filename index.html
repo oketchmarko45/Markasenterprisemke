@@ -311,6 +311,16 @@
         });
       }
     });
+
+   // Handle clicks on links with data-page attribute
+document.querySelectorAll('a[data-page]').forEach(link => {
+  link.addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent normal link behavior
+    const page = this.getAttribute('data-page');
+    loadPage(page);
+  });
+});
+
   </script>
 </body>
 </html>
