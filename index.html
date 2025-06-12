@@ -10,7 +10,7 @@
 <body>
   <header>
     <div class="logo-brand">
-      <img src="Images/logo.png" alt="Logo">
+      <img src="Images/logo.png" alt="Markas Enterprise MKE Logo">
       <div class="brand-info">
         <h1 class="brand-name">Markas Enterprise MKE</h1>
         <p class="slogan">Make it a Reality</p>
@@ -18,32 +18,32 @@
     </div>
     
     <!-- Hamburger Button -->
-    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+    <button class="menu-toggle" aria-label="Toggle menu" onclick="toggleMenu()">☰</button>
 
-    <nav id="main-nav">
+    <nav id="main-nav" aria-label="Main navigation">
       <a href="index.html">Home</a>
-      <a href="#" onclick="loadPage('pages/about.html')">About</a>
-      <a href="#" onclick="loadPage('pages/kennel.html')">Kennel</a>
+      <a href="#" data-page="about.html">About</a>
+      <a href="#" data-page="kennel.html">Kennel</a>
              
       <div class="dropdown">
-        <button class="dropbtn">Stores Available</button>
+        <button class="dropbtn" aria-expanded="false">Stores Available</button>
         <div class="dropdown-content">
-          <a href="#" onclick="loadPage('pages/petstore.html')">Pet store</a>
-          <a href="#" onclick="loadPage('pages/bookstore.html')">Book store</a>
-          <a href="#" onclick="loadPage('pages/cart.html')">Cart</a>
+          <a href="#" data-page="petstore.html">Pet store</a>
+          <a href="#" data-page="bookstore.html">Book store</a>
+          <a href="#" data-page="cart.html">Cart</a>
         </div>
       </div>
     
-      <a href="#" onclick="loadPage('pages/gallery.html')">Gallery</a>
-      <a href="#" onclick="loadPage('pages/support.html')">Support</a>
-      <a href="#" onclick="loadPage('pages/feedback.html')">Feedback</a>
-      <a href="#" onclick="loadPage('pages/donate.html')">Donations</a>
-      <a href="#" onclick="loadPage('pages/blog.html')">Blog</a>
+      <a href="#" data-page="gallery.html">Gallery</a>
+      <a href="#" data-page="support.html">Support</a>
+      <a href="#" data-page="feedback.html">Feedback</a>
+      <a href="#" data-page="donate.html">Donations</a>
+      <a href="#" data-page="blog.html">Blog</a>
     </nav>
 
     <!-- Cart icon shown only on specific pages -->
     <div id="cart-icon" style="display: none;">
-      <a href="#" onclick="loadPage('pages/cart.html')">
+      <a href="#" data-page="cart.html" aria-label="Shopping cart">
         <i class="fas fa-shopping-cart"></i> 
         <span id="cart-count">0</span>
       </a>
@@ -51,86 +51,90 @@
   </header>
 
   <!-- Main Content -->
-  <main class="content">
+  <main class="content" id="main-content">
+    <!-- Loading Indicator -->
+    <div id="loading-indicator" class="loader" style="display: none;"></div>
+
     <!-- Slider -->
     <div class="slider" id="slider">
       <div class="slides">
-        <img src="Images/slide1.jpg" alt="Scoob and the CEO 2024 nov" />
-        <img src="Images/slide2.jpg" alt="Markas Enterprise event" />
-        <img src="Images/slide3.jpg" alt="Pet supplies and books" />
-        <!-- Add more images as needed -->
+        <img src="Images/slide1.jpg" loading="lazy" alt="Scoob and the CEO 2024 nov" />
+        <img src="Images/slide2.jpg" loading="lazy" alt="Markas Enterprise event" />
+        <img src="Images/slide3.jpg" loading="lazy" alt="Pet supplies and books" />
       </div>
       <div class="slider-buttons">
-        <button id="prev">&#10094;</button>
-        <button id="next">&#10095;</button>
+        <button id="prev" aria-label="Previous slide">&#10094;</button>
+        <button id="next" aria-label="Next slide">&#10095;</button>
       </div>
     </div>
 
-    <!-- Intro -->
-    <section class="intro">
-      <h2>Who We Are</h2>
-      <p>
-        Markas Enterprise MKE is your trusted hub for everything dogs and more. From caring for our canine friends, sharing stories, offering essential pet supplies, to inspiring readers with heartfelt blogs—we bring passion and expertise together to serve our community.
-      </p>
-    </section>
+    <!-- Home Page Content -->
+    <div id="home-content">
+      <section class="intro">
+        <h2>Who We Are</h2>
+        <p>
+          Markas Enterprise MKE is your trusted hub for everything dogs and more. From caring for our canine friends, sharing stories, offering essential pet supplies, to inspiring readers with heartfelt blogs—we bring passion and expertise together to serve our community.
+        </p>
+      </section>
 
-    <h1>Welcome to Markas Enterprise MKE</h1>
-    <p>We're glad to have you here. Whether you're a dog lover, a reader, or someone who enjoys good stories and reliable services—this is your space.</p>
+      <h1>Welcome to Markas Enterprise MKE</h1>
+      <p>We're glad to have you here. Whether you're a dog lover, a reader, or someone who enjoys good stories and reliable services—this is your space.</p>
 
-    <section>
-      <h2>🐾 The Kennel</h2>
-      <p>Check out our beloved dogs, their stories, and what makes each one unique. We provide both adoption services and breeding information.</p>
-      <a href="#" onclick="loadPage('pages/kennel.html')">Visit Kennel &rarr;</a>
-    </section>
-     
-    <div class="section-divider"></div>    
-    
-    <section>
-      <h2>🛒 Our Stores</h2>
-      <p>We've got something for both pets and humans. Visit our Pet Store for essential supplies or browse books in our Book Store.</p>
-      <a href="#" onclick="loadPage('pages/petstore.html')">Pet Store &rarr;</a> | 
-      <a href="#" onclick="loadPage('pages/bookstore.html')">Book Store &rarr;</a>
-    </section>
-     
-    <div class="section-divider"></div>    
-    
-    <section>
-      <h2>🖼️ Gallery</h2>
-      <p>View moments from events, adorable pet photos, and highlights from our day-to-day activities.</p>
-      <a href="#" onclick="loadPage('pages/gallery.html')">Explore Gallery &rarr;</a>
-    </section>
-     
-    <div class="section-divider"></div>    
-    
-    <section>
-      <h2>📖 Blog</h2>
-      <p>Catch up on stories, tips, and behind-the-scenes content straight from Mark the Dogtrovert!</p>
-      <a href="#" onclick="loadPage('pages/blog.html')">Read the Blog &rarr;</a>
-    </section>
-     
-    <div class="section-divider"></div>    
-    
-    <section>
-      <h2>📣 Feedback & Support</h2>
-      <p>We'd love to hear from you. Reach out for support or leave us feedback to help improve your experience.</p>
-      <a href="#" onclick="loadPage('pages/support.html')">Get Support</a> | 
-      <a href="#" onclick="loadPage('pages/feedback.html')">Leave Feedback</a>
-    </section>
-     
-    <div class="section-divider"></div>    
-        
-    <section>
-      <h2>💖 Support Our Work</h2>
-      <p>If you love what we do and want to help us grow, consider making a donation. Every bit helps us continue our mission.</p>
-      <a href="#" onclick="loadPage('pages/donate.html')">Donate Now &rarr;</a>
-    </section>
+      <section>
+        <h2>🐾 The Kennel</h2>
+        <p>Check out our beloved dogs, their stories, and what makes each one unique. We provide both adoption services and breeding information.</p>
+        <a href="#" data-page="kennel.html">Visit Kennel &rarr;</a>
+      </section>
+       
+      <div class="section-divider"></div>    
+      
+      <section>
+        <h2>🛒 Our Stores</h2>
+        <p>We've got something for both pets and humans. Visit our Pet Store for essential supplies or browse books in our Book Store.</p>
+        <a href="#" data-page="petstore.html">Pet Store &rarr;</a> | 
+        <a href="#" data-page="bookstore.html">Book Store &rarr;</a>
+      </section>
+       
+      <div class="section-divider"></div>    
+      
+      <section>
+        <h2>🖼️ Gallery</h2>
+        <p>View moments from events, adorable pet photos, and highlights from our day-to-day activities.</p>
+        <a href="#" data-page="gallery.html">Explore Gallery &rarr;</a>
+      </section>
+       
+      <div class="section-divider"></div>    
+      
+      <section>
+        <h2>📖 Blog</h2>
+        <p>Catch up on stories, tips, and behind-the-scenes content straight from Mark the Dogtrovert!</p>
+        <a href="#" data-page="blog.html">Read the Blog &rarr;</a>
+      </section>
+       
+      <div class="section-divider"></div>    
+      
+      <section>
+        <h2>📣 Feedback & Support</h2>
+        <p>We'd love to hear from you. Reach out for support or leave us feedback to help improve your experience.</p>
+        <a href="#" data-page="support.html">Get Support</a> | 
+        <a href="#" data-page="feedback.html">Leave Feedback</a>
+      </section>
+       
+      <div class="section-divider"></div>    
+          
+      <section>
+        <h2>💖 Support Our Work</h2>
+        <p>If you love what we do and want to help us grow, consider making a donation. Every bit helps us continue our mission.</p>
+        <a href="#" data-page="donate.html">Donate Now &rarr;</a>
+      </section>
+    </div>
   </main>
 
   <!-- Footer -->
   <footer>
     <h4>Markas Enterprise MKE</h4>
     <p>Created by 
-     <a href="pages/marksprofile.html">Ochieng' Mark Oketch </a>
+     <a href="#" data-page="marksprofile.html">Ochieng' Mark Oketch </a>
      – Dogtrovert, Writer, Developer</p>
     <p>Contact : <a href="mailto:markasenterprisemke@gmail.com">Markas Enterprise MKE via mail</a></p>
 
@@ -144,162 +148,343 @@
   </footer>
 
   <!-- Chatbot Container -->
-<div id="chatbot-container" class="chatbot-container">
-  <div class="chatbot-header">
-    <h3>MKE Pet Assistant</h3>
-    <button id="chatbot-close" class="chatbot-close">×</button>
+  <div id="chatbot-container" class="chatbot-container">
+    <div class="chatbot-header">
+      <h3>MKE Pet Assistant</h3>
+      <button id="chatbot-close" class="chatbot-close" aria-label="Close chatbot">×</button>
+    </div>
+    <iframe id="chatbot-iframe" src="petbot.html" class="chatbot-iframe" title="Chatbot"></iframe>
   </div>
-  <iframe id="chatbot-iframe" src="petbot.html" class="chatbot-iframe"></iframe>
-</div>
-<button id="chatbot-toggle" class="chatbot-toggle">
-  <i class="fas fa-paw"></i>
-</button>
+  <button id="chatbot-toggle" class="chatbot-toggle" aria-label="Open chatbot">
+    <i class="fas fa-paw"></i>
+  </button>
+
   <script>
-// Copyright year
-const copyright = document.getElementById('copyright');
-const startYear = 2024;
-const currentYear = new Date().getFullYear();
-if (currentYear === startYear) {
-  copyright.textContent = `© ${startYear} Markas Enterprise MKE. All rights reserved.`;
-} else {
-  copyright.textContent = `© ${startYear} - ${currentYear} Markas Enterprise MKE. All rights reserved.`;
-}
+    // Cart Class
+    class Cart {
+      constructor() {
+        this.items = JSON.parse(localStorage.getItem('cart')) || [];
+      }
+      
+      addItem(item) {
+        this.items.push(item);
+        this.save();
+      }
+      
+      removeItem(index) {
+        this.items.splice(index, 1);
+        this.save();
+      }
+      
+      clear() {
+        this.items = [];
+        this.save();
+      }
+      
+      save() {
+        localStorage.setItem('cart', JSON.stringify(this.items));
+        updateCartCount();
+      }
+      
+      get count() {
+        return this.items.length;
+      }
+    }
 
-// Cart logic
-function updateCartCount() {
-  const cart = JSON.parse(localStorage.getItem('cart')) || [];
-  const cartCount = document.getElementById('cart-count');
-  if (cartCount) {
-    cartCount.textContent = cart.length;
-  }
-}
+    // Initialize cart
+    const cart = new Cart();
 
-function toggleCartIcon(page) {
-  const cartIcon = document.getElementById('cart-icon');
-  const pagesToShowCart = ['kennel.html', 'petstore.html', 'bookstore.html', 'cart.html'];
-  const show = pagesToShowCart.some(p => page.includes(p));
-  cartIcon.style.display = show ? 'block' : 'none';
-}
+    // Copyright year
+    function updateCopyright() {
+      const copyright = document.getElementById('copyright');
+      const startYear = 2024;
+      const currentYear = new Date().getFullYear();
+      copyright.textContent = currentYear === startYear 
+        ? `© ${startYear} Markas Enterprise MKE. All rights reserved.`
+        : `© ${startYear} - ${currentYear} Markas Enterprise MKE. All rights reserved.`;
+    }
 
-window.addEventListener('DOMContentLoaded', updateCartCount);
+    // Update cart count display
+    function updateCartCount() {
+      const cartCount = document.getElementById('cart-count');
+      if (cartCount) {
+        cartCount.textContent = cart.count;
+      }
+    }
 
-// Hamburger menu toggle
-function toggleMenu() {
-  const nav = document.getElementById('main-nav');
-  const button = document.querySelector('.menu-toggle');
-  nav.classList.toggle('show');
-  button.innerText = button.classList.contains('active') ? '☰' : '✖';
-  button.classList.toggle('active');
-}
+    // Toggle cart icon visibility based on current page
+    function toggleCartIcon(page) {
+      const cartIcon = document.getElementById('cart-icon');
+      const pagesToShowCart = ['kennel.html', 'petstore.html', 'bookstore.html', 'cart.html'];
+      const show = pagesToShowCart.some(p => page.includes(p));
+      cartIcon.style.display = show ? 'block' : 'none';
+    }
 
-// Slider functionality
-const slides = document.querySelector('.slides');
-const slideCount = document.querySelectorAll('.slides img').length;
-let currentIndex = 0;
-
-document.getElementById('next').addEventListener('click', () => {
-  currentIndex = (currentIndex + 1) % slideCount;
-  slides.style.transform = `translateX(-${currentIndex * 100}%)`;
-});
-
-document.getElementById('prev').addEventListener('click', () => {
-  currentIndex = (currentIndex - 1 + slideCount) % slideCount;
-  slides.style.transform = `translateX(-${currentIndex * 100}%)`;
-});
-
-setInterval(() => {
-  currentIndex = (currentIndex + 1) % slideCount;
-  slides.style.transform = `translateX(-${currentIndex * 100}%)`;
-}, 5000);
-
-// Unified Page Loading Function
-function loadPage(pageUrl) {
-  if (!pageUrl) {
-    console.warn('loadPage called with invalid pageUrl:', pageUrl);
-    return; // Stop function if invalid page
-  }
-  
-  if (pageUrl.includes('marksprofile.html')) {
-    window.location.href = pageUrl;
-    return;
-  }
-
-  const cleanUrl = pageUrl.replace(/^pages\//, '');
-
-  fetch('pages/' + cleanUrl)
-    .then(response => {
-      if (!response.ok) throw new Error('Page not found');
-      return response.text();
-    })
-    .then(html => {
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(html, 'text/html');
-      const content = doc.querySelector('main.content') || doc.body;
-      document.querySelector('main.content').innerHTML = content.innerHTML;
-
-      history.pushState({}, '', 'pages/' + cleanUrl);
-
-      toggleCartIcon(cleanUrl); // Decide if cart icon should show
-      updateCartCount();
-      window.scrollTo(0, 0);
-
+    // Hamburger menu toggle
+    function toggleMenu() {
       const nav = document.getElementById('main-nav');
-      if (nav.classList.contains('show')) toggleMenu();
-    })
-    .catch(() => {
-      handlePageError('pages/404.html');
-    });
-}
+      const button = document.querySelector('.menu-toggle');
+      nav.classList.toggle('show');
+      button.textContent = nav.classList.contains('show') ? '✖' : '☰';
+      button.setAttribute('aria-expanded', nav.classList.contains('show'));
+    }
 
-function handlePageError(errorPage) {
-  fetch(errorPage)
-    .then(response => response.text())
-    .then(html => {
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(html, 'text/html');
-      const content = doc.querySelector('main.content') || doc.body;
-      document.querySelector('main.content').innerHTML = content.innerHTML;
-      history.replaceState({}, '', errorPage);
-    })
-    .catch(() => {
-      document.querySelector('main.content').innerHTML = `
-        <div class="error-message">
-          <h2>Page Load Error</h2>
-          <p>The requested page could not be loaded.</p>
-          <a href="index.html">Return to Home</a>
-        </div>
-      `;
-    });
-}
+    // Slider functionality with requestAnimationFrame
+    class Slider {
+      constructor() {
+        this.slides = document.querySelector('.slides');
+        this.slideCount = document.querySelectorAll('.slides img').length;
+        this.currentIndex = 0;
+        this.interval = 5000;
+        this.animationId = null;
+        this.lastTime = 0;
+        this.isPaused = false;
+        
+        this.init();
+      }
+      
+      init() {
+        document.getElementById('next').addEventListener('click', () => this.nextSlide());
+        document.getElementById('prev').addEventListener('click', () => this.prevSlide());
+        
+        // Pause on hover
+        this.slides.addEventListener('mouseenter', () => this.pause());
+        this.slides.addEventListener('mouseleave', () => this.resume());
+        
+        this.start();
+      }
+      
+      start() {
+        this.animationId = requestAnimationFrame(this.animate.bind(this));
+      }
+      
+      pause() {
+        this.isPaused = true;
+        cancelAnimationFrame(this.animationId);
+      }
+      
+      resume() {
+        this.isPaused = false;
+        this.lastTime = performance.now();
+        this.start();
+      }
+      
+      animate(time) {
+        if (!this.lastTime) this.lastTime = time;
+        
+        if (!this.isPaused && time - this.lastTime >= this.interval) {
+          this.lastTime = time;
+          this.nextSlide();
+        }
+        
+        this.animationId = requestAnimationFrame(this.animate.bind(this));
+      }
+      
+      nextSlide() {
+        this.currentIndex = (this.currentIndex + 1) % this.slideCount;
+        this.updateSlide();
+      }
+      
+      prevSlide() {
+        this.currentIndex = (this.currentIndex - 1 + this.slideCount) % this.slideCount;
+        this.updateSlide();
+      }
+      
+      updateSlide() {
+        this.slides.style.transform = `translateX(-${this.currentIndex * 100}%)`;
+      }
+    }
 
-// Handle back/forward browser navigation
-window.addEventListener('popstate', function() {
-  const path = window.location.pathname.split('/').pop();
-  if (path === 'index.html' || path === '') {
-    window.location.href = 'index.html';
-  } else {
-    loadPage('pages/' + path);
-  }
-});
+    // Initialize slider
+    const slider = new Slider();
 
-// Initialize SPA link handling
-document.addEventListener('DOMContentLoaded', function() {
-  document.querySelectorAll('a[href^="#"]').forEach(link => {
-    if (!link.hasAttribute('onclick')) {
-      link.addEventListener('click', function(e) {
+    // Page Loading System
+    class PageLoader {
+      constructor() {
+        this.contentElement = document.getElementById('main-content');
+        this.homeContent = document.getElementById('home-content');
+        this.loadingIndicator = document.getElementById('loading-indicator');
+        this.timeoutDuration = 8000;
+      }
+      
+      async loadPage(pageUrl) {
+        if (!pageUrl) return;
+        
+        // Special case for external links
+        if (pageUrl.startsWith('http')) {
+          window.location.href = pageUrl;
+          return;
+        }
+        
+        // Show loading indicator
+        this.showLoading();
+        
+        try {
+          const response = await this.fetchWithTimeout(
+            `pages/${pageUrl}`,
+            { timeout: this.timeoutDuration }
+          );
+          
+          if (!response.ok) throw new Error('Page not found');
+          
+          const html = await response.text();
+          this.handleContent(html, pageUrl);
+        } catch (error) {
+          console.error('Page load error:', error);
+          this.handleError(pageUrl);
+        } finally {
+          this.hideLoading();
+        }
+      }
+      
+      async fetchWithTimeout(resource, options = {}) {
+        const { timeout = 8000 } = options;
+        
+        const controller = new AbortController();
+        const id = setTimeout(() => controller.abort(), timeout);
+        
+        const response = await fetch(resource, {
+          ...options,
+          signal: controller.signal  
+        });
+        
+        clearTimeout(id);
+        return response;
+      }
+      
+      showLoading() {
+        this.loadingIndicator.style.display = 'block';
+        this.homeContent.style.display = 'none';
+      }
+      
+      hideLoading() {
+        this.loadingIndicator.style.display = 'none';
+      }
+      
+      handleContent(html, pageUrl) {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const content = doc.querySelector('main.content') || doc.body;
+        
+        // Sanitize content (basic example)
+        this.sanitize(content);
+        
+        // Update DOM
+        this.contentElement.innerHTML = content.innerHTML;
+        
+        // Update URL and state
+        history.pushState({ page: pageUrl }, '', `pages/${pageUrl}`);
+        
+        // Update UI elements
+        toggleCartIcon(pageUrl);
+        updateCartCount();
+        window.scrollTo(0, 0);
+        
+        // Close mobile menu if open
+        const nav = document.getElementById('main-nav');
+        if (nav.classList.contains('show')) toggleMenu();
+      }
+      
+      sanitize(element) {
+        // Basic sanitization - remove script tags
+        const scripts = element.querySelectorAll('script');
+        scripts.forEach(script => script.remove());
+      }
+      
+      handleError(pageUrl) {
+        // Try to load error page
+        fetch('pages/404.html')
+          .then(response => response.text())
+          .then(html => {
+            this.handleContent(html, '404.html');
+            history.replaceState({}, '', 'pages/404.html');
+          })
+          .catch(() => {
+            this.contentElement.innerHTML = `
+              <div class="error-message">
+                <h2>Page Load Error</h2>
+                <p>The requested page could not be loaded.</p>
+                <a href="#" data-page="index.html">Return to Home</a>
+              </div>
+            `;
+          });
+      }
+    }
+
+    // Initialize page loader
+    const pageLoader = new PageLoader();
+
+    // Handle navigation
+    function handleNavigation(e) {
+      if (e.target.matches('[data-page]')) {
         e.preventDefault();
-        const targetPage = this.getAttribute('href').substring(1);
-        if (targetPage) {
-          loadPage('pages/' + targetPage + '.html');
+        const page = e.target.getAttribute('data-page');
+        pageLoader.loadPage(page);
+      }
+    }
+
+    // Handle popstate (back/forward navigation)
+    function handlePopState() {
+      const path = window.location.pathname.split('/').pop();
+      if (path === 'index.html' || path === '') {
+        document.getElementById('home-content').style.display = 'block';
+        history.replaceState({}, '', 'index.html');
+      } else {
+        pageLoader.loadPage(path);
+      }
+    }
+
+    // Initialize the application
+    function init() {
+      // Set up event listeners
+      document.addEventListener('click', handleNavigation);
+      window.addEventListener('popstate', handlePopState);
+      
+      // Initialize components
+      updateCopyright();
+      updateCartCount();
+      toggleCartIcon(window.location.pathname);
+      
+      // Close dropdown when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!e.target.matches('.dropbtn')) {
+          const dropdowns = document.querySelectorAll('.dropdown-content');
+          dropdowns.forEach(dropdown => {
+            dropdown.style.display = 'none';
+          });
         }
       });
+      
+      // Toggle dropdown
+      const dropbtn = document.querySelector('.dropbtn');
+      if (dropbtn) {
+        dropbtn.addEventListener('click', () => {
+          const dropdown = document.querySelector('.dropdown-content');
+          dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+          dropbtn.setAttribute('aria-expanded', dropdown.style.display === 'block');
+        });
+      }
+      
+      // Chatbot functionality
+      const chatbotToggle = document.getElementById('chatbot-toggle');
+      const chatbotClose = document.getElementById('chatbot-close');
+      const chatbotContainer = document.getElementById('chatbot-container');
+      
+      if (chatbotToggle && chatbotClose && chatbotContainer) {
+        chatbotToggle.addEventListener('click', () => {
+          chatbotContainer.style.display = 'block';
+          chatbotToggle.style.display = 'none';
+        });
+        
+        chatbotClose.addEventListener('click', () => {
+          chatbotContainer.style.display = 'none';
+          chatbotToggle.style.display = 'block';
+        });
+      }
     }
-  });
 
-  updateCartCount();
-  toggleCartIcon(window.location.pathname);
-});
-</script>
-
+    // Initialize when DOM is loaded
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
 </body>
 </html>
