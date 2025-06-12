@@ -163,6 +163,10 @@
       } catch (err) {
         console.error(err);
         showToast('An error occurred. Please try again.');
+        // Show fallback instructions:
+        transactionBox.classList.remove('hidden');
+        transactionSteps.innerHTML = ''; // clear previous
+        showManualInstructionsUI(method);
       } finally {
         donateBtn.textContent = 'Donate';
         donateBtn.disabled = false;
@@ -175,12 +179,40 @@
       step.style.background = isSuccess ? '#e6ffed' : '#fff3cd';
       step.style.borderLeft = `3px solid ${isSuccess ? '#28a745' : '#ffc107'}`;
       step.style.padding = '0.5rem';
-      step.textContent = message;
+      step.innerHTML = message; // allows HTML content
       transactionSteps.appendChild(step);
     }
 
-    function showAlert(msg) {
-      alert(msg); // fallback if toast isn't used
+    function showManualInstructionsUI(method) {
+      let message = '';
+
+      if (method === 'mpesa') {
+        message = `
+          <strong>MPESA Manual Payment:</strong><br>
+          Go to MPESA -> Lipa na MPESA -> Buy Goods and Services.<br>
+          Till Number: <strong>8861950</strong><br>
+          After payment, send the confirmation SMS to: +254712345678.
+        `;
+      } else if (method === 'bank') {
+        message = `
+          <strong>Bank Deposit Instructions:</strong><br>
+          Bank: Standard Chartered Bank<br>
+          Account Name: Mark Oketch<br>
+          Account Number: <strong>1234567890</strong><br>
+          Branch: Thika Town<br>
+          After deposit, send the receipt to: markasenterprise@gmail.com.
+        `;
+      } else if (method === 'paypal') {
+        message = `
+          <strong>PayPal Manual Payment:</strong><br>
+          Send your donation to:<br>
+          <strong>markasenterprise@gmail.com</strong><br>
+          Include your name and reason for donation in the note section.
+        `;
+      }
+
+      updateTransactionUI('Automatic payment failed. Please follow these manual payment instructions:');
+      updateTransactionUI(message, true);
     }
 
     function showToast(message) {
