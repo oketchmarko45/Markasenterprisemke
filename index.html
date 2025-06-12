@@ -22,23 +22,23 @@
 
     <nav id="main-nav" aria-label="Main navigation">
       <a href="index.html">Home</a>
-      <a href="#" data-page="about.html">About</a>
-      <a href="#" data-page="kennel.html">Kennel</a>
+      <a href="#" data-page="/pages/about.html">About</a>
+      <a href="#" data-page="/pages/kennel.html">Kennel</a>
              
       <div class="dropdown">
         <button class="dropbtn" aria-expanded="false">Stores Available</button>
         <div class="dropdown-content">
-          <a href="#" data-page="petstore.html">Pet store</a>
-          <a href="#" data-page="bookstore.html">Book store</a>
-          <a href="#" data-page="cart.html">Cart</a>
+          <a href="#" data-page="/pages/petstore.html">Pet store</a>
+          <a href="#" data-page="/pages/bookstore.html">Book store</a>
+          <a href="#" data-page="/pages/cart.html">Cart</a>
         </div>
       </div>
     
-      <a href="#" data-page="gallery.html">Gallery</a>
-      <a href="#" data-page="support.html">Support</a>
-      <a href="#" data-page="feedback.html">Feedback</a>
-      <a href="#" data-page="donate.html">Donations</a>
-      <a href="#" data-page="blog.html">Blog</a>
+      <a href="#" data-page="/pages/gallery.html">Gallery</a>
+      <a href="#" data-page="/pages/support.html">Support</a>
+      <a href="#" data-page="/pages/feedback.html">Feedback</a>
+      <a href="#" data-page="/pages/donate.html">Donations</a>
+      <a href="#" data-page="/pages/blog.html">Blog</a>
     </nav>
 
     <!-- Cart icon shown only on specific pages -->
@@ -213,11 +213,11 @@
       try {
         // Show loading indicator
         document.getElementById('loading-indicator').style.display = 'block';
-        document.getElementById('current-content').style.display = 'none';
+        document.getElementById('main-content').style.display = 'none';
         
         // Special case for home page
         if (pageUrl === 'index.html') {
-          document.getElementById('current-content').innerHTML = `
+          document.getElementById('main-content').innerHTML = `
             <!-- Home content here -->
             <div class="slider" id="slider">
               <div class="slides">
@@ -282,7 +282,7 @@
         `;
       } finally {
         document.getElementById('loading-indicator').style.display = 'none';
-        document.getElementById('current-content').style.display = 'block';
+        document.getElementById('main-content').style.display = 'block';
       }
     }
     
