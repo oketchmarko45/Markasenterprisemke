@@ -159,223 +159,110 @@
     <i class="fas fa-paw"></i>
   </button>
 
-  <script>
-    // Cart Class
-    class Cart {
-      constructor() {
-        this.items = JSON.parse(localStorage.getItem('cart')) || [];
-      }
-      
-      addItem(item) {
-        this.items.push(item);
-        this.save();
-      }
-      
-      removeItem(index) {
-        this.items.splice(index, 1);
-        this.save();
-      }
-      
-      clear() {
-        this.items = [];
-        this.save();
-      }
-      
-      save() {
-        localStorage.setItem('cart', JSON.stringify(this.items));
-        updateCartCount();
-      }
-      
-      get count() {
-        return this.items.length;
-      }
-    }
-
+ <script>
     // Initialize cart
-    const cart = new Cart();
-
-    // Copyright year
-    function updateCopyright() {
-      const copyright = document.getElementById('copyright');
-      const startYear = 2024;
-      const currentYear = new Date().getFullYear();
-      copyright.textContent = currentYear === startYear 
-        ? `© ${startYear} Markas Enterprise MKE. All rights reserved.`
-        : `© ${startYear} - ${currentYear} Markas Enterprise MKE. All rights reserved.`;
-    }
-
-    // Update cart count display
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    
+    // Update cart count
     function updateCartCount() {
-      const cartCount = document.getElementById('cart-count');
-      if (cartCount) {
-        cartCount.textContent = cart.count;
-      }
+      document.getElementById('cart-count').textContent = cart.length;
     }
-
-    // Toggle cart icon visibility based on current page
+    
+    // Toggle cart icon visibility based on page
     function toggleCartIcon(page) {
-      const cartIcon = document.getElementById('cart-icon');
-      const pagesToShowCart = ['kennel.html', 'petstore.html', 'bookstore.html', 'cart.html'];
-      const show = pagesToShowCart.some(p => page.includes(p));
-      cartIcon.style.display = show ? 'block' : 'none';
+      const showCart = ['kennel.html', 'petstore.html', 'bookstore.html', 'cart.html']
+        .some(p => page.includes(p));
+      document.getElementById('cart-icon').style.display = showCart ? 'block' : 'none';
     }
-
-    // Hamburger menu toggle
+    
+    // Menu toggle for mobile
     function toggleMenu() {
       const nav = document.getElementById('main-nav');
-      const button = document.querySelector('.menu-toggle');
       nav.classList.toggle('show');
-      button.textContent = nav.classList.contains('show') ? '✖' : '☰';
-      button.setAttribute('aria-expanded', nav.classList.contains('show'));
+      document.querySelector('.menu-toggle').textContent = 
+        nav.classList.contains('show') ? '✖' : '☰';
     }
-
-    // Slider functionality with requestAnimationFrame
-    class Slider {
-      constructor() {
-        this.slides = document.querySelector('.slides');
-        this.slideCount = document.querySelectorAll('.slides img').length;
-        this.currentIndex = 0;
-        this.interval = 5000;
-        this.animationId = null;
-        this.lastTime = 0;
-        this.isPaused = false;
-        
-        this.init();
-      }
-      
-      init() {
-        document.getElementById('next').addEventListener('click', () => this.nextSlide());
-        document.getElementById('prev').addEventListener('click', () => this.prevSlide());
-        
-        // Pause on hover
-        this.slides.addEventListener('mouseenter', () => this.pause());
-        this.slides.addEventListener('mouseleave', () => this.resume());
-        
-        this.start();
-      }
-      
-      start() {
-        this.animationId = requestAnimationFrame(this.animate.bind(this));
-      }
-      
-      pause() {
-        this.isPaused = true;
-        cancelAnimationFrame(this.animationId);
-      }
-      
-      resume() {
-        this.isPaused = false;
-        this.lastTime = performance.now();
-        this.start();
-      }
-      
-      animate(time) {
-        if (!this.lastTime) this.lastTime = time;
-        
-        if (!this.isPaused && time - this.lastTime >= this.interval) {
-          this.lastTime = time;
-          this.nextSlide();
-        }
-        
-        this.animationId = requestAnimationFrame(this.animate.bind(this));
-      }
-      
-      nextSlide() {
-        this.currentIndex = (this.currentIndex + 1) % this.slideCount;
-        this.updateSlide();
-      }
-      
-      prevSlide() {
-        this.currentIndex = (this.currentIndex - 1 + this.slideCount) % this.slideCount;
-        this.updateSlide();
-      }
-      
-      updateSlide() {
-        this.slides.style.transform = `translateX(-${this.currentIndex * 100}%)`;
-      }
-    }
-
+    
     // Initialize slider
-    const slider = new Slider();
-
-    // Page Loading System
-    class PageLoader {
-      constructor() {
-        this.contentElement = document.getElementById('main-content');
-        this.homeContent = document.getElementById('home-content');
-        this.loadingIndicator = document.getElementById('loading-indicator');
-        this.timeoutDuration = 8000;
-      }
-      
-      async loadPage(pageUrl) {
-        if (!pageUrl) return;
-        
-        // Special case for external links
-        if (pageUrl.startsWith('http')) {
-          window.location.href = pageUrl;
-          return;
-        }
-        
+    let currentSlide = 0;
+    const slides = document.querySelector('.slides');
+    const totalSlides = document.querySelectorAll('.slides img').length;
+    
+    function updateSlider() {
+      slides.style.transform = `translateX(-${currentSlide * 100}%)`;
+    }
+    
+    document.getElementById('next').addEventListener('click', () => {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      updateSlider();
+    });
+    
+    document.getElementById('prev').addEventListener('click', () => {
+      currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+      updateSlider();
+    });
+    
+    // Auto-advance slides every 5 seconds
+    setInterval(() => {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      updateSlider();
+    }, 5000);
+    
+    // Page loading function
+    async function loadPage(pageUrl) {
+      try {
         // Show loading indicator
-        this.showLoading();
+        document.getElementById('loading-indicator').style.display = 'block';
+        document.getElementById('current-content').style.display = 'none';
         
-        try {
-          const response = await this.fetchWithTimeout(
-            `pages/${pageUrl}`,
-            { timeout: this.timeoutDuration }
-          );
+        // Special case for home page
+        if (pageUrl === 'index.html') {
+          document.getElementById('current-content').innerHTML = `
+            <!-- Home content here -->
+            <div class="slider" id="slider">
+              <div class="slides">
+                <img src="Images/slide1.jpg" alt="Scoob and the CEO 2024 nov">
+                <img src="Images/slide2.jpg" alt="Markas Enterprise event">
+                <img src="Images/slide3.jpg" alt="Pet supplies and books">
+              </div>
+              <div class="slider-buttons">
+                <button id="prev">&#10094;</button>
+                <button id="next">&#10095;</button>
+              </div>
+            </div>
+            <section class="intro">
+              <h2>Who We Are</h2>
+              <p>
+                Markas Enterprise MKE is your trusted hub for everything dogs and more. From caring for our canine friends, sharing stories, offering essential pet supplies, to inspiring readers with heartfelt blogs—we bring passion and expertise together to serve our community.
+              </p>
+            </section>
+            <!-- Rest of home content -->
+          `;
           
+          // Reinitialize slider
+          currentSlide = 0;
+          updateSlider();
+          document.getElementById('prev').addEventListener('click', () => {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateSlider();
+          });
+          document.getElementById('next').addEventListener('click', () => {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateSlider();
+          });
+          
+          history.pushState({}, '', 'index.html');
+        } 
+        else {
+          const response = await fetch(pageUrl);
           if (!response.ok) throw new Error('Page not found');
           
           const html = await response.text();
-          this.handleContent(html, pageUrl);
-        } catch (error) {
-          console.error('Page load error:', error);
-          this.handleError(pageUrl);
-        } finally {
-          this.hideLoading();
+          document.getElementById('current-content').innerHTML = html;
+          history.pushState({}, '', pageUrl);
         }
-      }
-      
-      async fetchWithTimeout(resource, options = {}) {
-        const { timeout = 8000 } = options;
         
-        const controller = new AbortController();
-        const id = setTimeout(() => controller.abort(), timeout);
-        
-        const response = await fetch(resource, {
-          ...options,
-          signal: controller.signal  
-        });
-        
-        clearTimeout(id);
-        return response;
-      }
-      
-      showLoading() {
-        this.loadingIndicator.style.display = 'block';
-        this.homeContent.style.display = 'none';
-      }
-      
-      hideLoading() {
-        this.loadingIndicator.style.display = 'none';
-      }
-      
-      handleContent(html, pageUrl) {
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, 'text/html');
-        const content = doc.querySelector('main.content') || doc.body;
-        
-        // Sanitize content (basic example)
-        this.sanitize(content);
-        
-        // Update DOM
-        this.contentElement.innerHTML = content.innerHTML;
-        
-        // Update URL and state
-        history.pushState({ page: pageUrl }, '', `pages/${pageUrl}`);
-        
-        // Update UI elements
+        // Update UI
         toggleCartIcon(pageUrl);
         updateCartCount();
         window.scrollTo(0, 0);
@@ -383,108 +270,47 @@
         // Close mobile menu if open
         const nav = document.getElementById('main-nav');
         if (nav.classList.contains('show')) toggleMenu();
-      }
-      
-      sanitize(element) {
-        // Basic sanitization - remove script tags
-        const scripts = element.querySelectorAll('script');
-        scripts.forEach(script => script.remove());
-      }
-      
-      handleError(pageUrl) {
-        // Try to load error page
-        fetch('pages/404.html')
-          .then(response => response.text())
-          .then(html => {
-            this.handleContent(html, '404.html');
-            history.replaceState({}, '', 'pages/404.html');
-          })
-          .catch(() => {
-            this.contentElement.innerHTML = `
-              <div class="error-message">
-                <h2>Page Load Error</h2>
-                <p>The requested page could not be loaded.</p>
-                <a href="#" data-page="index.html">Return to Home</a>
-              </div>
-            `;
-          });
+        
+      } catch (error) {
+        console.error('Error loading page:', error);
+        document.getElementById('current-content').innerHTML = `
+          <div style="text-align: center; padding: 2rem;">
+            <h2>Page Load Error</h2>
+            <p>Sorry, we couldn't load the requested page.</p>
+            <button onclick="loadPage('index.html')">Return to Home</button>
+          </div>
+        `;
+      } finally {
+        document.getElementById('loading-indicator').style.display = 'none';
+        document.getElementById('current-content').style.display = 'block';
       }
     }
-
-    // Initialize page loader
-    const pageLoader = new PageLoader();
-
-    // Handle navigation
-    function handleNavigation(e) {
-      if (e.target.matches('[data-page]')) {
-        e.preventDefault();
-        const page = e.target.getAttribute('data-page');
-        pageLoader.loadPage(page);
-      }
-    }
-
-    // Handle popstate (back/forward navigation)
-    function handlePopState() {
+    
+    // Handle back/forward navigation
+    window.addEventListener('popstate', function() {
       const path = window.location.pathname.split('/').pop();
       if (path === 'index.html' || path === '') {
-        document.getElementById('home-content').style.display = 'block';
-        history.replaceState({}, '', 'index.html');
+        loadPage('index.html');
       } else {
-        pageLoader.loadPage(path);
+        loadPage(path);
       }
-    }
-
-    // Initialize the application
-    function init() {
-      // Set up event listeners
-      document.addEventListener('click', handleNavigation);
-      window.addEventListener('popstate', handlePopState);
-      
-      // Initialize components
-      updateCopyright();
-      updateCartCount();
-      toggleCartIcon(window.location.pathname);
-      
-      // Close dropdown when clicking outside
-      document.addEventListener('click', (e) => {
-        if (!e.target.matches('.dropbtn')) {
-          const dropdowns = document.querySelectorAll('.dropdown-content');
-          dropdowns.forEach(dropdown => {
-            dropdown.style.display = 'none';
-          });
-        }
-      });
-      
-      // Toggle dropdown
-      const dropbtn = document.querySelector('.dropbtn');
-      if (dropbtn) {
-        dropbtn.addEventListener('click', () => {
-          const dropdown = document.querySelector('.dropdown-content');
-          dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-          dropbtn.setAttribute('aria-expanded', dropdown.style.display === 'block');
+    });
+    
+    // Initialize copyright year
+    document.getElementById('copyright').textContent = `© ${new Date().getFullYear()} Markas Enterprise MKE. All rights reserved.`;
+    
+    // Initialize cart count
+    updateCartCount();
+    
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(event) {
+      if (!event.target.matches('.dropbtn')) {
+        const dropdowns = document.querySelectorAll('.dropdown-content');
+        dropdowns.forEach(dropdown => {
+          dropdown.style.display = 'none';
         });
       }
-      
-      // Chatbot functionality
-      const chatbotToggle = document.getElementById('chatbot-toggle');
-      const chatbotClose = document.getElementById('chatbot-close');
-      const chatbotContainer = document.getElementById('chatbot-container');
-      
-      if (chatbotToggle && chatbotClose && chatbotContainer) {
-        chatbotToggle.addEventListener('click', () => {
-          chatbotContainer.style.display = 'block';
-          chatbotToggle.style.display = 'none';
-        });
-        
-        chatbotClose.addEventListener('click', () => {
-          chatbotContainer.style.display = 'none';
-          chatbotToggle.style.display = 'block';
-        });
-      }
-    }
-
-    // Initialize when DOM is loaded
-    document.addEventListener('DOMContentLoaded', init);
+    });
   </script>
 </body>
 </html>
