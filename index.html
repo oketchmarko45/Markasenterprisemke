@@ -154,136 +154,109 @@
 <button id="chatbot-toggle" class="chatbot-toggle">
   <i class="fas fa-paw"></i>
 </button>
-  
   <script>
-    // Copyright year
-    const copyright = document.getElementById('copyright');
-    const startYear = 2024;
-    const currentYear = new Date().getFullYear();
-    if (currentYear === startYear) {
-      copyright.textContent = `© ${startYear} Markas Enterprise MKE. All rights reserved.`;
-    } else {
-      copyright.textContent = `© ${startYear} - ${currentYear} Markas Enterprise MKE. All rights reserved.`;
-    }
-    
-    // Cart logic
-    function updateCartCount() {
-      const cart = JSON.parse(localStorage.getItem('cart')) || [];
-      const cartCount = document.getElementById('cart-count');
-      const cartIcon = document.getElementById('cart-icon');
+// Copyright year
+const copyright = document.getElementById('copyright');
+const startYear = 2024;
+const currentYear = new Date().getFullYear();
+if (currentYear === startYear) {
+  copyright.textContent = `© ${startYear} Markas Enterprise MKE. All rights reserved.`;
+} else {
+  copyright.textContent = `© ${startYear} - ${currentYear} Markas Enterprise MKE. All rights reserved.`;
+}
 
-      if (cartCount) {
-        cartCount.textContent = cart.length;
-      }
+// Cart logic
+function updateCartCount() {
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const cartCount = document.getElementById('cart-count');
+  if (cartCount) {
+    cartCount.textContent = cart.length;
+  }
+}
 
-      if (cartIcon) {
-        if (cart.length > 0) {
-          cartIcon.style.display = 'block';
-        } else {
-          cartIcon.style.display = 'none';
-        }
-      }
-    }
+function toggleCartIcon(page) {
+  const cartIcon = document.getElementById('cart-icon');
+  const pagesToShowCart = ['kennel.html', 'petstore.html', 'bookstore.html', 'cart.html'];
+  const show = pagesToShowCart.some(p => page.includes(p));
+  cartIcon.style.display = show ? 'block' : 'none';
+}
 
-    window.addEventListener('DOMContentLoaded', updateCartCount);
-    
-    // Hamburger menu toggle
-    function toggleMenu() {
-      const nav = document.getElementById('main-nav');
-      const button = document.querySelector('.menu-toggle');
-      nav.classList.toggle('show');
+window.addEventListener('DOMContentLoaded', updateCartCount);
 
-      if (button.classList.contains('active')) {
-        button.innerText = '☰';
-      } else {
-        button.innerText = '✖';
-      }
+// Hamburger menu toggle
+function toggleMenu() {
+  const nav = document.getElementById('main-nav');
+  const button = document.querySelector('.menu-toggle');
+  nav.classList.toggle('show');
+  button.innerText = button.classList.contains('active') ? '☰' : '✖';
+  button.classList.toggle('active');
+}
 
-      button.classList.toggle('active');
-    }
-    
-    // Slider functionality
-    const slides = document.querySelector('.slides');
-    const slideCount = document.querySelectorAll('.slides img').length;
-    let currentIndex = 0;
+// Slider functionality
+const slides = document.querySelector('.slides');
+const slideCount = document.querySelectorAll('.slides img').length;
+let currentIndex = 0;
 
-    document.getElementById('next').addEventListener('click', () => {
-      currentIndex = (currentIndex + 1) % slideCount;
-      slides.style.transform = `translateX(-${currentIndex * 100}%)`;
-    });
+document.getElementById('next').addEventListener('click', () => {
+  currentIndex = (currentIndex + 1) % slideCount;
+  slides.style.transform = `translateX(-${currentIndex * 100}%)`;
+});
 
-    document.getElementById('prev').addEventListener('click', () => {
-      currentIndex = (currentIndex - 1 + slideCount) % slideCount;
-      slides.style.transform = `translateX(-${currentIndex * 100}%)`;
-    });
+document.getElementById('prev').addEventListener('click', () => {
+  currentIndex = (currentIndex - 1 + slideCount) % slideCount;
+  slides.style.transform = `translateX(-${currentIndex * 100}%)`;
+});
 
-    // Auto slide every 5 seconds
-    setInterval(() => {
-      currentIndex = (currentIndex + 1) % slideCount;
-      slides.style.transform = `translateX(-${currentIndex * 100}%)`;
-    }, 5000);
+setInterval(() => {
+  currentIndex = (currentIndex + 1) % slideCount;
+  slides.style.transform = `translateX(-${currentIndex * 100}%)`;
+}, 5000);
 
-    // Page loading function
-    
-    // Unified Page Loading Function
+// Unified Page Loading Function
 function loadPage(pageUrl) {
-  // Special case for marksprofile.html - always do full page load
   if (pageUrl.includes('marksprofile.html')) {
     window.location.href = pageUrl;
     return;
   }
 
-// Prevent double or triple 'pages/' stacking
   const cleanUrl = pageUrl.replace(/^pages\//, '');
-  
-  fetch(pageUrl)
+
+  fetch('pages/' + cleanUrl)
     .then(response => {
-      if (!response.ok) {
-        return handlePageError(pageUrl);
-      }
+      if (!response.ok) throw new Error('Page not found');
       return response.text();
     })
     .then(html => {
       const parser = new DOMParser();
       const doc = parser.parseFromString(html, 'text/html');
       const content = doc.querySelector('main.content') || doc.body;
-      
-      // Update main content
       document.querySelector('main.content').innerHTML = content.innerHTML;
-      
-      // Update URL cleanly
-      history.pushState({}, '', '/pages/' + cleanUrl);
 
-      // Other tasks
+      history.pushState({}, '', 'pages/' + cleanUrl);
+
+      toggleCartIcon(cleanUrl); // Decide if cart icon should show
       updateCartCount();
       window.scrollTo(0, 0);
-      
-      // Close mobile menu if open
+
       const nav = document.getElementById('main-nav');
-      if (nav.classList.contains('show')) {
-        toggleMenu();
-      }
+      if (nav.classList.contains('show')) toggleMenu();
     })
-    .catch(error => {
-      console.error('Page load failed:', error);
-      handlePageError(pageUrl);
+    .catch(() => {
+      handlePageError('pages/404.html');
     });
 }
 
-// Error handling function
-function handlePageError(failedUrl) {
-  return fetch('pages/404.html')
+function handlePageError(errorPage) {
+  fetch(errorPage)
     .then(response => response.text())
     .then(html => {
-      const tempDiv = document.createElement('div');
-      tempDiv.innerHTML = html;
-      const errorContent = tempDiv.querySelector('main.content') || tempDiv;
-      
-      document.querySelector('main.content').innerHTML = errorContent.innerHTML;
-      history.replaceState({}, '', failedUrl);
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+      const content = doc.querySelector('main.content') || doc.body;
+      document.querySelector('main.content').innerHTML = content.innerHTML;
+      history.replaceState({}, '', errorPage);
     })
-    .catch(error => {
-      // Fallback error message if 404 page fails to load
+    .catch(() => {
       document.querySelector('main.content').innerHTML = `
         <div class="error-message">
           <h2>Page Load Error</h2>
@@ -294,30 +267,34 @@ function handlePageError(failedUrl) {
     });
 }
 
-// Handle browser back/forward navigation
+// Handle back/forward browser navigation
 window.addEventListener('popstate', function() {
-  const path = window.location.pathname.replace(/^\/pages\//, '');
-  loadPage(path);
+  const path = window.location.pathname.split('/').pop();
+  if (path === 'index.html' || path === '') {
+    window.location.href = 'index.html';
+  } else {
+    loadPage('pages/' + path);
+  }
 });
 
-// Initialize the page
+// Initialize SPA link handling
 document.addEventListener('DOMContentLoaded', function() {
-  // Make all SPA links use our loadPage function
   document.querySelectorAll('a[href^="#"]').forEach(link => {
-    if (link.hasAttribute('onclick')) return; // Skip links with existing onclick
-    
-    link.addEventListener('click', function(e) {
-      e.preventDefault();
-      const targetPage = this.getAttribute('href').substring(1);
-      if (targetPage) {
-        loadPage('pages/' + targetPage + '.html');
-      }
-    });
+    if (!link.hasAttribute('onclick')) {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetPage = this.getAttribute('href').substring(1);
+        if (targetPage) {
+          loadPage('pages/' + targetPage + '.html');
+        }
+      });
+    }
   });
-  
-  // Initialize cart
+
   updateCartCount();
+  toggleCartIcon(window.location.pathname);
 });
-  </script>
+</script>
+
 </body>
 </html>
