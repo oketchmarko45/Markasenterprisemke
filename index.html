@@ -214,6 +214,11 @@ setInterval(() => {
 
 // Unified Page Loading Function
 function loadPage(pageUrl) {
+  if (!pageUrl) {
+    console.warn('loadPage called with invalid pageUrl:', pageUrl);
+    return; // Stop function if invalid page
+  }
+  
   if (pageUrl.includes('marksprofile.html')) {
     window.location.href = pageUrl;
     return;
