@@ -1,335 +1,194 @@
-<main class="content" style="font-family: Arial, sans-serif; margin: 0; padding: 0; width: 100%; min-height: 100vh; background-color: #f9f9f9; display: flex; flex-direction: column;">
-  <!-- Donation Header -->
-  <section style="padding: 2rem 1rem; text-align: center; background: linear-gradient(135deg, #0077cc 0%, #003366 100%); color: white;">
-    <h1 style="margin: 0; font-size: clamp(1.5rem, 4vw, 2.5rem);">💖 Support Our Cause</h1>
-    <p style="margin: 0.5rem 0 0; font-size: clamp(0.9rem, 2.5vw, 1.1rem); opacity: 0.9;">
-      Your generosity makes our mission possible. Please contribute what you can.
-    </p>
-  </section>
-
-  <!-- Main Content Area -->
-  <div style="flex: 1; max-width: 800px; width: 100%; margin: 0 auto; padding: 1.5rem;">
-    <!-- Transaction Status Panel (Initially Hidden) -->
-    <div id="transaction-status" style="display: none; margin-bottom: 2rem; padding: 1.5rem; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #0077cc;">
-      <h3 style="margin-top: 0;">Payment Processing</h3>
-      <div id="transaction-steps" style="margin-bottom: 1rem;"></div>
-      <div id="payment-instructions" style="display: none;">
-        <p id="mpesa-instruction" style="background: white; padding: 1rem; border-radius: 6px; display: none;">
-          <strong>Complete Payment:</strong> Check your phone for MPESA STK Push notification
-        </p>
-        <div id="bank-details" style="background: white; padding: 1rem; border-radius: 6px; display: none;">
-          <h4 style="margin-top: 0;">Bank Transfer Details</h4>
-          <p><strong>Bank:</strong> Standard Chartered Bank Kenya</p>
-          <p><strong>Account Name:</strong> Mark Oketch Ochieng</p>
-          <p><strong>Account Number:</strong> 0100428580200</p>
-          <p><strong>Reference:</strong> DON-<span id="bank-ref"></span></p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Amount Selection -->
-    <section style="margin-bottom: 2rem; background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
-      <h2 style="margin: 0 0 1rem; color: #333; font-size: 1.3rem;">Select Donation Amount</h2>
-      
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 0.8rem; margin-bottom: 1.5rem;">
-        <button class="amount-option" onclick="selectAmount(500)">500 KES</button>
-        <button class="amount-option" onclick="selectAmount(1000)">1,000 KES</button>
-        <button class="amount-option" onclick="selectAmount(2000)">2,000 KES</button>
-        <button class="amount-option" onclick="selectAmount(5000)">5,000 KES</button>
-      </div>
-      
-      <div style="margin-bottom: 1rem;">
-        <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #555;">Or enter custom amount (KES)</label>
-        <input type="number" id="custom-amount" min="100" placeholder="e.g. 1500" style="width: 100%; padding: 0.8rem; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 1rem;">
-      </div>
-      
-      <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 1rem; border-top: 1px solid #eee;">
-        <span style="font-weight: 500;">Your donation:</span>
-        <span id="selected-amount" style="font-size: 1.3rem; font-weight: bold; color: #0077cc;">0 KES</span>
-      </div>
-    </section>
-
-    <!-- Payment Methods -->
-    <section style="margin-bottom: 2rem; background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
-      <h2 style="margin: 0 0 1rem; color: #333; font-size: 1.3rem;">Payment Method</h2>
-      
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 0.8rem;">
-        <button id="mpesa-btn" class="payment-method">
-          <i class="fas fa-mobile-alt"></i> MPESA
-        </button>
-        <button id="paypal-btn" class="payment-method">
-          <i class="fab fa-paypal"></i> PayPal
-        </button>
-        <button id="bank-btn" class="payment-method">
-          <i class="fas fa-university"></i> Bank
-        </button>
-      </div>
-    </section>
-
-    <!-- Donor Information -->
-    <section style="margin-bottom: 2rem; background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
-      <h2 style="margin: 0 0 1rem; color: #333; font-size: 1.3rem;">Your Information</h2>
-      
-      <div style="display: grid; gap: 1rem;">
-        <div>
-          <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #555;">Full Name</label>
-          <input type="text" id="donor-name" placeholder="John Doe" style="width: 100%; padding: 0.8rem; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 1rem;">
-        </div>
-        
-        <div>
-          <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #555;">Email</label>
-          <input type="email" id="donor-email" placeholder="your@email.com" style="width: 100%; padding: 0.8rem; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 1rem;">
-        </div>
-        
-        <div>
-          <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #555;">Phone (for MPESA)</label>
-          <input type="tel" id="donor-phone" placeholder="07XXXXXXXX" style="width: 100%; padding: 0.8rem; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 1rem;">
-        </div>
-      </div>
-    </section>
-
-    <!-- Donate Button -->
-    <button id="donate-btn">
-      DONATE NOW
-    </button>
-  </div>
-
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-  <!-- JavaScript -->
-  <script>
-    // Configuration (Replace with your actual backend endpoints)
-    const API_ENDPOINTS = {
-      mpesa: 'https://yourdomain.com/api/mpesa',
-      paypal: 'https://api.paypal.com',
-      bank: 'https://yourdomain.com/api/bank'
-    };
-
-    // State Management
-    let selectedAmount = 0;
-    let selectedMethod = null;
-    let transactionInProgress = false;
-
-    // Initialize UI Components
-    document.addEventListener('DOMContentLoaded', () => {
-      initializeAmountButtons();
-      initializePaymentMethods();
-      initializeDonateButton();
-    });
-
-    // 1. Amount Selection Logic
-    function initializeAmountButtons() {
-      // Preset amount buttons
-      document.querySelectorAll('.amount-option').forEach(btn => {
-        btn.addEventListener('click', function(e) {
-          const amount = parseInt(e.target.textContent.replace(/[^0-9]/g, ''));
-          selectAmount(amount);
-        });
-      });
-
-      // Custom amount input
-      document.getElementById('custom-amount').addEventListener('input', function() {
-        const amount = parseInt(this.value) || 0;
-        if (amount >= 100) {
-          selectAmount(amount);
-          // Reset preset buttons
-          document.querySelectorAll('.amount-option').forEach(btn => {
-            btn.style.borderColor = '#e0e0e0';
-            btn.style.backgroundColor = 'white';
-            btn.style.color = '#333';
-          });
-        }
-      });
-    }
-
-    function selectAmount(amount) {
-      selectedAmount = amount;
-      document.getElementById('selected-amount').textContent = amount.toLocaleString() + ' KES';
-      document.getElementById('custom-amount').value = amount === parseInt(document.getElementById('custom-amount').value) ? amount : '';
-    }
-
-    // 2. Payment Method Selection
-    function initializePaymentMethods() {
-      document.querySelectorAll('.payment-method').forEach(btn => {
-        btn.addEventListener('click', function() {
-          selectedMethod = this.id.split('-')[0];
-          
-          // Update UI
-          document.querySelectorAll('.payment-method').forEach(m => {
-            m.style.borderColor = '#e0e0e0';
-            m.style.backgroundColor = 'white';
-          });
-          this.style.borderColor = '#0077cc';
-          this.style.backgroundColor = '#f0f7ff';
-          
-          // Show relevant fields
-          if (selectedMethod === 'mpesa') {
-            document.getElementById('donor-phone').style.display = 'block';
-          } else {
-            document.getElementById('donor-phone').style.display = 'none';
-          }
-        });
-      });
-    }
-
-    // 3. Donation Processing
-    function initializeDonateButton() {
-      document.getElementById('donate-btn').addEventListener('click', async function() {
-        if (transactionInProgress) return;
-        
-        // Validate inputs
-        if (selectedAmount < 100) {
-          showAlert('Please enter a donation amount (minimum 100 KES)');
-          return;
-        }
-        
-        if (!selectedMethod) {
-          showAlert('Please select a payment method');
-          return;
-        }
-        
-        const name = document.getElementById('donor-name').value.trim();
-        if (!name) {
-          showAlert('Please enter your full name');
-          return;
-        }
-        
-        const email = document.getElementById('donor-email').value.trim();
-        if (!email.includes('@')) {
-          showAlert('Please enter a valid email');
-          return;
-        }
-        
-        const phone = document.getElementById('donor-phone').value.trim();
-        if (selectedMethod === 'mpesa' && !/^0[17]\d{8}$/.test(phone)) {
-          showAlert('Please enter a valid MPESA phone number (e.g. 07XXXXXXXX)');
-          return;
-        }
-
-        // Start transaction
-        transactionInProgress = true;
-        updateTransactionUI('Starting payment processing...');
-        document.getElementById('transaction-status').style.display = 'block';
-        
-        try {
-          // Prepare payload
-          const payload = {
-            amount: selectedAmount,
-            name,
-            email,
-            phone: selectedMethod === 'mpesa' ? `254${phone.substring(1)}` : undefined
-          };
-          
-          // Call backend API
-          updateTransactionUI(`Connecting to ${selectedMethod.toUpperCase()}...`);
-          const response = await fetch(API_ENDPOINTS[selectedMethod], {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-          });
-          
-          const result = await response.json();
-          
-          if (!response.ok) throw new Error(result.message || 'Payment failed');
-          
-          // Handle successful initiation
-          updateTransactionUI('Payment initiated successfully!', true);
-          
-          // Method-specific handling
-          switch(selectedMethod) {
-            case 'mpesa':
-              document.getElementById('payment-instructions').style.display = 'block';
-              document.getElementById('mpesa-instruction').style.display = 'block';
-              updateTransactionUI('Waiting for MPESA confirmation...');
-              // Poll for completion (simplified)
-              setTimeout(() => {
-                updateTransactionUI('Payment confirmed! Thank you.', true);
-                transactionInProgress = false;
-              }, 30000);
-              break;
-              
-            case 'paypal':
-              window.location.href = result.approval_url;
-              break;
-              
-            case 'bank':
-              document.getElementById('payment-instructions').style.display = 'block';
-              document.getElementById('bank-details').style.display = 'block';
-              document.getElementById('bank-ref').textContent = result.reference;
-              updateTransactionUI('Please complete bank transfer', true);
-              transactionInProgress = false;
-              break;
-          }
-        } catch (error) {
-          console.error('Payment error:', error);
-          updateTransactionUI(`Error: ${error.message}`, false);
-          transactionInProgress = false;
-        }
-      });
-    }
-
-    // UI Helpers
-    function updateTransactionUI(message, isSuccess = false) {
-      const step = document.createElement('div');
-      step.style.marginBottom = '0.5rem';
-      step.style.padding = '0.5rem';
-      step.style.background = isSuccess ? '#e6ffed' : '#fff3cd';
-      step.style.borderLeft = `3px solid ${isSuccess ? '#28a745' : '#ffc107'}`;
-      step.textContent = message;
-      document.getElementById('transaction-steps').appendChild(step);
-    }
-
-    function showAlert(message) {
-      alert(message); // Replace with a prettier modal in production
-    }
-  </script>
-
-  <!-- CSS (Moved here for clarity) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Donation Page</title>
   <style>
-    .amount-option, .payment-method, #donate-btn {
-      padding: 0.8rem;
-      border: 2px solid #e0e0e0;
-      border-radius: 8px;
-      background: white;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.2s;
-      color: #333;
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f2f2f2;
     }
-    
-    .amount-option {
-      text-align: center;
+    .form-group {
+      margin-bottom: 1rem;
     }
-    
-    .payment-method {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    
-    #donate-btn {
-      width: 100%;
-      padding: 1rem;
-      background: linear-gradient(135deg, #28a745 0%, #218838 100%);
-      color: white;
-      border: none;
-      font-size: 1.1rem;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
-    
-    #donate-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-    }
-    
-    .payment-method i {
-      font-size: 1.8rem;
+    label {
+      display: block;
       margin-bottom: 0.5rem;
     }
-    
-    #mpesa-btn i { color: #ffc72c; }
-    #paypal-btn i { color: #003087; }
-    #bank-btn i { color: #28a745; }
+    input, select {
+      padding: 0.5rem;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    button {
+      padding: 0.7rem 1.5rem;
+      background: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    .hidden {
+      display: none;
+    }
+    .transaction-box {
+      margin-top: 1rem;
+      background: #fff;
+      padding: 1rem;
+      border: 1px solid #ccc;
+    }
+    .transaction-step {
+      margin-bottom: 0.5rem;
+    }
+    #toast {
+      position: fixed;
+      bottom: 1rem;
+      right: 1rem;
+      background: #333;
+      color: white;
+      padding: 1rem;
+      border-radius: 8px;
+      display: none;
+      z-index: 9999;
+    }
   </style>
-</main>
+</head>
+<body>
+
+  <h2>Donate to Our Cause</h2>
+
+  <form id="donation-form">
+    <div class="form-group">
+      <label for="email">Email address</label>
+      <input type="email" id="email" required>
+    </div>
+
+    <div class="form-group">
+      <label for="amount">Donation Amount</label>
+      <input type="number" id="amount" required min="1">
+    </div>
+
+    <div class="form-group">
+      <label for="method">Donation Method</label>
+      <select id="method" required>
+        <option value="">Select Method</option>
+        <option value="mpesa">MPESA</option>
+        <option value="paypal">PayPal</option>
+        <option value="bank">Bank Deposit</option>
+      </select>
+    </div>
+
+    <div class="form-group hidden" id="mpesa-phone-group">
+      <label for="phone">Phone Number (MPESA)</label>
+      <input type="tel" id="phone" placeholder="07XXXXXXXX or 01XXXXXXXX">
+    </div>
+
+    <button type="submit" id="donate-btn">Donate</button>
+  </form>
+
+  <div class="transaction-box hidden" id="transaction-box">
+    <h4>Transaction Steps</h4>
+    <div id="transaction-steps"></div>
+    <div id="bank-ref-box" class="hidden">
+      <strong>Your Reference:</strong> <span id="bank-ref"></span>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast"></div>
+
+  <script>
+    const donationForm = document.getElementById('donation-form');
+    const methodSelect = document.getElementById('method');
+    const mpesaPhoneGroup = document.getElementById('mpesa-phone-group');
+    const transactionBox = document.getElementById('transaction-box');
+    const transactionSteps = document.getElementById('transaction-steps');
+    const bankRefBox = document.getElementById('bank-ref-box');
+    const bankRef = document.getElementById('bank-ref');
+    const donateBtn = document.getElementById('donate-btn');
+
+    methodSelect.addEventListener('change', () => {
+      const method = methodSelect.value;
+      mpesaPhoneGroup.classList.toggle('hidden', method !== 'mpesa');
+    });
+
+    donationForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      const amount = parseFloat(document.getElementById('amount').value);
+      const method = methodSelect.value;
+      const phone = document.getElementById('phone').value.trim();
+
+      if (!email || !amount || !method) {
+        showToast('Please fill all required fields.');
+        return;
+      }
+
+      if (method === 'mpesa' && !/^0(7|1)\d{8}$/.test(phone)) {
+        showToast('Please enter a valid MPESA phone number.');
+        return;
+      }
+
+      donateBtn.textContent = 'Processing...';
+      donateBtn.disabled = true;
+
+      try {
+        const res = await fetch('https://your-backend.com/donate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, amount, method, phone }),
+        });
+
+        const data = await res.json();
+
+        transactionBox.classList.remove('hidden');
+        transactionSteps.innerHTML = '';
+
+        if (method === 'mpesa') {
+          updateTransactionUI('Initiating MPESA STK Push...');
+          updateTransactionUI(`Check your phone (${phone}) for the prompt.`);
+          updateTransactionUI('Complete the payment and wait for confirmation.');
+          updateTransactionUI('Payment Successful!', true);
+        } else if (method === 'paypal') {
+          updateTransactionUI('Redirecting to PayPal...');
+          window.location.href = data.paypalUrl; // From your backend
+        } else if (method === 'bank') {
+          updateTransactionUI('Bank Deposit Option Selected.');
+          const ref = data.reference || 'DON-' + Math.floor(100000 + Math.random() * 900000);
+          bankRef.textContent = ref;
+          bankRefBox.classList.remove('hidden');
+        }
+
+        showToast('Donation processed successfully.');
+      } catch (err) {
+        console.error(err);
+        showToast('An error occurred. Please try again.');
+      } finally {
+        donateBtn.textContent = 'Donate';
+        donateBtn.disabled = false;
+      }
+    });
+
+    function updateTransactionUI(message, isSuccess = false) {
+      const step = document.createElement('div');
+      step.classList.add('transaction-step');
+      step.style.background = isSuccess ? '#e6ffed' : '#fff3cd';
+      step.style.borderLeft = `3px solid ${isSuccess ? '#28a745' : '#ffc107'}`;
+      step.style.padding = '0.5rem';
+      step.textContent = message;
+      transactionSteps.appendChild(step);
+    }
+
+    function showAlert(msg) {
+      alert(msg); // fallback if toast isn't used
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.style.display = 'block';
+      setTimeout(() => { toast.style.display = 'none'; }, 3000);
+    }
+  </script>
+</body>
+</html>
